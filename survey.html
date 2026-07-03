@@ -2018,13 +2018,10 @@ window.SURVEY = {
   function toolsMode(sec) { return answers[toolsModeKey(sec)] === "per" ? "per" : "shared"; }
   function rawColTools(sec, col) { var t = answers[toolsKey(sec, col)]; return Array.isArray(t) ? t : []; }
   function sharedToolsOf(sec) { var t = answers[sharedToolsKey(sec)]; return Array.isArray(t) ? t : []; }
-  // effective tools for a sub-area (used by completion + export): only a selected ("yes") task has
-  // tools, and in "shared" mode every selected task carries the section's one shared list.
   function toolsOf(sec, col) { if (usageOf(sec, col) !== "yes") return []; return toolsMode(sec) === "per" ? rawColTools(sec, col) : sharedToolsOf(sec); }
   function toolListFor(sec) { return (sec.aiTools && sec.aiTools.length) ? sec.aiTools : FALLBACK_TOOLS; }
   function bgAnswered(q) { return answers[bgKey(q.id)] != null && answers[bgKey(q.id)] !== ""; }
 
-  // ---------- completion (per sub-area) ----------
   function colCellsComplete(sec, col) { return questionsOf(sec).every(function (q) { return answers[keyOf(sec.id, q.id, col.id)] != null; }); }
   function colResolved(sec, col) {
     var u = usageOf(sec, col);
@@ -2042,13 +2039,10 @@ window.SURVEY = {
   function totalSteps() { return (HAS_INTAKE ? 1 : 0) + SECTIONS.length; }
   function completedSteps() { return (HAS_INTAKE ? (aboutComplete() ? 1 : 0) : 0) + completedSections(); }
   function firstIncompleteStep() { for (var i = 0; i < STEPS.length; i++) if (!sectionComplete(STEPS[i].sec)) return STEPS[i]; return null; }
-  // Sequential gating: a section is reachable only once About and every earlier section are done.
-  // Completed sections stay reachable (so the participant can go back and review/edit).
   function frontierIndex() { var st = firstIncompleteStep(); return st ? st.index : STEPS.length; }
   function stepReachable(step) { return aboutComplete() && step.index <= frontierIndex(); }
   function startHash() { if (HAS_INTAKE && !aboutComplete()) return "#about"; var st = firstIncompleteStep(); return st ? stepHash(st) : (STEPS[0] ? stepHash(STEPS[0]) : "#about"); }
 
-  // ---------- routing ----------
   function stepHash(step) { return "#" + step.sec.slug; }
   function findStep(slug) { for (var i = 0; i < STEPS.length; i++) if (STEPS[i].sec.slug === slug) return STEPS[i]; return null; }
   function parseHash() {
@@ -2061,12 +2055,7 @@ window.SURVEY = {
   }
   function go(hash) { if (location.hash === hash) render(); else location.hash = hash; }
 
-  // ---------- meta / progress ----------
   function applyMeta() { var t = (S.meta && S.meta.title) || "Survey"; document.getElementById("brandTitle").textContent = t; document.title = t; }
-  // Position-based progress: the bar reflects how far you have advanced (each Continue moves it
-  // one step), not how much you have filled in. It never regresses (holds the furthest page
-  // reached this session). About + 5 sections = `total`; Welcome/About = 0, section i = i+1,
-  // Done = total (100%).
   function routeReached(route) {
     var total = totalSteps();
     if (route.view === "step") return route.step.index + 1;
@@ -2084,14 +2073,11 @@ window.SURVEY = {
   function refreshStepper() {
     var nav = document.getElementById("stepper");
     if (!nav || nav.hidden) return;
-    // Re-render so done/locked state + icons stay consistent (e.g. completing the current
-    // section unlocks the next). Cheap, and it does not touch the matrix, so radio focus is kept.
     var route = parseHash();
     var activeKey = route.view === "about" ? "about" : (route.view === "step" ? route.step.index : null);
     renderStepper(activeKey);
   }
 
-  // ---------- stepper ----------
   function stepperPill(opts) {
     var step = el("div", "step" + (opts.active ? " active" : "") + (opts.done ? " done" : "") + (opts.locked ? " locked" : ""));
     step.setAttribute("data-kind", opts.kind);
@@ -2118,7 +2104,6 @@ window.SURVEY = {
     nav.appendChild(inner);
   }
 
-  // ---------- shared bits ----------
   function scaleStrip() {
     var bar = el("div", "scalebar");
     bar.appendChild(el("span", "scalebar-title", "Scale"));
@@ -2129,7 +2114,6 @@ window.SURVEY = {
     }
     return bar;
   }
-  // a single-select question (pills or dropdown), answer stored under bg::id
   function bgBlock(q) {
     var block = el("div", "intake-block"); block.setAttribute("data-bg", q.id);
     block.appendChild(el("p", "intake-q", esc(q.label)));
@@ -2166,7 +2150,6 @@ window.SURVEY = {
       input.type = "radio"; input.name = name; input.id = rid; input.value = "" + n;
       if (saved != null && +saved === n) input.checked = true;
       input.addEventListener("change", onCellChange);
-      // Likert: show the number 1..5; the scale word stays in the top legend + on hover/screen reader
       var label = el("label", null, "" + n);
       label.setAttribute("for", rid); label.title = n + " · " + scaleLabel(n); label.setAttribute("aria-label", n + " " + scaleLabel(n));
       ns.appendChild(input); ns.appendChild(label); wrap.appendChild(ns);
@@ -2174,7 +2157,6 @@ window.SURVEY = {
     return wrap;
   }
 
-  // ---------- views ----------
   function clearView() { var v = document.getElementById("view"); v.innerHTML = ""; return v; }
   function topFocus() { window.scrollTo(0, 0); var v = document.getElementById("view"); if (v && v.focus) v.focus({ preventScroll: true }); }
 
@@ -2190,7 +2172,6 @@ window.SURVEY = {
     if (S.meta && S.meta.intro) hero.appendChild(el("p", "welcome-sub", esc(S.meta.intro)));
     if (S.meta && S.meta.howlong) hero.appendChild(el("p", "welcome-sub small", esc(S.meta.howlong)));
     if (S.meta && S.meta.note) hero.appendChild(el("p", "consent", esc(S.meta.note)));
-    // privacy / anonymity reassurance with icons (shown up front)
     var priv = el("div", "privacy");
     priv.appendChild(el("p", "privacy-head", "Your privacy"));
     [["lock", "Fully anonymous. We never ask for your name, email or student ID, and there is no login."],
@@ -2282,13 +2263,10 @@ window.SURVEY = {
     topFocus();
   }
 
-  // ---------- usage picker (one combined question) + tools block + rating matrix ----------
   function setupHostEl() { return document.querySelector(".setup"); }
   function matrixHostEl() { return document.querySelector(".matrix-host"); }
   function rerenderSetup() { if (currentStep && setupHostEl()) renderSetup(currentStep.sec); }
   function rerenderSection() { if (currentStep) { renderSetup(currentStep.sec); syncMatrix(currentStep.sec); } }
-  // In-place matrix update on a usage toggle: flip each column's locked/active state without
-  // rebuilding the ~7500-node table (a full rebuild made every checkbox tap janky on mobile).
   function syncMatrix(sec) {
     var host = matrixHostEl(); if (!host) return;
     var table = host.querySelector("table.matrix");
@@ -2319,7 +2297,6 @@ window.SURVEY = {
     });
   }
 
-  // one combined question per section: which tasks do you use AI for? (multi-select)
   function renderSetup(sec) {
     var host = setupHostEl(); if (!host) return;
     host.innerHTML = "";
@@ -2356,8 +2333,6 @@ window.SURVEY = {
     toggle.appendChild(body);
     toggle.addEventListener("click", function () { toggleTaskUsed(sec, col); });
     item.appendChild(toggle);
-    // expandable "what does this cover?" details, OUTSIDE the toggle button (a <details> inside a
-    // <button> is invalid). Collapsed by default to keep the list tidy.
     if (col.examples) {
       var det = document.createElement("details"); det.className = "usage-ex-det"; det.open = true;
       var sum = document.createElement("summary"); sum.className = "usage-ex-sum"; sum.textContent = "What does this cover?";
@@ -2405,7 +2380,6 @@ window.SURVEY = {
     wrap.appendChild(el("p", "tools-hint", "Tap to rank 1, 2, 3 · tap again to remove · selected " + tools.length + "/" + MAX_TOOLS));
     return wrap;
   }
-  // tools block below the checklist: one combined picker (Same for all) or one per task (Different)
   function renderToolsBlock(sec) {
     var sel = (sec.columns || []).filter(function (c) { return usageOf(sec, c) === "yes"; });
     if (!sel.length) return null;
@@ -2451,19 +2425,14 @@ window.SURVEY = {
     return box;
   }
 
-  // matrix: rows = statements, columns = ALL sub-areas; columns not marked "Yes" are locked/greyed
   function renderMatrix(sec) {
     var host = matrixHostEl(); if (!host) return;
     host.innerHTML = ""; cueUpdate = null;
     var cols = sec.columns || [];
     if (!cols.length) return;
     host.appendChild(el("p", "matrix-lead", "Rate each statement (1 = " + esc(scaleLabel(MIN)) + ", " + MAX + " = " + esc(scaleLabel(MAX)) + "). Greyed columns are tasks you have not selected above."));
-    // category colour-coding (grouped/merged matrix): each category gets an index used for a
-    // pastel band + a coloured separator at the column where a new category begins.
     var groupOrder = [];
     cols.forEach(function (c) { if (c.group && groupOrder.indexOf(c.group) < 0) groupOrder.push(c.group); });
-    // colour index: grouped (v2) shares a colour per category; ungrouped (v1) colours each column
-    // by its position. gstart marks where a new category begins (grouped only).
     (function () { var prev = null; cols.forEach(function (c, i) { c.__gi = (c.group ? groupOrder.indexOf(c.group) : i) % 6; c.__gstart = !!(c.group && c.group !== prev); prev = c.group || null; }); })();
     function grpCls(col) { return " cgrp-" + col.__gi + (col.__gstart ? " gstart" : ""); }
     var wrap = el("div", "matrix-wrap");
@@ -2483,7 +2452,6 @@ window.SURVEY = {
       return th;
     }
     if (sec.grouped) {
-      // two-level header: category band (row 1, spanning its sub-areas) + sub-area labels (row 2)
       var order = [], cnt = {};
       cols.forEach(function (c) { if (cnt[c.group] === undefined) { order.push(c.group); cnt[c.group] = 0; } cnt[c.group]++; });
       var gtr = document.createElement("tr"); gtr.className = "grouprow";
@@ -2505,7 +2473,6 @@ window.SURVEY = {
     }
     table.appendChild(thead);
     var tbody = document.createElement("tbody");
-    // flat list of statements (construct group titles/explanations intentionally not shown)
     (sec.groups || []).forEach(function (g) {
       (g.questions || []).forEach(function (q) {
         var rtr = el("tr", "qrow");
@@ -2538,9 +2505,6 @@ window.SURVEY = {
     cueUpdate(); setTimeout(cueUpdate, 60);
   }
 
-  // ---------- interactions ----------
-  // first interaction "activates" the section: any untouched task becomes "no" (single-question
-  // semantics — an unticked task means "I do not use AI for it").
   function baselineSection(sec) { (sec.columns || []).forEach(function (c) { if (!usageOf(sec, c)) answers[useKey(sec, c)] = "no"; }); }
   function clearColTools(sec, col) { delete answers[toolsKey(sec, col)]; }
   function toggleTaskUsed(sec, col) {
@@ -2554,7 +2518,6 @@ window.SURVEY = {
     (sec.columns || []).forEach(function (c) { answers[useKey(sec, c)] = "no"; clearColTools(sec, c); });
     saveAnswers(); rerenderSection(); updateProgress(); refreshStepper();
   }
-  // generic tool toggle/add, parameterized by where the list is read/written (per-col or shared)
   function changeTools(get, set, name) {
     var t = get().slice(), i = t.indexOf(name);
     if (i >= 0) t.splice(i, 1);
@@ -2574,7 +2537,6 @@ window.SURVEY = {
     var td = e.target.closest("td.answer"); if (td) td.classList.remove("missing");
     updateProgress(); refreshStepper(); updateSetupBadges();
   }
-  // light refresh of usage-row "Done" state without touching the matrix inputs (keeps radio focus)
   function updateSetupBadges() {
     if (!currentStep) return; var sec = currentStep.sec;
     document.querySelectorAll(".setup .usage-item").forEach(function (itemEl) {
@@ -2635,7 +2597,6 @@ window.SURVEY = {
     var v = clearView();
     var total = totalSteps(), done = completedSteps(), remaining = total - done;
 
-    // not finished yet
     if (remaining) {
       var page = el("div", "page done incomplete");
       page.appendChild(el("div", "check", "!"));
@@ -2648,7 +2609,6 @@ window.SURVEY = {
       v.appendChild(page); topFocus(); return;
     }
 
-    // finished + delivery configured + not yet sent -> submit step
     if (GATED && !alreadySubmitted()) {
       var p1 = el("div", "page done");
       p1.appendChild(el("div", "check", "✓"));
@@ -2667,7 +2627,6 @@ window.SURVEY = {
       v.appendChild(p1); topFocus(); return;
     }
 
-    // finished + open collection configured + not yet sent from this device -> submit step
     if (OPEN_SUBMIT && !deviceSubmitted()) {
       var po = el("div", "page done");
       po.appendChild(el("div", "check", "✓"));
@@ -2686,7 +2645,6 @@ window.SURVEY = {
       v.appendChild(po); topFocus(); return;
     }
 
-    // recorded (gated/open) or finished local-only
     var recorded = GATED || (OPEN_SUBMIT && deviceSubmitted());
     var page2 = el("div", "page done");
     page2.appendChild(el("div", "check", "✓"));
@@ -2703,7 +2661,6 @@ window.SURVEY = {
     v.appendChild(page2); topFocus();
   }
 
-  // ---------- access gate + delivery (Google Apps Script) ----------
   function getParam(name) { var m = new RegExp("[?&]" + name + "=([^&#]*)").exec(location.search || ""); return m ? decodeURIComponent(m[1]) : ""; }
   function jsonp(url, cb) {
     var name = "cb_" + (jsonp._n = (jsonp._n || 0) + 1); var s, done = false;
@@ -2724,7 +2681,6 @@ window.SURVEY = {
         .then(confirm, confirm);
     } catch (e) { confirm(); }
   }
-  // open mode: POST answers tagged with this device's id, then confirm the row landed (JSONP).
   function submitOpen(cb) {
     var d = deviceId();
     var payload = { background: background(), sections: buildExportSections() };
@@ -2775,13 +2731,11 @@ window.SURVEY = {
     });
   }
 
-  // ---------- toast ----------
   function showToast(msg, warn) {
     var t = document.getElementById("toast"); t.textContent = msg; t.className = "toast" + (warn ? " warn" : "");
     t.hidden = false; clearTimeout(showToast._t); showToast._t = setTimeout(function () { t.hidden = true; }, 3600);
   }
 
-  // ---------- export ----------
   function bgQuestions() { var arr = INTAKE.slice(); SECTIONS.forEach(function (s) { extrasOf(s).forEach(function (q) { arr.push(q); }); }); return arr; }
   function background() { var o = {}; bgQuestions().forEach(function (q) { o[q.id] = { label: q.label, answer: answers[bgKey(q.id)] || "" }; }); return o; }
   function usesAi(sec, col) { var u = usageOf(sec, col); return u === "yes" ? "Yes" : (u === "no" ? "No" : ""); }
@@ -2832,12 +2786,10 @@ window.SURVEY = {
   }
   function csvCell(v) { v = v == null ? "" : String(v); if (/[",\r\n]/.test(v)) v = '"' + v.replace(/"/g, '""') + '"'; return v; }
 
-  // ---------- render / init ----------
   function render() {
     if (DEVICE_BLOCKED) { showDeviceBlocked(); return; } // open mode: already submitted from this device
     if (GATED && !ACCESS_OK) return; // hold the survey until a valid link is confirmed
     var route = parseHash();
-    // Sequential gating: block deep-linking / jumping past the first unfinished step.
     if (route.view === "step" && !stepReachable(route.step)) {
       if (HAS_INTAKE && !aboutComplete()) { go("#about"); return; }
       var st = firstIncompleteStep(); go(st ? stepHash(st) : "#done"); return;
@@ -2867,10 +2819,6 @@ window.SURVEY = {
 </script>
 <style>body.grabpan-active, body.grabpan-active * { cursor: grabbing !important; user-select: none !important; }</style>
 <script>
-/* Desktop drag-to-pan ("hand" tool): press and drag anywhere to scroll the page (and the wide
-   rating matrix when grabbed inside it). A press that does not move is a normal click, so radios
-   and buttons keep working; once the pointer moves past a small threshold the press becomes a pan
-   and its trailing click is swallowed. Touch devices keep native scrolling. */
 (function () {
   if (!window.matchMedia || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
   var THRESH = 6; // px of movement that turns a press into a pan
