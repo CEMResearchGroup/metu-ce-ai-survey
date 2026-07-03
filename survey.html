@@ -198,7 +198,7 @@ svg { display: block; }
 .usage-item.none .usage-name { color: var(--ink-soft); font-weight: 500; }
 
 .toolsblock { margin-top: 16px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow-sm); padding: 20px; }
-.toolsblock-head { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
+.toolsblock-head { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
 .toolsblock-q { font-family: var(--font-display); font-optical-sizing: auto; font-weight: 600; font-size: 18px; letter-spacing: -.01em; margin: 0; }
 .segmented.toolsmode .seg-opt { padding: 8px 16px; font-size: 13.5px; }
 .toolsblock > .tools { margin-top: 14px; padding-top: 0; border-top: 0; }
@@ -206,6 +206,19 @@ svg { display: block; }
 .toolgroup + .toolgroup { border-top: 1px solid var(--line); }
 .toolgroup-name { font-weight: 600; font-size: 14.5px; letter-spacing: -.005em; margin: 18px 0 0; }
 .toolgroup > .tools { margin-top: 10px; padding-top: 0; border-top: 0; }
+.toolacc { margin-top: 10px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface-2); overflow: hidden; }
+.toolacc + .toolacc { margin-top: 8px; }
+.toolacc > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 10px; padding: 13px 16px; font-weight: 600; font-size: 14.5px; color: var(--ink); user-select: none; }
+.toolacc > summary::-webkit-details-marker { display: none; }
+.toolacc > summary::before { content: "\25B8"; color: var(--accent); font-size: 12px; transition: transform .15s ease; flex: none; }
+.toolacc[open] > summary::before { transform: rotate(90deg); }
+.toolacc > summary:hover { color: var(--accent); }
+.toolacc .tacc-name { min-width: 0; }
+.toolacc .tacc-count { margin-left: auto; font-family: var(--font-mono); font-size: 11px; font-weight: 500; letter-spacing: .02em; color: var(--ink-faint); flex: none; }
+.toolacc .tacc-count.has { color: var(--accent); }
+.toolacc[open] > summary { border-bottom: 1px solid var(--line); }
+.toolacc .tacc-body { padding: 4px 16px 16px; }
+.toolacc .tacc-body > .tools { margin-top: 12px; padding-top: 0; border-top: 0; }
 
 .segmented { display: inline-flex; background: var(--paper-2); border-radius: 11px; padding: 3px; gap: 3px; border: 1px solid var(--line); }
 .seg-opt { display: inline-flex; align-items: center; justify-content: center; gap: 6px; border: 0; background: none; font: inherit; font-weight: 500; font-size: 14.5px; color: var(--ink-soft); padding: 9px 20px; border-radius: 8px; cursor: pointer; transition: background .15s ease, color .15s ease, box-shadow .15s ease; }
@@ -2380,38 +2393,51 @@ window.SURVEY = {
     wrap.appendChild(el("p", "tools-hint", "Tap to rank 1, 2, 3 · tap again to remove · selected " + tools.length + "/" + MAX_TOOLS));
     return wrap;
   }
+  var toolAccOpen = {};
   function renderToolsBlock(sec) {
     var sel = (sec.columns || []).filter(function (c) { return usageOf(sec, c) === "yes"; });
     if (!sel.length) return null;
     var mode = toolsMode(sec);
     var block = el("div", "toolsblock");
     var head = el("div", "toolsblock-head");
-    head.appendChild(el("p", "toolsblock-q", "Which AI tools do you use?"));
     if (sel.length >= 2) {
+      head.appendChild(el("p", "toolsblock-q", "Do you use the same AI tools for all these tasks?"));
       var seg = el("div", "segmented toolsmode");
-      var sameB = el("button", "seg-opt" + (mode !== "per" ? " on" : "")); sameB.type = "button"; sameB.innerHTML = "<span>Same for all</span>";
-      var diffB = el("button", "seg-opt" + (mode === "per" ? " on" : "")); diffB.type = "button"; diffB.innerHTML = "<span>Different per task</span>";
+      var sameB = el("button", "seg-opt" + (mode !== "per" ? " on" : "")); sameB.type = "button"; sameB.innerHTML = "<span>Yes — same for all</span>";
+      var diffB = el("button", "seg-opt" + (mode === "per" ? " on" : "")); diffB.type = "button"; diffB.innerHTML = "<span>No — different per task</span>";
       sameB.addEventListener("click", function () { setToolsMode(sec, "shared"); });
       diffB.addEventListener("click", function () { setToolsMode(sec, "per"); });
       seg.appendChild(sameB); seg.appendChild(diffB); head.appendChild(seg);
+    } else {
+      head.appendChild(el("p", "toolsblock-q", "Which AI tools do you use?"));
     }
     block.appendChild(head);
     if (mode === "per") {
-      sel.forEach(function (col) {
-        var grp = el("div", "toolgroup"); grp.setAttribute("data-col", col.id);
-        grp.appendChild(el("p", "toolgroup-name", esc(col.label)));
-        grp.appendChild(buildToolPicker(sec, {
+      sel.forEach(function (col, i) {
+        var key = sec.id + "::" + col.id;
+        var det = document.createElement("details");
+        det.className = "toolacc"; det.setAttribute("data-col", col.id);
+        det.open = (key in toolAccOpen) ? !!toolAccOpen[key] : true;
+        var sum = document.createElement("summary");
+        sum.appendChild(el("span", "tacc-name", esc(col.label)));
+        var n = rawColTools(sec, col).length;
+        sum.appendChild(el("span", "tacc-count" + (n ? " has" : ""), n ? (n + " selected") : "tap to choose"));
+        det.appendChild(sum);
+        det.addEventListener("toggle", function () { toolAccOpen[key] = det.open; });
+        var body = el("div", "tacc-body");
+        body.appendChild(buildToolPicker(sec, {
           tools: rawColTools(sec, col),
-          instruction: "Select the tools you use most, in order. Tap up to " + MAX_TOOLS + ".",
+          instruction: "Pick the tools you use most for this task, in order. Tap up to " + MAX_TOOLS + ".",
           onToggle: function (name) { changeTools(function () { return rawColTools(sec, col); }, function (t) { answers[toolsKey(sec, col)] = t; }, name); },
           onOther: function () { addOtherTool(function () { return rawColTools(sec, col); }, function (t) { answers[toolsKey(sec, col)] = t; }); }
         }));
-        block.appendChild(grp);
+        det.appendChild(body);
+        block.appendChild(det);
       });
     } else {
       block.appendChild(buildToolPicker(sec, {
         tools: sharedToolsOf(sec),
-        instruction: "Pick the tools you use most, in order. They apply to every task you selected. Tap up to " + MAX_TOOLS + ".",
+        instruction: (sel.length >= 2 ? "Pick the tools you use most, in order. They apply to every task you selected. Tap up to " : "Pick the tools you use most, in order. Tap up to ") + MAX_TOOLS + ".",
         onToggle: function (name) { changeTools(function () { return sharedToolsOf(sec); }, function (t) { answers[sharedToolsKey(sec)] = t; }, name); },
         onOther: function () { addOtherTool(function () { return sharedToolsOf(sec); }, function (t) { answers[sharedToolsKey(sec)] = t; }); }
       }));
@@ -2567,8 +2593,8 @@ window.SURVEY = {
       if (colResolved(sec, col)) continue;
       if (toolsOf(sec, col).length === 0) {
         showToast(per ? "Please select at least one AI tool for “" + col.label + "”." : "Please select at least one AI tool for the tasks you picked.", true);
-        var target = host && (per ? host.querySelector('.toolgroup[data-col="' + col.id + '"]') : host.querySelector(".toolsblock"));
-        if (target) { var tc = target.querySelector(".toolchips"); if (tc) tc.classList.add("needs"); target.scrollIntoView({ behavior: "smooth", block: "center" }); }
+        var target = host && (per ? host.querySelector('[data-col="' + col.id + '"]') : host.querySelector(".toolsblock"));
+        if (target) { if (target.tagName === "DETAILS") { target.open = true; toolAccOpen[sec.id + "::" + col.id] = true; } var tc = target.querySelector(".toolchips"); if (tc) tc.classList.add("needs"); target.scrollIntoView({ behavior: "smooth", block: "center" }); }
         return;
       }
       flagFirstMissingCell(sec, col);
