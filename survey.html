@@ -23,7 +23,7 @@
   --surface-2:    #f3ecdd;   
   --ink:          #221f1a;   
   --ink-soft:     #5b5448;
-  --ink-faint:    #635b4b;
+  --ink-faint:    #6f6757;
   --line:         #d8cdb7;   
   --line-strong:  #c2b599;
 
@@ -55,8 +55,8 @@
 
   
   --v1: #a8432c;  
-  --v2: #a9622f;  
-  --v3c: #6f6547; 
+  --v2: #c17a45;  
+  --v3c: #8a7f63; 
   --v4: #56768f;  
   --v5: #214a6c;  
 
@@ -246,7 +246,7 @@ svg { display: block; }
 .howto-img { display: block; width: 100%; max-width: 100%; height: auto; margin: 0; }
 .matrix-wrap { position: relative; border: 1px solid var(--line-strong); border-radius: var(--radius); box-shadow: var(--shadow-sm); background: var(--surface); overflow: hidden; scroll-margin-top: calc(var(--topbar-h) + 60px); }
 
-.matrix-scroll { overflow: auto; max-height: calc(100vh - 320px); max-height: calc(100svh - 320px); min-height: 300px; overscroll-behavior: contain; scroll-padding-left: 304px;
+.matrix-scroll { overflow: auto; max-height: calc(100vh - 320px); max-height: calc(100svh - 320px); overscroll-behavior: contain; scroll-padding-left: 304px;
   
   scrollbar-width: none; -ms-overflow-style: none; }
 .matrix-scroll::-webkit-scrollbar { width: 0; height: 0; display: none; }
@@ -493,8 +493,8 @@ window.SURVEY = {
   "title": "Evaluation of Students’ Use and Technology Acceptance of Artificial Intelligence Tools in Civil Engineering Education",
   "org": "Middle East Technical University (METU) · Department of Civil Engineering",
   "note": "Participation is voluntary and your responses are anonymous. They are used only for this academic study.",
-  "intro": "We are studying how civil engineering students use AI tools like ChatGPT, Gemini and Copilot in their day-to-day coursework: learning, solving problems, writing reports and presentations, and coding. We want to find out how much AI actually helps students and where it falls short, so it can better support engineering education at METU.",
-  "howlong": "It takes about 20–25 minutes. First a few quick questions about you, then for five task areas you tell us whether you use AI and rate a short set of statements. You only answer the areas where you actually use AI, and there are no right or wrong answers.",
+  "intro": "We are studying how civil engineering students use AI tools such as ChatGPT, Copilot and others in their everyday academic work, including learning, problem solving, reports and presentations, and coding. Our aim is to understand where AI genuinely helps, what gets in the way, and how it can better support engineering education at METU.",
+  "howlong": "It takes about twenty to twenty five minutes. First a few quick questions about you, then for five task areas you tell us whether you use AI and rate a short set of statements. You only answer the areas where you actually use AI, and there are no right or wrong answers.",
   "sourceFile": "source/UTAUT_Group_Matrices_2.xlsx",
   "aiTools": [
    "ChatGPT",
@@ -554,7 +554,11 @@ window.SURVEY = {
     "9th semester",
     "10th semester",
     "11th semester",
-    "12th semester"
+    "12th semester",
+    "13th semester",
+    "14th semester",
+    "Master's",
+    "PhD"
    ]
   }
  ],
@@ -563,7 +567,7 @@ window.SURVEY = {
    "id": "sec_general",
    "slug": "general",
    "name": "GENERAL",
-   "description": "Your general, day-to-day use of AI, both for academic and professional communication and for non-academic exploration.",
+   "description": "Your overall, everyday use of AI for academic and professional communication, and for non academic exploration.",
    "aiTools": [
     "ChatGPT",
     "Claude",
@@ -575,11 +579,11 @@ window.SURVEY = {
     {
      "id": "c0",
      "label": "Academic & Professional Communication",
-     "examples": "writing an email to a professor (a question, an extension or a reminder), a team announcement or status update, a professional message in English; writing up your experience and skills, editing your CV, a cover or motivation letter, a statement of purpose, a research or teaching statement, a scholarship application; generating likely interview questions, drafting answers, rehearsing an English or technical interview, and a self-introduction"
+     "examples": "writing an email to a professor (a question, an extension or a reminder), a team announcement or status update, a professional message in English; writing up your experience and skills, editing your CV, a cover or motivation letter, a statement of purpose, a research or teaching statement, a scholarship application; generating likely interview questions, drafting answers, rehearsing an English or technical interview, and a self introduction"
     },
     {
      "id": "c1",
-     "label": "Non-Academic Use / Exploration",
+     "label": "Non Academic Use / Exploration",
      "examples": "asking questions out of curiosity, planning a trip or your monthly budget, getting movie or book recommendations, brainstorming ideas for a personal hobby, and looking up everyday facts unrelated to your studies"
     }
    ],
@@ -643,22 +647,22 @@ window.SURVEY = {
      "questions": [
       {
        "id": "q8",
-       "code": "ATT1",
+       "code": "A1",
        "text": "Using AI is a good idea."
       },
       {
        "id": "q9",
-       "code": "ATT2",
+       "code": "AF1",
        "text": "AI makes work more interesting."
       },
       {
        "id": "q10",
-       "code": "ATT3",
+       "code": "AF2",
        "text": "Working with AI is fun."
       },
       {
        "id": "q11",
-       "code": "ATT4",
+       "code": "Affect1",
        "text": "I like working with AI."
       }
      ],
@@ -702,7 +706,7 @@ window.SURVEY = {
       }
      ],
      "title": "Resources and support",
-     "help": "Whether you have what you need to use AI: a device, internet access, and the know-how."
+     "help": "Whether you have what you need to use AI: a device, internet, access, the know how, and support."
     },
     {
      "name": "Self Efficacy",
@@ -741,8 +745,8 @@ window.SURVEY = {
       },
       {
        "id": "q22",
-       "code": "ANX5",
-       "text": "I hesitate to use AI because I worry about being judged for using it."
+       "code": "ANX-add",
+       "text": "I hesitate to use AI for fear of getting recognized for using it."
       },
       {
        "id": "q23",
@@ -751,7 +755,7 @@ window.SURVEY = {
       }
      ],
      "title": "Worries and hesitations",
-     "help": "Worries that hold you back: making mistakes, being judged for using AI, or feeling intimidated."
+     "help": "Worries that hold you back: making mistakes, being noticed for using AI, or feeling intimidated."
     },
     {
      "name": "Behavioral Intention",
@@ -793,7 +797,7 @@ window.SURVEY = {
      "help": "How much you trust AI to be safe, reliable, and capable for this work."
     },
     {
-     "name": "Task-Technology Fit",
+     "name": "Task Technology Fit",
      "questions": [
       {
        "id": "q29",
@@ -808,7 +812,7 @@ window.SURVEY = {
       {
        "id": "q31",
        "code": "TTF4",
-       "text": "Using AI fits well with all aspects of the tasks I use it for."
+       "text": "Using AI fits well with all aspects of my tasks."
       }
      ],
      "title": "Fit with how you work",
@@ -867,7 +871,7 @@ window.SURVEY = {
     {
      "id": "c0",
      "label": "Active Learning",
-     "examples": "having a topic explained from scratch, in simple or technical language, with examples, step by step or as a quick recap; explaining a term, formula, variable, symbol or unit, comparing two concepts, telling apart things that are often confused; building a concept map, making a real-life analogy, correcting common misconceptions; and planning how to start a topic, setting prerequisites, ordering what to learn, and a weekly, daily or pre-exam study plan"
+     "examples": "having a topic explained from scratch, in simple or technical language, with examples, step by step or as a quick recap; explaining a term, formula, variable, symbol or unit, comparing two concepts, telling apart things that are often confused; building a concept map, making a real life analogy, correcting common misconceptions; and planning how to start a topic, setting prerequisites, ordering what to learn, and a weekly, daily or pre exam study plan"
     },
     {
      "id": "c1",
@@ -940,22 +944,22 @@ window.SURVEY = {
      "questions": [
       {
        "id": "q8",
-       "code": "ATT1",
+       "code": "A1",
        "text": "Using AI is a good idea."
       },
       {
        "id": "q9",
-       "code": "ATT2",
+       "code": "AF1",
        "text": "AI makes work more interesting."
       },
       {
        "id": "q10",
-       "code": "ATT3",
+       "code": "AF2",
        "text": "Working with AI is fun."
       },
       {
        "id": "q11",
-       "code": "ATT4",
+       "code": "Affect1",
        "text": "I like working with AI."
       }
      ],
@@ -999,7 +1003,7 @@ window.SURVEY = {
       }
      ],
      "title": "Resources and support",
-     "help": "Whether you have what you need to use AI: a device, internet access, and the know-how."
+     "help": "Whether you have what you need to use AI: a device, internet, access, the know how, and support."
     },
     {
      "name": "Self Efficacy",
@@ -1038,8 +1042,8 @@ window.SURVEY = {
       },
       {
        "id": "q22",
-       "code": "ANX5",
-       "text": "I hesitate to use AI because I worry about being judged for using it."
+       "code": "ANX-add",
+       "text": "I hesitate to use AI for fear of getting recognized for using it."
       },
       {
        "id": "q23",
@@ -1048,7 +1052,7 @@ window.SURVEY = {
       }
      ],
      "title": "Worries and hesitations",
-     "help": "Worries that hold you back: making mistakes, being judged for using AI, or feeling intimidated."
+     "help": "Worries that hold you back: making mistakes, being noticed for using AI, or feeling intimidated."
     },
     {
      "name": "Behavioral Intention",
@@ -1090,7 +1094,7 @@ window.SURVEY = {
      "help": "How much you trust AI to be safe, reliable, and capable for this work."
     },
     {
-     "name": "Task-Technology Fit",
+     "name": "Task Technology Fit",
      "questions": [
       {
        "id": "q29",
@@ -1117,7 +1121,7 @@ window.SURVEY = {
    "id": "sec_problem_solving",
    "slug": "problem_solving",
    "name": "PROBLEM SOLVING",
-   "description": "Using AI to understand and solve problems, for homework, self-study and exam preparation.",
+   "description": "Using AI to understand, plan, and solve problems for homework, self study, and exam preparation.",
    "aiTools": [
     "ChatGPT",
     "Claude",
@@ -1199,22 +1203,22 @@ window.SURVEY = {
      "questions": [
       {
        "id": "q8",
-       "code": "ATT1",
+       "code": "A1",
        "text": "Using AI is a good idea."
       },
       {
        "id": "q9",
-       "code": "ATT2",
+       "code": "AF1",
        "text": "AI makes work more interesting."
       },
       {
        "id": "q10",
-       "code": "ATT3",
+       "code": "AF2",
        "text": "Working with AI is fun."
       },
       {
        "id": "q11",
-       "code": "ATT4",
+       "code": "Affect1",
        "text": "I like working with AI."
       }
      ],
@@ -1258,7 +1262,7 @@ window.SURVEY = {
       }
      ],
      "title": "Resources and support",
-     "help": "Whether you have what you need to use AI: a device, internet access, and the know-how."
+     "help": "Whether you have what you need to use AI: a device, internet, access, the know how, and support."
     },
     {
      "name": "Self Efficacy",
@@ -1297,8 +1301,8 @@ window.SURVEY = {
       },
       {
        "id": "q22",
-       "code": "ANX5",
-       "text": "I hesitate to use AI because I worry about being judged for using it."
+       "code": "ANX-add",
+       "text": "I hesitate to use AI for fear of getting recognized for using it."
       },
       {
        "id": "q23",
@@ -1307,7 +1311,7 @@ window.SURVEY = {
       }
      ],
      "title": "Worries and hesitations",
-     "help": "Worries that hold you back: making mistakes, being judged for using AI, or feeling intimidated."
+     "help": "Worries that hold you back: making mistakes, being noticed for using AI, or feeling intimidated."
     },
     {
      "name": "Behavioral Intention",
@@ -1349,7 +1353,7 @@ window.SURVEY = {
      "help": "How much you trust AI to be safe, reliable, and capable for this work."
     },
     {
-     "name": "Task-Technology Fit",
+     "name": "Task Technology Fit",
      "questions": [
       {
        "id": "q29",
@@ -1376,7 +1380,7 @@ window.SURVEY = {
    "id": "sec_reporting_presentation_organization",
    "slug": "reporting_presentation_organization",
    "name": "REPORTING, PRESENTATION & ORGANIZATION",
-   "description": "Using AI to plan, write and polish academic work such as reports, essays and presentations, and to stay organized.",
+   "description": "Using AI to plan, draft, review, and present academic work such as reports, essays, presentations, visuals, and productivity.",
    "aiTools": [
     "ChatGPT",
     "Claude",
@@ -1401,7 +1405,7 @@ window.SURVEY = {
     {
      "id": "c2",
      "label": "Presentation Preparation",
-     "examples": "writing slide titles and bullet points, turning technical content into presentation language, making a first draft; writing a speaker script or notes, opening, transition and closing lines, generating likely questions, rehearsing out loud, an English script; slide layout, font and color palette, balancing text and visuals, an academic or corporate style; and splitting into headings, building the flow, dividing slides by time, and splitting parts between speakers"
+     "examples": "writing slide titles and bullet points, turning technical content into presentation language, making a first draft; writing a speaker script or notes, opening, transition and closing lines, generating likely questions, rehearsing out loud, an English script; slide layout, font and colour palette, balancing text and visuals, an academic or corporate style; and splitting into headings, building the flow, dividing slides by time, and splitting parts between speakers"
     },
     {
      "id": "c3",
@@ -1411,7 +1415,7 @@ window.SURVEY = {
     {
      "id": "c4",
      "label": "Productivity",
-     "examples": "merging the different parts you have produced and keeping the language consistent; and a weekly plan, a to-do list, a deadline plan, prioritizing, and a schedule for clashing tasks"
+     "examples": "merging the different parts you have produced and keeping the language consistent; and a weekly plan, a to do list, a deadline plan, prioritizing, and a schedule for clashing tasks"
     }
    ],
    "groups": [
@@ -1474,22 +1478,22 @@ window.SURVEY = {
      "questions": [
       {
        "id": "q8",
-       "code": "ATT1",
+       "code": "A1",
        "text": "Using AI is a good idea."
       },
       {
        "id": "q9",
-       "code": "ATT2",
+       "code": "AF1",
        "text": "AI makes work more interesting."
       },
       {
        "id": "q10",
-       "code": "ATT3",
+       "code": "AF2",
        "text": "Working with AI is fun."
       },
       {
        "id": "q11",
-       "code": "ATT4",
+       "code": "Affect1",
        "text": "I like working with AI."
       }
      ],
@@ -1533,7 +1537,7 @@ window.SURVEY = {
       }
      ],
      "title": "Resources and support",
-     "help": "Whether you have what you need to use AI: a device, internet access, and the know-how."
+     "help": "Whether you have what you need to use AI: a device, internet, access, the know how, and support."
     },
     {
      "name": "Self Efficacy",
@@ -1572,8 +1576,8 @@ window.SURVEY = {
       },
       {
        "id": "q22",
-       "code": "ANX5",
-       "text": "I hesitate to use AI because I worry about being judged for using it."
+       "code": "ANX-add",
+       "text": "I hesitate to use AI for fear of getting recognized for using it."
       },
       {
        "id": "q23",
@@ -1582,7 +1586,7 @@ window.SURVEY = {
       }
      ],
      "title": "Worries and hesitations",
-     "help": "Worries that hold you back: making mistakes, being judged for using AI, or feeling intimidated."
+     "help": "Worries that hold you back: making mistakes, being noticed for using AI, or feeling intimidated."
     },
     {
      "name": "Behavioral Intention",
@@ -1624,7 +1628,7 @@ window.SURVEY = {
      "help": "How much you trust AI to be safe, reliable, and capable for this work."
     },
     {
-     "name": "Task-Technology Fit",
+     "name": "Task Technology Fit",
      "questions": [
       {
        "id": "q29",
@@ -1651,7 +1655,7 @@ window.SURVEY = {
    "id": "sec_data_processing_coding",
    "slug": "data_processing_coding",
    "name": "DATA PROCESSING & CODING",
-   "description": "Using AI to work with data and code, from cleaning and analyzing data to writing, debugging and running code.",
+   "description": "Using AI for data and code: collecting and processing data, representing data, and developing, debugging, and running code.",
    "aiTools": [
     "ChatGPT",
     "Claude",
@@ -1674,7 +1678,7 @@ window.SURVEY = {
     {
      "id": "c2",
      "label": "Code Development & Debugging",
-     "examples": "a skeleton, project structure, choosing a language or library, writing a function or algorithm, reading and writing data, plotting code; and explaining an error message, analyzing why it does not work, refactoring, line-by-line explanation, and adding comments"
+     "examples": "a skeleton, project structure, choosing a language or library, writing a function or algorithm, reading and writing data, plotting code; and explaining an error message, analyzing why it does not work, refactoring, line by line explanation, and adding comments"
     },
     {
      "id": "c3",
@@ -1742,22 +1746,22 @@ window.SURVEY = {
      "questions": [
       {
        "id": "q8",
-       "code": "ATT1",
+       "code": "A1",
        "text": "Using AI is a good idea."
       },
       {
        "id": "q9",
-       "code": "ATT2",
+       "code": "AF1",
        "text": "AI makes work more interesting."
       },
       {
        "id": "q10",
-       "code": "ATT3",
+       "code": "AF2",
        "text": "Working with AI is fun."
       },
       {
        "id": "q11",
-       "code": "ATT4",
+       "code": "Affect1",
        "text": "I like working with AI."
       }
      ],
@@ -1801,7 +1805,7 @@ window.SURVEY = {
       }
      ],
      "title": "Resources and support",
-     "help": "Whether you have what you need to use AI: a device, internet access, and the know-how."
+     "help": "Whether you have what you need to use AI: a device, internet, access, the know how, and support."
     },
     {
      "name": "Self Efficacy",
@@ -1840,8 +1844,8 @@ window.SURVEY = {
       },
       {
        "id": "q22",
-       "code": "ANX5",
-       "text": "I hesitate to use AI because I worry about being judged for using it."
+       "code": "ANX-add",
+       "text": "I hesitate to use AI for fear of getting recognized for using it."
       },
       {
        "id": "q23",
@@ -1850,7 +1854,7 @@ window.SURVEY = {
       }
      ],
      "title": "Worries and hesitations",
-     "help": "Worries that hold you back: making mistakes, being judged for using AI, or feeling intimidated."
+     "help": "Worries that hold you back: making mistakes, being noticed for using AI, or feeling intimidated."
     },
     {
      "name": "Behavioral Intention",
@@ -1892,7 +1896,7 @@ window.SURVEY = {
      "help": "How much you trust AI to be safe, reliable, and capable for this work."
     },
     {
-     "name": "Task-Technology Fit",
+     "name": "Task Technology Fit",
      "questions": [
       {
        "id": "q29",
@@ -2060,7 +2064,6 @@ window.SURVEY = {
   function scaleLabel(n) { return (SCALE.labels && SCALE.labels[n]) ? SCALE.labels[n] : ("" + n); }
   function loadAnswers() { try { return JSON.parse(localStorage.getItem(LS_KEY) || "{}") || {}; } catch (e) { return {}; } }
   function saveAnswers() { try { localStorage.setItem(LS_KEY, JSON.stringify(answers)); } catch (e) {} }
-  function storageOk() { try { localStorage.setItem("__probe", "1"); localStorage.removeItem("__probe"); return true; } catch (e) { return false; } }
   function questionsOf(sec) { var o = []; (sec.groups || []).forEach(function (g) { (g.questions || []).forEach(function (q) { o.push(q); }); }); return o; }
   function extrasOf(sec) { return sec.extra || []; }
   function usageOf(sec, col) { return answers[useKey(sec, col)] || ""; }
@@ -2136,7 +2139,7 @@ window.SURVEY = {
     var dotHtml = opts.done && !opts.active ? "✓" : (opts.locked ? icon("lock") : opts.dot);
     btn.appendChild(el("span", "step-dot", dotHtml));
     btn.appendChild(el("span", "step-label", esc(opts.label)));
-    if (opts.locked) { btn.setAttribute("aria-disabled", "true"); btn.setAttribute("tabindex", "-1"); }
+    if (opts.locked) btn.setAttribute("aria-disabled", "true");
     btn.addEventListener("click", function () {
       if (opts.locked) { showToast("Please finish the current section before moving on.", true); return; }
       opts.onClick();
@@ -2240,7 +2243,7 @@ window.SURVEY = {
     var begin = el("button", "btn btn-primary btn-lg", (completedSteps() > 0 ? "Continue" : "Begin") + " ›"); begin.type = "button";
     begin.addEventListener("click", function () { go(startHash()); });
     actions.appendChild(begin);
-    actions.appendChild(el("span", "save-hint", storageOk() ? "Your answers are saved automatically in this browser." : "Heads up: this browser is blocking storage, so your progress can’t be saved if you reload."));
+    actions.appendChild(el("span", "save-hint", "Your answers are saved automatically in this browser."));
     page.appendChild(actions);
     v.appendChild(page); topFocus();
   }
@@ -2419,10 +2422,10 @@ window.SURVEY = {
     tools.forEach(function (t) { if (list.indexOf(t) < 0) list.push(t); });
     list.forEach(function (name) {
       var rank = tools.indexOf(name);
-      var chip = el("button", "chip" + (rank >= 0 ? " selected" : "")); chip.type = "button"; chip.setAttribute("aria-pressed", rank >= 0 ? "true" : "false"); chip.setAttribute("data-tool", name);
+      var chip = el("button", "chip" + (rank >= 0 ? " selected" : "")); chip.type = "button"; chip.setAttribute("aria-pressed", rank >= 0 ? "true" : "false");
       if (rank >= 0) chip.appendChild(el("span", "rank", "" + (rank + 1)));
       chip.appendChild(el("span", "chip-label", esc(name)));
-      chip.addEventListener("click", function () { _toolFocus = { tool: name, col: (chip.closest && chip.closest("[data-col]")) ? chip.closest("[data-col]").getAttribute("data-col") : null }; opts.onToggle(name); });
+      chip.addEventListener("click", function () { opts.onToggle(name); });
       chips.appendChild(chip);
     });
     var other = el("button", "chip other"); other.type = "button"; other.textContent = "+ Other";
@@ -2433,14 +2436,6 @@ window.SURVEY = {
     return wrap;
   }
   var toolAccOpen = {};
-  var _toolFocus = null;
-  function restoreToolFocus() {
-    if (!_toolFocus) return;
-    var scope = _toolFocus.col ? document.querySelector('.setup [data-col="' + _toolFocus.col + '"]') : document.querySelector('.setup .toolsblock');
-    var chip = (scope || document).querySelector('.chip[data-tool=' + JSON.stringify(_toolFocus.tool) + ']');
-    _toolFocus = null;
-    if (chip && chip.focus) { try { chip.focus(); } catch (e) {} }
-  }
   function renderToolsBlock(sec) {
     var sel = (sec.columns || []).filter(function (c) { return usageOf(sec, c) === "yes"; });
     if (!sel.length) return null;
@@ -2613,11 +2608,7 @@ window.SURVEY = {
     saveAnswers(); rerenderSection(); updateProgress(); refreshStepper();
   }
   function setNoneUsed(sec) {
-    if (noneSelected(sec)) {
-      (sec.columns || []).forEach(function (c) { delete answers[useKey(sec, c)]; clearColTools(sec, c); });
-    } else {
-      (sec.columns || []).forEach(function (c) { answers[useKey(sec, c)] = "no"; clearColTools(sec, c); });
-    }
+    (sec.columns || []).forEach(function (c) { answers[useKey(sec, c)] = "no"; clearColTools(sec, c); });
     saveAnswers(); rerenderSection(); updateProgress(); refreshStepper();
   }
   function changeTools(get, set, name) {
@@ -2625,14 +2616,14 @@ window.SURVEY = {
     if (i >= 0) t.splice(i, 1);
     else if (t.length < MAX_TOOLS) t.push(name);
     else { showToast("You can rank up to " + MAX_TOOLS + " tools.", true); return; }
-    set(t); saveAnswers(); rerenderSetup(); updateProgress(); refreshStepper(); restoreToolFocus();
+    set(t); saveAnswers(); rerenderSetup(); updateProgress(); refreshStepper();
   }
   function addOtherTool(get, set) {
     var t = get().slice();
     if (t.length >= MAX_TOOLS) { showToast("You can rank up to " + MAX_TOOLS + " tools.", true); return; }
     var name = (window.prompt("Add another AI tool:") || "").trim();
     if (!name || t.indexOf(name) >= 0) return;
-    t.push(name); set(t); saveAnswers(); rerenderSetup(); updateProgress(); refreshStepper(); restoreToolFocus();
+    t.push(name); set(t); saveAnswers(); rerenderSetup(); updateProgress(); refreshStepper();
   }
   function onCellChange(e) {
     answers[e.target.name] = +e.target.value; saveAnswers();
@@ -2803,20 +2794,12 @@ window.SURVEY = {
       });
     }
     function confirm() { setTimeout(attempt, 1400); }
-    function post() {
-      try {
-        fetch(SUBMIT_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify({ d: d, payload: payload }) })
-          .then(confirm, confirm);
-      } catch (e) { confirm(); }
-    }
-    checkOpen(d, function (already) { if (already) { cb(true); return; } post(); });
+    try {
+      fetch(SUBMIT_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify({ d: d, payload: payload }) })
+        .then(confirm, confirm);
+    } catch (e) { confirm(); }
   }
   function checkOpen(d, cb) { jsonp(SUBMIT_URL + "?action=check&d=" + encodeURIComponent(d), function (err, data) { cb(!err && !!data && data.recorded === true); }); }
-  function resetDeviceSubmission() {
-    _submittedMem = false; DEVICE_BLOCKED = false; _deviceId = null;
-    try { localStorage.removeItem(DONE_KEY); localStorage.removeItem(DEVICE_KEY); localStorage.removeItem(LS_KEY); } catch (e) {}
-    location.hash = "#welcome"; location.reload();
-  }
   function showDeviceBlocked() {
     renderStepper(null);
     var v = clearView();
@@ -2824,10 +2807,6 @@ window.SURVEY = {
     box.appendChild(el("div", "gate-icon ok", "✓"));
     box.appendChild(el("h2", null, "You have already responded"));
     box.appendChild(el("p", null, "This device has already submitted a response. Thank you for taking part in this METU study."));
-    var actions = el("div", "done-actions");
-    var notme = el("button", "btn btn-ghost", "This isn’t me — start a new response"); notme.type = "button";
-    notme.addEventListener("click", resetDeviceSubmission);
-    actions.appendChild(notme); box.appendChild(actions);
     v.appendChild(box); topFocus();
   }
   function showGate(kind) {
@@ -2878,13 +2857,13 @@ window.SURVEY = {
         (sec.groups || []).forEach(function (g) {
           (g.questions || []).forEach(function (q) {
             var key = keyOf(sec.id, q.id, col.id), has = used && answers[key] != null;
-            responses.push({ construct: g.name, code: q.code || "", question: q.text || "", sub_area: col.label || "", area: col.group || "",
+            responses.push({ construct: g.name, code: q.code || "", question: q.text || "", sub_area: col.label || "",
               uses_ai: usesAi(sec, col), tools: toolsOf(sec, col), reverse: /reverse/i.test(g.name || ""),
               value: has ? answers[key] : "", label: has ? scaleLabel(answers[key]) : "" });
           });
         });
       });
-      var subAreas = (sec.columns || []).map(function (col) { return { sub_area: col.label || "", area: col.group || "", uses_ai: usesAi(sec, col), tools: toolsOf(sec, col) }; });
+      var subAreas = (sec.columns || []).map(function (col) { return { sub_area: col.label || "", uses_ai: usesAi(sec, col), tools: toolsOf(sec, col) }; });
       return { section: sec.name, subAreas: subAreas, responses: responses };
     });
   }
@@ -2897,7 +2876,7 @@ window.SURVEY = {
   function exportJson() { download("ai_survey_responses.json", JSON.stringify({ title: (S.meta && S.meta.title) || "Survey", org: (S.meta && S.meta.org) || "", background: background(), scale: SCALE, sections: buildExportSections() }, null, 2), "application/json;charset=utf-8"); }
   function exportCsv() {
     var bgQ = bgQuestions();
-    var lines = [bgQ.map(function (q) { return q.label; }).concat(["Section", "Sub-area", "Area", "Uses AI", "Ranked Tools", "Construct", "Reverse", "Code", "Statement", "Value", "Label"]).map(csvCell).join(",")];
+    var lines = [bgQ.map(function (q) { return q.label; }).concat(["Section", "Sub-area", "Uses AI", "Ranked Tools", "Construct", "Reverse", "Code", "Statement", "Value", "Label"]).map(csvCell).join(",")];
     var bgVals = bgQ.map(function (q) { return answers[bgKey(q.id)] || ""; });
     SECTIONS.forEach(function (sec) {
       (sec.columns || []).forEach(function (col) {
@@ -2907,7 +2886,7 @@ window.SURVEY = {
             var key = keyOf(sec.id, q.id, col.id);
             var val = (used && answers[key] != null) ? answers[key] : "";
             var lab = (used && answers[key] != null) ? scaleLabel(answers[key]) : "";
-            lines.push(bgVals.concat([sec.name, col.label || "", col.group || "", uses, ts, g.name, /reverse/i.test(g.name || "") ? "yes" : "no", q.code || "", q.text || "", val, lab]).map(csvCell).join(","));
+            lines.push(bgVals.concat([sec.name, col.label || "", uses, ts, g.name, /reverse/i.test(g.name || "") ? "yes" : "no", q.code || "", q.text || "", val, lab]).map(csvCell).join(","));
           });
         });
       });
