@@ -3,13 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://script.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://script.google.com; base-uri 'none'; form-action 'self'" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
   <title>Evaluation of Students’ Use and Technology Acceptance of Artificial Intelligence Tools in Civil Engineering Education</title>
   <meta name="description" content="METU study on AI use in civil engineering studies (alternative combined layout)" />
   <meta name="theme-color" content="#ca0000" />
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22UTF-8%22%3F%3E%0A%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22471%22%0Aheight%3D%22398%22%20stroke%3D%22%23C00%22%20stroke-width%3D%224%22%3E%0A%3Cpath%20fill%3D%22%23C00%22%0Ad%3D%22m200%2C8a186%2C186%200%201%2C0%202%2C0zm36%2C368a186%2C186%200%200%2C1%200-364%22%2F%3E%0A%3Cpath%20fill%3D%22none%22%20d%3D%22m272%2C8a186%2C186%200%201%2C0%202%2C0z%22%2F%3E%0A%3C%2Fsvg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..600&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..600&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..600&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..600&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" /></noscript>
   <style>
 :root {
   
@@ -19,7 +23,7 @@
   --surface-2:    #f3ecdd;   
   --ink:          #221f1a;   
   --ink-soft:     #5b5448;
-  --ink-faint:    #8c8475;
+  --ink-faint:    #6f6757;
   --line:         #d8cdb7;   
   --line-strong:  #c2b599;
 
@@ -267,7 +271,7 @@ table.matrix { border-collapse: separate; border-spacing: 0; width: max-content;
 .qgroup-title { display: block; font-family: var(--font-mono); font-size: 10.5px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--ink); }
 .qgroup-help { display: block; margin-top: 4px; font-family: var(--font-body); font-size: 12px; line-height: 1.45; color: var(--ink-soft); }
 .qtext { display: block; }
-.matrix td.answer { background: var(--surface); padding: 7px 8px; text-align: center; vertical-align: middle; border-right: 1px solid var(--line); width: 134px; min-width: 134px; scroll-snap-align: start; }
+.matrix td.answer { background: var(--surface); padding: 7px 8px; text-align: center; vertical-align: middle; border-right: 1px solid var(--line); width: 134px; min-width: 134px; }
 
 .matrix thead th.colhead:not(.locked) { box-shadow: inset 0 -3px 0 var(--accent); }
 .matrix thead th.colhead:not(.locked) .colhead-label { color: var(--accent); }
@@ -338,9 +342,11 @@ table.matrix { border-collapse: separate; border-spacing: 0; width: max-content;
 .usage-grouphdr.cgrp-5 { background: #faf1f3; color: #87505a; border-left-color: #e0bcc1; }
 .variant-link { font-size: 13px; color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
 
-.scroll-cue { position: absolute; top: 0; right: 0; bottom: 0; width: 66px; display: flex; align-items: center; justify-content: flex-end; pointer-events: none; border-radius: 0 var(--radius) var(--radius) 0; background: linear-gradient(to right, rgba(251,247,238,0), rgba(251,247,238,.97)); }
-.cue-pill { margin-right: 10px; background: var(--accent); color: #fff; font-family: var(--font-mono); font-size: 11.5px; font-weight: 500; padding: 7px 12px; border-radius: 999px; white-space: nowrap; box-shadow: 0 6px 16px rgba(202,0,0,.32); animation: cuePulse 1.5s ease-in-out infinite; }
-@keyframes cuePulse { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(-5px); } }
+.scroll-cue { position: absolute; top: 0; right: 0; bottom: 0; width: 52px; display: flex; align-items: center; justify-content: flex-end; pointer-events: none; border-radius: 0 var(--radius) var(--radius) 0; background: linear-gradient(to right, rgba(251,247,238,0), rgba(251,247,238,.6)); }
+.cue-pill { pointer-events: auto; cursor: pointer; margin-right: 16px; width: 30px; height: 30px; padding: 0; display: grid; place-items: center; border: 1px solid var(--line-strong); border-radius: 50%; background: var(--surface); color: var(--accent); box-shadow: var(--shadow-sm); opacity: .82; transition: opacity .15s ease, background .15s ease, color .15s ease, transform .12s ease, box-shadow .15s ease; }
+.cue-pill svg { width: 17px; height: 17px; }
+.cue-pill:hover { opacity: 1; background: var(--accent); color: #fff; transform: translateX(-2px); box-shadow: 0 6px 16px rgba(202,0,0,.28); }
+.cue-pill:focus-visible { outline: 3px solid var(--accent-soft); outline-offset: 2px; opacity: 1; }
 
 .intake { display: flex; flex-direction: column; gap: 22px; }
 .intake-block.missing { background: var(--danger-soft); border-radius: 12px; padding: 12px; margin: -12px; }
@@ -422,7 +428,7 @@ table.matrix { border-collapse: separate; border-spacing: 0; width: max-content;
 }
 
 @media (min-width: 1100px) {
-  .view:has(.group-page) { max-width: 1200px; }
+  .view:has(.group-page), .view.group-wide { max-width: 1200px; }
   .matrix thead th.corner, .matrix tbody th.qcell { width: 360px; min-width: 360px; max-width: 360px; }
   .matrix thead th.colhead, .matrix td.answer { width: 160px; min-width: 160px; }
   .matrix tbody th.qcell { font-size: 15px; }
@@ -431,7 +437,7 @@ table.matrix { border-collapse: separate; border-spacing: 0; width: max-content;
   .matrix-scroll { max-height: calc(100vh - 250px); max-height: calc(100svh - 250px); scroll-padding-left: 360px; }
 }
 @media (min-width: 1600px) {
-  .view:has(.group-page) { max-width: 1460px; }
+  .view:has(.group-page), .view.group-wide { max-width: 1460px; }
   .matrix thead th.corner, .matrix tbody th.qcell { width: 400px; min-width: 400px; max-width: 400px; }
   .matrix thead th.colhead, .matrix td.answer { width: 184px; min-width: 184px; }
   .numscale .ns label { min-height: 30px; font-size: 15px; }
@@ -440,6 +446,57 @@ table.matrix { border-collapse: separate; border-spacing: 0; width: max-content;
 
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+
+@media print {
+  .topbar, .stepper, .pagenav, .scroll-cue, .cue-pill, .welcome-actions, .save-hint, .done-actions { display: none !important; }
+  body { background: #fff; }
+  .view { max-width: none; padding: 0; }
+  .matrix-wrap { border: none; box-shadow: none; }
+  .matrix-scroll { overflow: visible !important; max-height: none !important; }
+  .matrix th, .matrix td { break-inside: avoid; }
+  .card, .hero-card, .usagepicker, .toolsblock { box-shadow: none; }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #17140f; --paper-2: #1f1b15; --surface: #241f18; --surface-2: #2c261d;
+    --ink: #ece4d4; --ink-soft: #c4b9a5; --ink-faint: #9a8f7b;
+    --line: #392f22; --line-strong: #4b4030;
+    --accent: #ff5c4e; --accent-2: #ff7063; --accent-press: #e04a3d;
+    --accent-soft: rgba(255,92,78,.16); --accent-softer: rgba(255,92,78,.08);
+    --metu-soft: rgba(255,92,78,.32);
+    --danger: #e0685a; --danger-soft: rgba(224,104,90,.12);
+    --shadow-sm: 0 1px 2px rgba(0,0,0,.3), 0 10px 28px rgba(0,0,0,.42);
+    --shadow-md: 0 22px 56px rgba(0,0,0,.6);
+  }
+  body { background-image:
+    radial-gradient(1100px 620px at 84% -8%, rgba(120,170,220,.05), transparent 62%),
+    radial-gradient(900px 520px at 6% 102%, rgba(220,120,90,.05), transparent 60%),
+    linear-gradient(rgba(180,200,230,.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(180,200,230,.03) 1px, transparent 1px); }
+  .matrix tbody th.qcell { background: #26211a; border-left-color: #574a34; }
+  .numscale .ns label { background: rgba(255,255,255,.04); }
+  .step.done .step-dot { color: #ece4d4; }
+  .matrix.grouped thead th.grouphead.cgrp-0 { background:#1a2431;color:#a9c4e0 }
+  .matrix.grouped thead th.grouphead.cgrp-1 { background:#1c2a1a;color:#aecb9f }
+  .matrix.grouped thead th.grouphead.cgrp-2 { background:#2b2414;color:#d9b878 }
+  .matrix.grouped thead th.grouphead.cgrp-3 { background:#251d2c;color:#c6b0e0 }
+  .matrix.grouped thead th.grouphead.cgrp-4 { background:#152722;color:#8fccbe }
+  .matrix.grouped thead th.grouphead.cgrp-5 { background:#2b1a1f;color:#e0a7b2 }
+  .matrix thead th.colhead.cgrp-0:not(.locked), .matrix td.answer.cgrp-0:not(.locked) { background:#141c26 }
+  .matrix thead th.colhead.cgrp-1:not(.locked), .matrix td.answer.cgrp-1:not(.locked) { background:#151f16 }
+  .matrix thead th.colhead.cgrp-2:not(.locked), .matrix td.answer.cgrp-2:not(.locked) { background:#211c11 }
+  .matrix thead th.colhead.cgrp-3:not(.locked), .matrix td.answer.cgrp-3:not(.locked) { background:#1c1622 }
+  .matrix thead th.colhead.cgrp-4:not(.locked), .matrix td.answer.cgrp-4:not(.locked) { background:#111f1b }
+  .matrix thead th.colhead.cgrp-5:not(.locked), .matrix td.answer.cgrp-5:not(.locked) { background:#21151a }
+  .usage-grouphdr.cgrp-0 { background:#141c26;color:#a9c4e0;border-left-color:#2f4a68 }
+  .usage-grouphdr.cgrp-1 { background:#151f16;color:#aecb9f;border-left-color:#3a5a2e }
+  .usage-grouphdr.cgrp-2 { background:#211c11;color:#d9b878;border-left-color:#6a5024 }
+  .usage-grouphdr.cgrp-3 { background:#1c1622;color:#c6b0e0;border-left-color:#4a3a5e }
+  .usage-grouphdr.cgrp-4 { background:#111f1b;color:#8fccbe;border-left-color:#2e5a4f }
+  .usage-grouphdr.cgrp-5 { background:#21151a;color:#e0a7b2;border-left-color:#6a3a44 }
+  .scroll-cue { background: linear-gradient(to right, rgba(23,20,15,0), rgba(23,20,15,.6)); }
 }
 </style>
 </head>
@@ -1360,7 +1417,7 @@ window.SURVEY = {
    ]
   },
   {
-   "id": "sec_reporting_presentation_organ",
+   "id": "sec_reporting_presentation_organization",
    "slug": "reporting_presentation_organization",
    "name": "REPORTING, PRESENTATION & ORGANIZATION",
    "description": "Using AI to plan, draft, review, and present academic work such as reports, essays, presentations, visuals, and productivity.",
@@ -1922,7 +1979,6 @@ window.SURVEY = {
   var answers = loadAnswers();
   var STEPS = SECTIONS.map(function (sec, si) { return { index: si, si: si, sec: sec }; });
   var currentStep = null;
-  var maxReached = 0;
   var cueUpdate = null;
   var CFG = window.SURVEY_CONFIG || {};
   var GATED = !!(CFG.webAppUrl && CFG.requireToken !== false);
@@ -1932,17 +1988,20 @@ window.SURVEY = {
   function submittedKey(t) { return "submitted::" + t; }
 
   var DEVICE_KEY = "utaut_device_id", DONE_KEY = "utaut_submitted_v7";
+  var _deviceId = null, _submittedMem = false;
   function deviceId() {
+    if (_deviceId) return _deviceId;
     var id; try { id = localStorage.getItem(DEVICE_KEY); } catch (e) {}
     if (!id) {
       id = (window.crypto && crypto.randomUUID) ? crypto.randomUUID().replace(/-/g, "")
         : (Date.now().toString(36) + Math.random().toString(36).slice(2, 12));
       try { localStorage.setItem(DEVICE_KEY, id); } catch (e) {}
     }
+    _deviceId = id;
     return id;
   }
-  function deviceSubmitted() { try { return !!localStorage.getItem(DONE_KEY); } catch (e) { return false; } }
-  function markDeviceSubmitted() { try { localStorage.setItem(DONE_KEY, "1"); } catch (e) {} }
+  function deviceSubmitted() { if (_submittedMem) return true; try { return !!localStorage.getItem(DONE_KEY); } catch (e) { return false; } }
+  function markDeviceSubmitted() { _submittedMem = true; try { localStorage.setItem(DONE_KEY, "1"); } catch (e) {} }
 
   var ICONS = {
     globe:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.7 2.6 15.3 0 18M12 3c-2.6 2.7-2.6 15.3 0 18"/></svg>',
@@ -1972,12 +2031,30 @@ window.SURVEY = {
     wrap.appendChild(ul);
     return wrap;
   }
+  var _popupReturnFocus = null;
   function escClosePopup(e) { if (e.key === "Escape") closeInfoPopup(); }
-  function closeInfoPopup() { var b = document.querySelector(".info-pop-backdrop"); if (b) b.remove(); document.removeEventListener("keydown", escClosePopup); }
+  function trapPopupTab(e) {
+    if (e.key !== "Tab") return;
+    var card = document.querySelector(".info-pop"); if (!card) return;
+    var f = card.querySelectorAll("button, [href], input, select, textarea, [tabindex]:not([tabindex='-1'])");
+    if (!f.length) { e.preventDefault(); return; }
+    var first = f[0], last = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  }
+  function closeInfoPopup() {
+    var b = document.querySelector(".info-pop-backdrop"); if (b) b.remove();
+    document.removeEventListener("keydown", escClosePopup);
+    document.removeEventListener("keydown", trapPopupTab);
+    if (_popupReturnFocus && _popupReturnFocus.focus) { try { _popupReturnFocus.focus(); } catch (e) {} }
+    _popupReturnFocus = null;
+  }
   function showInfoPopup(title, body) {
     closeInfoPopup();
+    _popupReturnFocus = document.activeElement;
     var bd = el("div", "info-pop-backdrop");
     var card = el("div", "info-pop");
+    card.setAttribute("role", "dialog"); card.setAttribute("aria-modal", "true"); card.setAttribute("aria-label", title);
     card.appendChild(el("p", "info-pop-title", esc(title)));
     if (body) card.appendChild(buildExamples(body));
     var close = el("button", "btn btn-primary info-pop-close", "Got it"); close.type = "button";
@@ -1987,6 +2064,7 @@ window.SURVEY = {
     bd.addEventListener("click", function (e) { if (e.target === bd) closeInfoPopup(); });
     document.body.appendChild(bd);
     document.addEventListener("keydown", escClosePopup);
+    document.addEventListener("keydown", trapPopupTab);
     close.focus();
   }
   var SECTION_ICONS = {
@@ -2015,6 +2093,7 @@ window.SURVEY = {
 
   function el(tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
   function esc(s) { return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
+  function scrollBehavior() { return (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) ? "auto" : "smooth"; }
   function keyOf(secId, qId, colId) { return secId + "::" + qId + "::" + colId; }
   function useKey(sec, col) { return sec.id + "::" + col.id + "::__use"; }
   function toolsKey(sec, col) { return sec.id + "::" + col.id + "::__tools"; }
@@ -2054,7 +2133,7 @@ window.SURVEY = {
   function firstIncompleteStep() { for (var i = 0; i < STEPS.length; i++) if (!sectionComplete(STEPS[i].sec)) return STEPS[i]; return null; }
   function frontierIndex() { var st = firstIncompleteStep(); return st ? st.index : STEPS.length; }
   function stepReachable(step) { return aboutComplete() && step.index <= frontierIndex(); }
-  function startHash() { if (HAS_INTAKE && !aboutComplete()) return "#about"; var st = firstIncompleteStep(); return st ? stepHash(st) : (STEPS[0] ? stepHash(STEPS[0]) : "#about"); }
+  function startHash() { if (HAS_INTAKE && !aboutComplete()) return "#about"; var st = firstIncompleteStep(); return st ? stepHash(st) : "#done"; }
 
   function stepHash(step) { return "#" + step.sec.slug; }
   function findStep(slug) { for (var i = 0; i < STEPS.length; i++) if (STEPS[i].sec.slug === slug) return STEPS[i]; return null; }
@@ -2069,19 +2148,20 @@ window.SURVEY = {
   function go(hash) { if (location.hash === hash) render(); else location.hash = hash; }
 
   function applyMeta() { var t = (S.meta && S.meta.title) || "Survey"; document.getElementById("brandTitle").textContent = t; document.title = t; }
-  function routeReached(route) {
-    var total = totalSteps();
-    if (route.view === "step") return route.step.index + 1;
-    if (route.view === "done") return completedSteps() === total ? total : maxReached;
-    return 0; // welcome / about
-  }
   function updateProgress() {
     var total = totalSteps();
-    var reached = routeReached(parseHash());
-    if (reached > maxReached) maxReached = reached;
-    var shown = Math.min(maxReached, total);
-    document.getElementById("progressFill").style.width = (total ? Math.round(shown / total * 100) : 0) + "%";
-    document.getElementById("progressText").textContent = shown + " / " + total;
+    var done = completedSteps();
+    var pct = total ? Math.round(done / total * 100) : 0;
+    document.getElementById("progressFill").style.width = pct + "%";
+    document.getElementById("progressText").textContent = done + " / " + total;
+    var bar = document.querySelector(".progress");
+    if (bar) {
+      bar.setAttribute("role", "progressbar");
+      bar.setAttribute("aria-valuemin", "0");
+      bar.setAttribute("aria-valuemax", "" + total);
+      bar.setAttribute("aria-valuenow", "" + done);
+      bar.setAttribute("aria-valuetext", done + " of " + total + " steps complete");
+    }
   }
   function refreshStepper() {
     var nav = document.getElementById("stepper");
@@ -2139,8 +2219,8 @@ window.SURVEY = {
     } else {
       var row = el("div", "opt-row");
       (q.options || []).forEach(function (opt) {
-        var b = el("button", "opt" + (answers[bgKey(q.id)] === opt ? " active" : "")); b.type = "button"; b.textContent = opt;
-        b.addEventListener("click", function () { answers[bgKey(q.id)] = opt; saveAnswers(); row.querySelectorAll(".opt").forEach(function (x) { x.classList.toggle("active", x.textContent === opt); }); block.classList.remove("missing"); updateProgress(); refreshStepper(); });
+        var b = el("button", "opt" + (answers[bgKey(q.id)] === opt ? " active" : "")); b.type = "button"; b.textContent = opt; b.setAttribute("aria-pressed", answers[bgKey(q.id)] === opt ? "true" : "false");
+        b.addEventListener("click", function () { answers[bgKey(q.id)] = opt; saveAnswers(); row.querySelectorAll(".opt").forEach(function (x) { var onx = x.textContent === opt; x.classList.toggle("active", onx); x.setAttribute("aria-pressed", onx ? "true" : "false"); }); block.classList.remove("missing"); updateProgress(); refreshStepper(); });
         row.appendChild(b);
       });
       block.appendChild(row);
@@ -2151,7 +2231,7 @@ window.SURVEY = {
     var first = null;
     ids.forEach(function (id) { var b = document.querySelector('.intake-block[data-bg="' + id + '"]'); if (b && (answers[bgKey(id)] == null || answers[bgKey(id)] === "")) { b.classList.add("missing"); if (!first) first = b; } });
     showToast(msg, true);
-    if (first) first.scrollIntoView({ behavior: "smooth", block: "center" });
+    if (first) first.scrollIntoView({ behavior: scrollBehavior(), block: "center" });
   }
   function buildNumberScale(secId, qId, colId) {
     var wrap = el("div", "numscale"); wrap.setAttribute("role", "radiogroup");
@@ -2170,7 +2250,7 @@ window.SURVEY = {
     return wrap;
   }
 
-  function clearView() { var v = document.getElementById("view"); v.innerHTML = ""; return v; }
+  function clearView() { var v = document.getElementById("view"); v.innerHTML = ""; v.classList.remove("group-wide"); return v; }
   function topFocus() { window.scrollTo(0, 0); var v = document.getElementById("view"); if (v && v.focus) v.focus({ preventScroll: true }); }
 
   function renderWelcome() {
@@ -2189,7 +2269,7 @@ window.SURVEY = {
     priv.appendChild(el("p", "privacy-head", "Your privacy"));
     [["lock", "Fully anonymous. We never ask for your name, email or student ID, and there is no login."],
      ["sheet", "Your answers are saved to a private Google Sheet that only the research team can see, used only for this academic study."],
-     ["shield", "No tracking and no personal data. Your responses cannot be traced back to you."]
+     ["shield", "We do not collect your name, email or student ID, so your answers are not linked to your identity."]
     ].forEach(function (r) {
       var row = el("div", "privacy-row");
       row.appendChild(el("span", "privacy-ic", icon(r[0])));
@@ -2238,6 +2318,7 @@ window.SURVEY = {
     currentStep = step;
     renderStepper(step.si);
     var v = clearView();
+    v.classList.add("group-wide");
     var sec = step.sec;
     var page = el("div", "page group-page");
 
@@ -2308,6 +2389,7 @@ window.SURVEY = {
         for (var j = 0; j < inputs.length; j++) inputs[j].disabled = !active;
       }
     });
+    if (cueUpdate) cueUpdate();
   }
 
   function renderSetup(sec) {
@@ -2380,7 +2462,7 @@ window.SURVEY = {
     tools.forEach(function (t) { if (list.indexOf(t) < 0) list.push(t); });
     list.forEach(function (name) {
       var rank = tools.indexOf(name);
-      var chip = el("button", "chip" + (rank >= 0 ? " selected" : "")); chip.type = "button";
+      var chip = el("button", "chip" + (rank >= 0 ? " selected" : "")); chip.type = "button"; chip.setAttribute("aria-pressed", rank >= 0 ? "true" : "false");
       if (rank >= 0) chip.appendChild(el("span", "rank", "" + (rank + 1)));
       chip.appendChild(el("span", "chip-label", esc(name)));
       chip.addEventListener("click", function () { opts.onToggle(name); });
@@ -2403,8 +2485,8 @@ window.SURVEY = {
     if (sel.length >= 2) {
       head.appendChild(el("p", "toolsblock-q", "Do you use the same AI tools for all these tasks?"));
       var seg = el("div", "segmented toolsmode");
-      var sameB = el("button", "seg-opt" + (mode !== "per" ? " on" : "")); sameB.type = "button"; sameB.innerHTML = "<span>Yes — same for all</span>";
-      var diffB = el("button", "seg-opt" + (mode === "per" ? " on" : "")); diffB.type = "button"; diffB.innerHTML = "<span>No — different per task</span>";
+      var sameB = el("button", "seg-opt" + (mode !== "per" ? " on" : "")); sameB.type = "button"; sameB.setAttribute("aria-pressed", mode !== "per" ? "true" : "false"); sameB.innerHTML = "<span>Yes — same for all</span>";
+      var diffB = el("button", "seg-opt" + (mode === "per" ? " on" : "")); diffB.type = "button"; diffB.setAttribute("aria-pressed", mode === "per" ? "true" : "false"); diffB.innerHTML = "<span>No — different per task</span>";
       sameB.addEventListener("click", function () { setToolsMode(sec, "shared"); });
       diffB.addEventListener("click", function () { setToolsMode(sec, "per"); });
       seg.appendChild(sameB); seg.appendChild(diffB); head.appendChild(seg);
@@ -2447,7 +2529,11 @@ window.SURVEY = {
   function setToolsMode(sec, m) { answers[toolsModeKey(sec)] = m; saveAnswers(); rerenderSetup(); updateProgress(); refreshStepper(); }
   function buildMatrixHowto() {
     var box = el("div", "howto");
-    box.innerHTML = '<img class="howto-img" src="how-to-answer.svg" alt="How to answer the grid: each row is a statement; each column is a task you use AI for (tap the question mark for details); score each one from 1 to 5; a greyed column is a task you skipped; hold and drag on a computer or swipe on a phone to reach every column.">';
+    var img = el("img", "howto-img");
+    img.src = "how-to-answer.svg";
+    img.alt = "How to answer the grid: each row is a statement; each column is a task you use AI for (tap the question mark for details); score each one from 1 to 5; a greyed column is a task you skipped; hold and drag on a computer or swipe on a phone to reach every column.";
+    img.addEventListener("error", function () { box.style.display = "none"; });
+    box.appendChild(img);
     return box;
   }
 
@@ -2468,6 +2554,7 @@ window.SURVEY = {
     function colHeadCell(col) {
       var u = usageOf(sec, col), active = u === "yes";
       var th = el("th", "colhead" + (active ? "" : " locked") + grpCls(col));
+      th.setAttribute("scope", "col");
       th.appendChild(el("span", "colhead-label", esc(col.label)));
       if (col.examples) {
         var hb = el("button", "colhelp", "?"); hb.type = "button"; hb.setAttribute("aria-label", "What " + col.label + " covers");
@@ -2481,9 +2568,9 @@ window.SURVEY = {
       var order = [], cnt = {};
       cols.forEach(function (c) { if (cnt[c.group] === undefined) { order.push(c.group); cnt[c.group] = 0; } cnt[c.group]++; });
       var gtr = document.createElement("tr"); gtr.className = "grouprow";
-      var corner = el("th", "corner", "Statement"); corner.rowSpan = 2; gtr.appendChild(corner);
+      var corner = el("th", "corner", "Statement"); corner.rowSpan = 2; corner.setAttribute("scope", "col"); gtr.appendChild(corner);
       order.forEach(function (gname) {
-        var gth = el("th", "grouphead cgrp-" + (groupOrder.indexOf(gname) % 6)); gth.colSpan = cnt[gname];
+        var gth = el("th", "grouphead cgrp-" + (groupOrder.indexOf(gname) % 6)); gth.colSpan = cnt[gname]; gth.setAttribute("scope", "colgroup");
         gth.appendChild(el("span", "grouphead-label", esc(gname)));
         gtr.appendChild(gth);
       });
@@ -2493,7 +2580,7 @@ window.SURVEY = {
       thead.appendChild(str);
     } else {
       var tr = document.createElement("tr");
-      tr.appendChild(el("th", "corner", "Statement"));
+      var cth = el("th", "corner", "Statement"); cth.setAttribute("scope", "col"); tr.appendChild(cth);
       cols.forEach(function (col) { tr.appendChild(colHeadCell(col)); });
       thead.appendChild(tr);
     }
@@ -2502,13 +2589,14 @@ window.SURVEY = {
     (sec.groups || []).forEach(function (g) {
       (g.questions || []).forEach(function (q) {
         var rtr = el("tr", "qrow");
-        var qcell = el("th", "qcell");
+        var qcell = el("th", "qcell"); qcell.setAttribute("scope", "row");
         qcell.appendChild(el("span", "qtext", esc(q.text || "")));
         rtr.appendChild(qcell);
         cols.forEach(function (col) {
           var active = usageOf(sec, col) === "yes";
           var td = el("td", "answer" + (active ? "" : " locked") + grpCls(col)); td.setAttribute("data-key", keyOf(sec.id, q.id, col.id));
           var ns = buildNumberScale(sec.id, q.id, col.id);
+          ns.setAttribute("aria-label", (q.text || "") + " — " + (col.label || ""));
           if (!active) ns.querySelectorAll("input").forEach(function (inp) { inp.disabled = true; });
           td.appendChild(ns);
           rtr.appendChild(td);
@@ -2517,16 +2605,32 @@ window.SURVEY = {
       });
     });
     table.appendChild(tbody); scroll.appendChild(table); wrap.appendChild(scroll);
-    var cue = el("div", "scroll-cue"); cue.innerHTML = '<span class="cue-pill">Scroll&nbsp;→</span>'; cue.style.display = "none";
+    var cue = el("div", "scroll-cue");
+    var cueBtn = el("button", "cue-pill", icon("chevron")); cueBtn.type = "button";
+    cueBtn.setAttribute("aria-label", "Scroll to the tasks on the right");
+    cue.appendChild(cueBtn); cue.style.display = "none";
     wrap.appendChild(cue); host.appendChild(wrap);
-    setupScrollCue(scroll, cue);
+    setupScrollCue(scroll, cue, cueBtn);
   }
-  function setupScrollCue(scrollEl, cueEl) {
+  function rightmostActiveHead(scrollEl) {
+    var hs = scrollEl.querySelectorAll("thead th.colhead:not(.locked)");
+    return hs.length ? hs[hs.length - 1] : null;
+  }
+  function setupScrollCue(scrollEl, cueEl, btnEl) {
     cueUpdate = function () {
-      var max = scrollEl.scrollWidth - scrollEl.clientWidth;
-      var atEnd = scrollEl.scrollLeft >= max - 4;
-      cueEl.style.display = (max > 6 && !atEnd) ? "flex" : "none";
+      var col = rightmostActiveHead(scrollEl), show = false;
+      if (col) { var cr = col.getBoundingClientRect(), sr = scrollEl.getBoundingClientRect(); show = (cr.right - sr.right) > 4; }
+      cueEl.style.display = show ? "flex" : "none";
     };
+    if (btnEl) btnEl.addEventListener("click", function () {
+      var col = rightmostActiveHead(scrollEl); if (!col) return;
+      var cr = col.getBoundingClientRect(), sr = scrollEl.getBoundingClientRect();
+      var max = scrollEl.scrollWidth - scrollEl.clientWidth;
+      var target = Math.max(0, Math.min(scrollEl.scrollLeft + (cr.right - sr.right) + 12, max));
+      var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (scrollEl.scrollTo) scrollEl.scrollTo({ left: target, behavior: reduce ? "auto" : "smooth" });
+      else scrollEl.scrollLeft = target;
+    });
     scrollEl.addEventListener("scroll", cueUpdate, { passive: true });
     cueUpdate(); setTimeout(cueUpdate, 60);
   }
@@ -2538,6 +2642,9 @@ window.SURVEY = {
     baselineSection(sec);
     if (cur === "yes") { answers[useKey(sec, col)] = "no"; clearColTools(sec, col); }
     else { answers[useKey(sec, col)] = "yes"; }
+    if (!(sec.columns || []).some(function (c) { return usageOf(sec, c) === "yes"; })) {
+      (sec.columns || []).forEach(function (c) { delete answers[useKey(sec, c)]; clearColTools(sec, c); });
+    }
     saveAnswers(); rerenderSection(); updateProgress(); refreshStepper();
   }
   function setNoneUsed(sec) {
@@ -2560,7 +2667,7 @@ window.SURVEY = {
   }
   function onCellChange(e) {
     answers[e.target.name] = +e.target.value; saveAnswers();
-    var td = e.target.closest("td.answer"); if (td) td.classList.remove("missing");
+    var td = e.target.closest("td.answer"); if (td) { td.classList.remove("missing"); var g = td.querySelector(".numscale"); if (g) g.removeAttribute("aria-invalid"); }
     updateProgress(); refreshStepper(); updateSetupBadges();
   }
   function updateSetupBadges() {
@@ -2584,7 +2691,7 @@ window.SURVEY = {
     if (cols.length && !answered) {
       showToast("Please choose which tasks you use AI for, or select “I don’t use AI for any of these”.", true);
       var pick = host && host.querySelector(".usagepicker");
-      if (pick) { pick.classList.add("needs"); setTimeout(function () { pick.classList.remove("needs"); }, 400); pick.scrollIntoView({ behavior: "smooth", block: "center" }); }
+      if (pick) { pick.classList.add("needs"); setTimeout(function () { pick.classList.remove("needs"); }, 400); pick.scrollIntoView({ behavior: scrollBehavior(), block: "center" }); }
       return;
     }
     var per = toolsMode(sec) === "per";
@@ -2594,7 +2701,7 @@ window.SURVEY = {
       if (toolsOf(sec, col).length === 0) {
         showToast(per ? "Please select at least one AI tool for “" + col.label + "”." : "Please select at least one AI tool for the tasks you picked.", true);
         var target = host && (per ? host.querySelector('[data-col="' + col.id + '"]') : host.querySelector(".toolsblock"));
-        if (target) { if (target.tagName === "DETAILS") { target.open = true; toolAccOpen[sec.id + "::" + col.id] = true; } var tc = target.querySelector(".toolchips"); if (tc) tc.classList.add("needs"); target.scrollIntoView({ behavior: "smooth", block: "center" }); }
+        if (target) { if (target.tagName === "DETAILS") { target.open = true; toolAccOpen[sec.id + "::" + col.id] = true; } var tc = target.querySelector(".toolchips"); if (tc) tc.classList.add("needs"); target.scrollIntoView({ behavior: scrollBehavior(), block: "center" }); }
         return;
       }
       flagFirstMissingCell(sec, col);
@@ -2610,10 +2717,10 @@ window.SURVEY = {
       var key = keyOf(sec.id, q.id, col.id);
       if (answers[key] == null) {
         var td = document.querySelector('td.answer[data-key="' + key + '"]');
-        if (td) { td.classList.add("missing"); if (!first) first = td; }
+        if (td) { td.classList.add("missing"); var g = td.querySelector(".numscale"); if (g) g.setAttribute("aria-invalid", "true"); if (!first) first = td; }
       }
     });
-    if (first) setTimeout(function () { first.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" }); }, 60);
+    if (first) setTimeout(function () { first.scrollIntoView({ behavior: scrollBehavior(), block: "center", inline: "center" }); }, 60);
   }
 
   function alreadySubmitted() { return SUBMITTED || (TOKEN && (function () { try { return !!localStorage.getItem(submittedKey(TOKEN)); } catch (e) { return false; } })()); }
@@ -2645,7 +2752,7 @@ window.SURVEY = {
       sub.addEventListener("click", function () {
         sub.disabled = true; sub.textContent = "Submitting…";
         submitResponses(function (ok) {
-          if (ok) { SUBMITTED = true; try { localStorage.setItem(submittedKey(TOKEN), "1"); } catch (e) {} renderDone(); }
+          if (ok) { SUBMITTED = true; try { localStorage.setItem(submittedKey(TOKEN), "1"); localStorage.removeItem(LS_KEY); } catch (e) {} renderDone(); }
           else { sub.disabled = false; sub.textContent = "Submit responses"; showToast("We could not confirm your submission. Please check your connection and try again.", true); }
         });
       });
@@ -2663,7 +2770,7 @@ window.SURVEY = {
       subo.addEventListener("click", function () {
         subo.disabled = true; subo.textContent = "Submitting…";
         submitOpen(function (ok) {
-          if (ok) { markDeviceSubmitted(); DEVICE_BLOCKED = true; renderDone(); }
+          if (ok) { markDeviceSubmitted(); DEVICE_BLOCKED = true; try { localStorage.removeItem(LS_KEY); } catch (e) {} renderDone(); }
           else { subo.disabled = false; subo.textContent = "Submit responses"; showToast("We could not confirm your submission. Please check your connection and try again.", true); }
         });
       });
@@ -2701,7 +2808,15 @@ window.SURVEY = {
   function validateToken(t, cb) { jsonp(CFG.webAppUrl + "?action=validate&t=" + encodeURIComponent(t), function (err, data) { cb(err ? "error" : ((data && data.status) || "invalid")); }); }
   function submitResponses(cb) {
     var payload = { background: background(), sections: buildExportSections() };
-    function confirm() { setTimeout(function () { validateToken(TOKEN, function (status) { cb(status === "recorded"); }); }, 1400); }
+    var tries = 0;
+    function attempt() {
+      validateToken(TOKEN, function (status) {
+        if (status === "recorded") { cb(true); return; }
+        if (++tries >= 4) { cb(false); return; }
+        setTimeout(attempt, 1000 * tries);
+      });
+    }
+    function confirm() { setTimeout(attempt, 1400); }
     try {
       fetch(CFG.webAppUrl, { method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify({ t: TOKEN, payload: payload }) })
         .then(confirm, confirm);
@@ -2710,7 +2825,15 @@ window.SURVEY = {
   function submitOpen(cb) {
     var d = deviceId();
     var payload = { background: background(), sections: buildExportSections() };
-    function confirm() { setTimeout(function () { checkOpen(d, cb); }, 1400); }
+    var tries = 0;
+    function attempt() {
+      checkOpen(d, function (ok) {
+        if (ok) { cb(true); return; }
+        if (++tries >= 4) { cb(false); return; }
+        setTimeout(attempt, 1000 * tries);
+      });
+    }
+    function confirm() { setTimeout(attempt, 1400); }
     try {
       fetch(SUBMIT_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify({ d: d, payload: payload }) })
         .then(confirm, confirm);
@@ -2775,7 +2898,7 @@ window.SURVEY = {
           (g.questions || []).forEach(function (q) {
             var key = keyOf(sec.id, q.id, col.id), has = used && answers[key] != null;
             responses.push({ construct: g.name, code: q.code || "", question: q.text || "", sub_area: col.label || "",
-              uses_ai: usesAi(sec, col), tools: toolsOf(sec, col),
+              uses_ai: usesAi(sec, col), tools: toolsOf(sec, col), reverse: /reverse/i.test(g.name || ""),
               value: has ? answers[key] : "", label: has ? scaleLabel(answers[key]) : "" });
           });
         });
@@ -2793,7 +2916,7 @@ window.SURVEY = {
   function exportJson() { download("ai_survey_responses.json", JSON.stringify({ title: (S.meta && S.meta.title) || "Survey", org: (S.meta && S.meta.org) || "", background: background(), scale: SCALE, sections: buildExportSections() }, null, 2), "application/json;charset=utf-8"); }
   function exportCsv() {
     var bgQ = bgQuestions();
-    var lines = [bgQ.map(function (q) { return q.label; }).concat(["Section", "Sub-area", "Uses AI", "Ranked Tools", "Construct", "Code", "Statement", "Value", "Label"]).map(csvCell).join(",")];
+    var lines = [bgQ.map(function (q) { return q.label; }).concat(["Section", "Sub-area", "Uses AI", "Ranked Tools", "Construct", "Reverse", "Code", "Statement", "Value", "Label"]).map(csvCell).join(",")];
     var bgVals = bgQ.map(function (q) { return answers[bgKey(q.id)] || ""; });
     SECTIONS.forEach(function (sec) {
       (sec.columns || []).forEach(function (col) {
@@ -2803,7 +2926,7 @@ window.SURVEY = {
             var key = keyOf(sec.id, q.id, col.id);
             var val = (used && answers[key] != null) ? answers[key] : "";
             var lab = (used && answers[key] != null) ? scaleLabel(answers[key]) : "";
-            lines.push(bgVals.concat([sec.name, col.label || "", uses, ts, g.name, q.code || "", q.text || "", val, lab]).map(csvCell).join(","));
+            lines.push(bgVals.concat([sec.name, col.label || "", uses, ts, g.name, /reverse/i.test(g.name || "") ? "yes" : "no", q.code || "", q.text || "", val, lab]).map(csvCell).join(","));
           });
         });
       });
@@ -2852,8 +2975,6 @@ window.SURVEY = {
   var startX = 0, startY = 0, anchorX = 0, anchorY = 0;
   var vTarget = null, hTarget = null, vStart = 0, hStart = 0;
 
-  // Grab-to-pan is scoped to the ratings grid only: a drag anywhere else on the
-  // page behaves normally (text selection, no hijacked scrolling).
   function matrixScrollAt(node) {
     for (var n = node; n && n.nodeType === 1 && n !== document.body; n = n.parentElement) {
       if (n.classList && n.classList.contains('matrix-scroll')) return n;
@@ -2887,7 +3008,7 @@ window.SURVEY = {
   document.addEventListener('mousedown', function (e) {
     if (e.button !== 0) return;
     var ms = matrixScrollAt(e.target);
-    if (!ms) return; // only arm a pan when the press starts inside the matrix
+    if (!ms) return;
     down = true; moved = false; panEl = ms;
     startX = e.clientX; startY = e.clientY;
   }, true);
