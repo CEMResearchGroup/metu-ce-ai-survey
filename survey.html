@@ -2743,8 +2743,8 @@ window.SURVEY = {
     page2.appendChild(el("div", "check", "✓"));
     page2.appendChild(el("h2", null, "Thank you!"));
     page2.appendChild(el("p", null, recorded
-      ? "Your response has been recorded. Thank you for taking part in this METU study."
-      : "All steps are complete. Thank you for taking part in this METU study. You can download your responses below."));
+      ? "Your response has been recorded. Thank you for taking part in this study."
+      : "All steps are complete. Thank you for taking part in this study. You can download your responses below."));
     if (!recorded) {
       var actions = el("div", "done-actions");
       var dj = el("button", "btn btn-primary", "Download JSON"); dj.type = "button"; dj.addEventListener("click", exportJson);
