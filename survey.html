@@ -70,7 +70,7 @@
   --radius: 12px;
   --radius-sm: 8px;
   --topbar-h: 56px;
-  --maxw: 940px;
+  --maxw: 1080px;
 
   --font-display: Georgia, "Times New Roman", serif;
   --font-body: "IBM Plex Sans", system-ui, "Segoe UI", sans-serif;
@@ -455,7 +455,7 @@ table.matrix { border-collapse: separate; border-spacing: 0; width: max-content;
 }
 
 @media (min-width: 1100px) {
-  .view:has(.group-page), .view.group-wide { max-width: 1200px; }
+  .view:has(.group-page), .view.group-wide { max-width: 1320px; }
   .matrix thead th.corner, .matrix tbody th.qcell { width: 360px; min-width: 360px; max-width: 360px; }
   .matrix thead th.colhead, .matrix td.answer { width: 160px; min-width: 160px; }
   .matrix tbody th.qcell { font-size: 15px; }
@@ -464,7 +464,7 @@ table.matrix { border-collapse: separate; border-spacing: 0; width: max-content;
   .matrix-scroll { max-height: calc(100vh - 250px); max-height: calc(100svh - 250px); scroll-padding-left: 360px; }
 }
 @media (min-width: 1600px) {
-  .view:has(.group-page), .view.group-wide { max-width: 1460px; }
+  .view:has(.group-page), .view.group-wide { max-width: 1540px; }
   .matrix thead th.corner, .matrix tbody th.qcell { width: 400px; min-width: 400px; max-width: 400px; }
   .matrix thead th.colhead, .matrix td.answer { width: 184px; min-width: 184px; }
   .numscale .ns label { min-height: 30px; font-size: 15px; }
@@ -2339,7 +2339,6 @@ window.SURVEY = {
     if (sec.description) hbox.appendChild(el("p", "gp-desc", esc(sec.description)));
     head.appendChild(hbox); page.appendChild(head);
 
-    page.appendChild(scaleStrip());
     page.appendChild(buildMatrixHowto());
 
     if (extrasOf(sec).length) {
@@ -2552,6 +2551,7 @@ window.SURVEY = {
     var cols = sec.columns || [];
     if (!cols.length) return;
     host.appendChild(el("p", "matrix-lead", "Rate each statement (1 = " + esc(scaleLabel(MIN)) + ", " + MAX + " = " + esc(scaleLabel(MAX)) + "). Greyed columns are tasks you have not selected above."));
+    host.appendChild(scaleStrip());
     var groupOrder = [];
     cols.forEach(function (c) { if (c.group && groupOrder.indexOf(c.group) < 0) groupOrder.push(c.group); });
     (function () { var prev = null; cols.forEach(function (c, i) { c.__gi = (c.group ? groupOrder.indexOf(c.group) : i) % 6; c.__gstart = !!(c.group && c.group !== prev); prev = c.group || null; }); })();
