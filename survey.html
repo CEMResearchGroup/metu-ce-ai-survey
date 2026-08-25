@@ -2778,9 +2778,9 @@ window.SURVEY = {
       var subo = el("button", "btn btn-primary", "Submit responses"); subo.type = "button";
       subo.addEventListener("click", function () {
         subo.disabled = true; subo.textContent = "Submitting…";
-        submitOpen(function (ok) {
+        submitOpen(function (ok, reason) {
           if (ok) { markDeviceSubmitted(); DEVICE_BLOCKED = true; try { localStorage.removeItem(LS_KEY); } catch (e) {} renderDone(); }
-          else { subo.disabled = false; subo.textContent = "Submit responses"; showToast("We could not confirm your submission. Please check your connection and try again.", true); }
+          else { subo.disabled = false; subo.textContent = "Submit responses"; showToast(submissionErrorMessage(reason), true); }
         });
       });
       ao.appendChild(subo); po.appendChild(ao);
@@ -2858,19 +2858,33 @@ window.SURVEY = {
     var payload = submissionPayload();
     var tries = 0;
     function attempt() {
-      checkOpen(d, function (ok) {
-        if (ok) { cb(true); return; }
-        if (++tries >= 4) { cb(false); return; }
-        setTimeout(attempt, 1000 * tries);
+      checkOpen(d, function (state) {
+        if (state.recorded) { cb(true, ""); return; }
+        if (state.error) { cb(false, state.error); return; }
+        if (++tries >= 8) { cb(false, "not_recorded"); return; }
+        setTimeout(attempt, Math.min(1000 * tries, 4000));
       });
     }
-    function confirm() { setTimeout(attempt, 1400); }
+    function confirm() { setTimeout(attempt, 1000); }
     try {
       fetch(SUBMIT_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify({ project: PROJECT_TAG, d: d, payload: payload }) })
         .then(confirm, confirm);
     } catch (e) { confirm(); }
   }
-  function checkOpen(d, cb) { jsonp(SUBMIT_URL + "?action=check&project=" + encodeURIComponent(PROJECT_TAG) + "&d=" + encodeURIComponent(d), function (err, data) { cb(!err && !!data && data.recorded === true); }); }
+  function checkOpen(d, cb) {
+    jsonp(SUBMIT_URL + "?action=check&project=" + encodeURIComponent(PROJECT_TAG) + "&d=" + encodeURIComponent(d), function (err, data) {
+      cb({
+        recorded: !err && !!data && data.recorded === true,
+        error: err ? "connection" : String(data && data.error || "")
+      });
+    });
+  }
+  function submissionErrorMessage(reason) {
+    if (reason === "invalid_payload") return "Your responses could not be processed. Please reload the page and try once more.";
+    if (reason === "busy") return "The response service is busy. Please wait a moment and try again.";
+    if (reason === "write_failed" || reason === "check_failed") return "The response could not be saved. Please try again shortly.";
+    return "We could not confirm your submission. Please check your connection and try again.";
+  }
   function showDeviceBlocked() {
     renderStepper(null);
     var v = clearView();
