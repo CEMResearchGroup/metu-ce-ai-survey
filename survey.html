@@ -519,7 +519,7 @@ table.matrix { border-collapse: separate; border-spacing: 0; width: max-content;
   
   <script>window.SURVEY_VARIANT = "merged";</script>
   <script>
-window.SURVEY_CONFIG = { webAppUrl: "https://script.google.com/macros/s/AKfycbzZBmqim6nhILjZLywkDsvkgTncuVgrMaMy3izYwpow-UbhvnrdUNHC6RVZvablnieMkA/exec", requireToken: false, projectTag: "ipcmc_survey_v1", schemaVersion: "1.0.0", appVersion: "2026-08-25", payloadRevision: "3", clientBuild: "submit-debug-1" };
+window.SURVEY_CONFIG = { webAppUrl: "https://script.google.com/macros/s/AKfycbzZBmqim6nhILjZLywkDsvkgTncuVgrMaMy3izYwpow-UbhvnrdUNHC6RVZvablnieMkA/exec", requireToken: false, projectTag: "ipcmc_survey_v1", schemaVersion: "1.0.0", appVersion: "2026-08-25", payloadRevision: "3", clientBuild: "submission-lock-2" };
 window.SURVEY = {
  "meta": {
   "title": "Evaluation of Students’ Use and Technology Acceptance of Artificial Intelligence Tools in Civil Engineering Education",
@@ -1977,6 +1977,7 @@ window.SURVEY = {
   var PROJECT_TAG = CFG.projectTag || "";
   var OPEN_SUBMIT = !!SUBMIT_URL && !!PROJECT_TAG && !GATED;
   var TOKEN = null, ACCESS_OK = false, SUBMITTED = false, DEVICE_BLOCKED = false;
+  var OPEN_STATUS_READY = !OPEN_SUBMIT;
   function submittedKey(t) { return "submitted::" + t; }
 
   var DEVICE_KEY = PROJECT_TAG + "::device_id";
@@ -2083,6 +2084,7 @@ window.SURVEY = {
     applied: "civil"
   };
   function sectionIcon(sec) { return icon(SECTION_ICONS[sec.slug] || "survey"); }
+  function sectionDisplayName(sec) { return sec.slug === "general" ? "General AI Use" : sec.name; }
 
   function buildMergedSections(secs) {
     if (!secs || secs.length <= 1) return secs || [];
@@ -2203,7 +2205,7 @@ window.SURVEY = {
     nav.hidden = false; nav.innerHTML = "";
     var inner = el("div", "stepper-inner");
     if (HAS_INTAKE) inner.appendChild(stepperPill({ kind: "about", dot: "i", label: "About you", active: activeKey === "about", done: aboutComplete(), onClick: function () { go("#about"); } }));
-    SECTIONS.forEach(function (sec, si) { inner.appendChild(stepperPill({ kind: "section", si: si, dot: "" + (si + 1), label: sec.name, active: activeKey === si, done: sectionComplete(sec), locked: activeKey !== si && !stepReachable(STEPS[si]), onClick: function () { go("#" + sec.slug); } })); });
+    SECTIONS.forEach(function (sec, si) { inner.appendChild(stepperPill({ kind: "section", si: si, dot: "" + (si + 1), label: sectionDisplayName(sec), active: activeKey === si, done: sectionComplete(sec), locked: activeKey !== si && !stepReachable(STEPS[si]), onClick: function () { go("#" + sec.slug); } })); });
     nav.appendChild(inner);
   }
 
@@ -2339,8 +2341,7 @@ window.SURVEY = {
     var head = el("div", "gp-head");
     head.appendChild(el("div", "gp-icon", sectionIcon(sec)));
     var hbox = el("div", null);
-    hbox.appendChild(el("p", "eyebrow", "About this section"));
-    hbox.appendChild(el("h2", null, esc(sec.name)));
+    hbox.appendChild(el("h2", null, esc(sectionDisplayName(sec))));
     if (sec.description) hbox.appendChild(el("p", "gp-desc", esc(sec.description)));
     head.appendChild(hbox); page.appendChild(head);
 
@@ -2543,7 +2544,7 @@ window.SURVEY = {
   function buildMatrixHowto() {
     var box = el("div", "howto");
     var img = el("img", "howto-img");
-    img.src = "how-to-answer.svg";
+    img.src = "how-to-answer.svg?v=2";
     img.alt = "How to answer the grid: each row is a statement; each column is a task you use AI for (tap the question mark for details); score each one from 1 to 5; a greyed column is a task you skipped; hold and drag on a computer or swipe on a phone to reach every column.";
     img.addEventListener("error", function () { box.style.display = "none"; });
     box.appendChild(img);
@@ -2782,6 +2783,11 @@ window.SURVEY = {
       var ao = el("div", "done-actions");
       var subo = el("button", "btn btn-primary", "Submit responses"); subo.type = "button";
       subo.addEventListener("click", function () {
+        if (deviceSubmitted()) {
+          DEVICE_BLOCKED = true;
+          showRecordedThankYou();
+          return;
+        }
         var previousError = po.querySelector(".submission-error"); if (previousError) previousError.remove();
         subo.disabled = true; subo.textContent = "Submitting…";
         submitOpen(function (ok, reason, diagnostic) {
@@ -2798,18 +2804,15 @@ window.SURVEY = {
     }
 
     var recorded = GATED || (OPEN_SUBMIT && deviceSubmitted());
+    if (recorded) { showRecordedThankYou(); return; }
     var page2 = el("div", "page done");
     page2.appendChild(el("div", "check", icon("check")));
     page2.appendChild(el("h2", null, "Thank you!"));
-    page2.appendChild(el("p", null, recorded
-      ? "Your response has been recorded. Thank you for taking part in this study."
-      : "All steps are complete. Thank you for taking part in this study. You can download your responses below."));
-    if (!recorded) {
-      var actions = el("div", "done-actions");
-      var dj = el("button", "btn btn-primary", "Download JSON"); dj.type = "button"; dj.addEventListener("click", exportJson);
-      var dc = el("button", "btn btn-ghost", "Download CSV"); dc.type = "button"; dc.addEventListener("click", exportCsv);
-      actions.appendChild(dj); actions.appendChild(dc); page2.appendChild(actions);
-    }
+    page2.appendChild(el("p", null, "All steps are complete. Thank you for taking part in this study. You can download your responses below."));
+    var actions = el("div", "done-actions");
+    var dj = el("button", "btn btn-primary", "Download JSON"); dj.type = "button"; dj.addEventListener("click", exportJson);
+    var dc = el("button", "btn btn-ghost", "Download CSV"); dc.type = "button"; dc.addEventListener("click", exportCsv);
+    actions.appendChild(dj); actions.appendChild(dc); page2.appendChild(actions);
     v.appendChild(page2); topFocus();
   }
 
@@ -2920,7 +2923,7 @@ window.SURVEY = {
     }
   }
   function checkOpen(d, cb) {
-    jsonp(SUBMIT_URL + "?action=check&project=" + encodeURIComponent(PROJECT_TAG) + "&d=" + encodeURIComponent(d), function (err, data) {
+    jsonp(SUBMIT_URL + "?action=check&project=" + encodeURIComponent(PROJECT_TAG) + "&d=" + encodeURIComponent(d) + "&_=" + Date.now(), function (err, data) {
       cb({
         recorded: !err && !!data && data.recorded === true,
         error: err ? "connection" : String(data && data.error || ""),
@@ -3004,13 +3007,22 @@ window.SURVEY = {
     if (reason === "write_failed" || reason === "check_failed") return "The response could not be saved. Please try again shortly.";
     return "We could not confirm your submission. Please check your connection and try again.";
   }
-  function showDeviceBlocked() {
+  function showRecordedThankYou() {
+    renderStepper(null);
+    var v = clearView();
+    var box = el("div", "page done");
+    box.appendChild(el("div", "check", icon("check")));
+    box.appendChild(el("h2", null, "Thank you!"));
+    box.appendChild(el("p", null, "Your response has been recorded. Thank you for taking part in this study."));
+    v.appendChild(box); topFocus();
+  }
+  function showSubmissionStatusCheck() {
     renderStepper(null);
     var v = clearView();
     var box = el("div", "page gate");
-    box.appendChild(el("div", "gate-icon ok", icon("check")));
-    box.appendChild(el("h2", null, "You have already responded"));
-    box.appendChild(el("p", null, "This device has already submitted a response. Thank you for taking part in this METU study."));
+    box.appendChild(el("div", "gate-icon wait", "…"));
+    box.appendChild(el("h2", null, "Loading the survey…"));
+    box.appendChild(el("p", null, "One moment, please."));
     v.appendChild(box); topFocus();
   }
   function showGate(kind) {
@@ -3021,7 +3033,7 @@ window.SURVEY = {
     box.appendChild(el("div", "gate-icon" + cls, kind === "recorded" ? icon("check") : (kind === "checking" ? "…" : "!")));
     var title, msg;
     if (kind === "checking") { title = "Checking your link…"; msg = "One moment, please."; }
-    else if (kind === "recorded") { title = "You have already responded"; msg = "Our records show this link has already been used. Thank you for taking part."; }
+    else if (kind === "recorded") { title = "Thank you!"; msg = "Your response has already been recorded. Thank you for taking part in this study."; }
     else if (kind === "notoken") { title = "Please use your personal link"; msg = "Open the survey from the personal link we emailed you after the Google Form. The survey can only be opened with that link."; }
     else if (kind === "error") { title = "Connection problem"; msg = "We could not check your link. Please check your connection and try again."; }
     else { title = "This link is not valid"; msg = "Your link is invalid or has expired. Please start again from the Google Form to receive a new link."; }
@@ -3119,7 +3131,8 @@ window.SURVEY = {
   function csvCell(v) { v = v == null ? "" : String(v); if (/[",\r\n]/.test(v)) v = '"' + v.replace(/"/g, '""') + '"'; return v; }
 
   function render() {
-    if (DEVICE_BLOCKED) { showDeviceBlocked(); return; } // open mode: already submitted from this device
+    if (DEVICE_BLOCKED) { showRecordedThankYou(); return; } // open mode: already submitted from this device
+    if (OPEN_SUBMIT && !OPEN_STATUS_READY) return; // wait for the server-side submission check
     if (GATED && !ACCESS_OK) return; // hold the survey until a valid link is confirmed
     var route = parseHash();
     if (route.view === "step" && !stepReachable(route.step)) {
@@ -3141,9 +3154,43 @@ window.SURVEY = {
     if (!SECTIONS.length) { document.getElementById("view").innerHTML = '<p class="page">No survey data found.</p>'; return; }
     window.addEventListener("hashchange", render);
     window.addEventListener("resize", function () { if (cueUpdate) cueUpdate(); });
+    window.addEventListener("pageshow", function () {
+      if (OPEN_SUBMIT && deviceSubmitted()) {
+        DEVICE_BLOCKED = true;
+        OPEN_STATUS_READY = true;
+        showRecordedThankYou();
+      }
+    });
+    window.addEventListener("storage", function (event) {
+      if (OPEN_SUBMIT && event.key === DONE_KEY && event.newValue) {
+        _submittedMem = true;
+        DEVICE_BLOCKED = true;
+        OPEN_STATUS_READY = true;
+        showRecordedThankYou();
+      }
+    });
     if (GATED) { gateCheck(); return; }
     ACCESS_OK = true;
-    if (OPEN_SUBMIT && deviceSubmitted()) { DEVICE_BLOCKED = true; showDeviceBlocked(); return; }
+    if (OPEN_SUBMIT && deviceSubmitted()) {
+      DEVICE_BLOCKED = true;
+      OPEN_STATUS_READY = true;
+      showRecordedThankYou();
+      return;
+    }
+    if (OPEN_SUBMIT) {
+      showSubmissionStatusCheck();
+      checkOpen(deviceId(), function (state) {
+        OPEN_STATUS_READY = true;
+        if (state.recorded) {
+          markDeviceSubmitted();
+          DEVICE_BLOCKED = true;
+          showRecordedThankYou();
+          return;
+        }
+        render();
+      });
+      return;
+    }
     render();
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init); else init();
