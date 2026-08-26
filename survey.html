@@ -514,7 +514,7 @@ table.matrix { border-collapse: separate; border-spacing: 0; width: max-content;
   
   <script>window.SURVEY_VARIANT = "merged";</script>
   <script>
-window.SURVEY_CONFIG = { webAppUrl: "https://script.google.com/macros/s/AKfycbzZBmqim6nhILjZLywkDsvkgTncuVgrMaMy3izYwpow-UbhvnrdUNHC6RVZvablnieMkA/exec", requireToken: false, projectTag: "ipcmc_survey_v1", schemaVersion: "1.0.0", appVersion: "2026-08-25" };
+window.SURVEY_CONFIG = { webAppUrl: "https://script.google.com/macros/s/AKfycbzZBmqim6nhILjZLywkDsvkgTncuVgrMaMy3izYwpow-UbhvnrdUNHC6RVZvablnieMkA/exec", requireToken: false, projectTag: "ipcmc_survey_v1", schemaVersion: "1.0.0", appVersion: "2026-08-25", payloadRevision: "2" };
 window.SURVEY = {
  "meta": {
   "title": "Evaluation of Students’ Use and Technology Acceptance of Artificial Intelligence Tools in Civil Engineering Education",
@@ -1976,7 +1976,7 @@ window.SURVEY = {
 
   var DEVICE_KEY = PROJECT_TAG + "::device_id";
   var DONE_KEY = PROJECT_TAG + "::submitted";
-  var PENDING_KEY = PROJECT_TAG + "::pending_payload::" + (CFG.appVersion || "unknown");
+  var PENDING_KEY = PROJECT_TAG + "::pending_payload::" + (CFG.appVersion || "unknown") + "::" + (CFG.payloadRevision || "1");
   var _deviceId = null, _submittedMem = false, _pendingPayload = null;
   function deviceId() {
     if (_deviceId) return _deviceId;
@@ -2856,20 +2856,20 @@ window.SURVEY = {
   function submitOpen(cb) {
     var d = deviceId();
     var payload = submissionPayload();
-    var tries = 0;
-    function attempt() {
+    function confirmAfterNetworkError() {
       checkOpen(d, function (state) {
         if (state.recorded) { cb(true, ""); return; }
-        if (state.error) { cb(false, state.error); return; }
-        if (++tries >= 8) { cb(false, "not_recorded"); return; }
-        setTimeout(attempt, Math.min(1000 * tries, 4000));
+        cb(false, state.error || "connection");
       });
     }
-    function confirm() { setTimeout(attempt, 1000); }
     try {
-      fetch(SUBMIT_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify({ project: PROJECT_TAG, d: d, payload: payload }) })
-        .then(confirm, confirm);
-    } catch (e) { confirm(); }
+      fetch(SUBMIT_URL, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify({ project: PROJECT_TAG, d: d, payload: payload }) })
+        .then(function (response) { return response.json(); })
+        .then(function (result) {
+          if (result && result.ok === true) { cb(true, ""); return; }
+          cb(false, String(result && result.reason || "write_failed"));
+        }, confirmAfterNetworkError);
+    } catch (e) { confirmAfterNetworkError(); }
   }
   function checkOpen(d, cb) {
     jsonp(SUBMIT_URL + "?action=check&project=" + encodeURIComponent(PROJECT_TAG) + "&d=" + encodeURIComponent(d), function (err, data) {
