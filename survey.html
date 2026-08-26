@@ -406,6 +406,11 @@ table.matrix { border-collapse: separate; border-spacing: 0; width: max-content;
 .toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); z-index: 120; background: var(--ink); color: var(--surface); padding: 13px 22px; border-radius: 12px; font-size: 14px; font-weight: 500; box-shadow: var(--shadow-md); animation: rise .2s ease; max-width: 92vw; }
 .toast[hidden] { display: none; }
 .toast.warn { background: var(--danger); color: #fff; }
+.submission-error { width: min(720px, 100%); margin: 20px auto 0; padding: 14px; text-align: left; border: 1px solid var(--danger); border-radius: 8px; background: var(--surface); }
+.submission-error-title { margin: 0 0 5px; font-weight: 700; color: var(--danger); }
+.submission-error-note { margin: 0 0 10px !important; font-size: 13px; }
+.submission-error pre { margin: 0 0 10px; padding: 11px; overflow: auto; white-space: pre-wrap; word-break: break-word; border: 1px solid var(--line); border-radius: 6px; background: var(--paper-2); color: var(--ink); font: 12px/1.45 var(--font-mono); }
+.submission-error .btn { padding: 8px 13px; font-size: 13px; }
 @keyframes rise { from { transform: translate(-50%,10px); opacity: 0; } to { transform: translate(-50%,0); opacity: 1; } }
 
 @media (hover: hover) and (pointer: fine) {
@@ -514,7 +519,7 @@ table.matrix { border-collapse: separate; border-spacing: 0; width: max-content;
   
   <script>window.SURVEY_VARIANT = "merged";</script>
   <script>
-window.SURVEY_CONFIG = { webAppUrl: "https://script.google.com/macros/s/AKfycbzZBmqim6nhILjZLywkDsvkgTncuVgrMaMy3izYwpow-UbhvnrdUNHC6RVZvablnieMkA/exec", requireToken: false, projectTag: "ipcmc_survey_v1", schemaVersion: "1.0.0", appVersion: "2026-08-25", payloadRevision: "2" };
+window.SURVEY_CONFIG = { webAppUrl: "https://script.google.com/macros/s/AKfycbzZBmqim6nhILjZLywkDsvkgTncuVgrMaMy3izYwpow-UbhvnrdUNHC6RVZvablnieMkA/exec", requireToken: false, projectTag: "ipcmc_survey_v1", schemaVersion: "1.0.0", appVersion: "2026-08-25", payloadRevision: "3", clientBuild: "submit-debug-1" };
 window.SURVEY = {
  "meta": {
   "title": "Evaluation of Students’ Use and Technology Acceptance of Artificial Intelligence Tools in Civil Engineering Education",
@@ -2777,10 +2782,15 @@ window.SURVEY = {
       var ao = el("div", "done-actions");
       var subo = el("button", "btn btn-primary", "Submit responses"); subo.type = "button";
       subo.addEventListener("click", function () {
+        var previousError = po.querySelector(".submission-error"); if (previousError) previousError.remove();
         subo.disabled = true; subo.textContent = "Submitting…";
-        submitOpen(function (ok, reason) {
+        submitOpen(function (ok, reason, diagnostic) {
           if (ok) { markDeviceSubmitted(); DEVICE_BLOCKED = true; try { localStorage.removeItem(LS_KEY); } catch (e) {} renderDone(); }
-          else { subo.disabled = false; subo.textContent = "Submit responses"; showToast(submissionErrorMessage(reason), true); }
+          else {
+            subo.disabled = false; subo.textContent = "Submit responses";
+            showToast(submissionErrorMessage(reason), true);
+            showSubmissionErrorDetails(po, diagnostic);
+          }
         });
       });
       ao.appendChild(subo); po.appendChild(ao);
@@ -2854,30 +2864,139 @@ window.SURVEY = {
     } catch (e) { confirm(); }
   }
   function submitOpen(cb) {
-    var d = deviceId();
-    var payload = submissionPayload();
-    function confirmAfterNetworkError() {
+    var d, payload;
+    try {
+      d = deviceId();
+      payload = submissionPayload();
+    } catch (error) {
+      failOpenSubmission(cb, "client_payload", null, "build_payload", {
+        error_name: error && error.name,
+        error_message: error && error.message
+      });
+      return;
+    }
+
+    function confirmAfterPostFailure(stage, error, details) {
       checkOpen(d, function (state) {
         if (state.recorded) { cb(true, ""); return; }
-        cb(false, state.error || "connection");
+        var combined = details || {};
+        combined.error_name = error && error.name;
+        combined.error_message = error && error.message;
+        combined.check_error = state.error || "";
+        combined.check_transport_error = state.transport_error || "";
+        failOpenSubmission(cb, state.error || "connection", payload, stage, combined);
       });
     }
+
     try {
       fetch(SUBMIT_URL, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify({ project: PROJECT_TAG, d: d, payload: payload }) })
-        .then(function (response) { return response.json(); })
-        .then(function (result) {
-          if (result && result.ok === true) { cb(true, ""); return; }
-          cb(false, String(result && result.reason || "write_failed"));
-        }, confirmAfterNetworkError);
-    } catch (e) { confirmAfterNetworkError(); }
+        .then(function (response) {
+          var details = {
+            http_status: response.status,
+            http_status_text: response.statusText || "",
+            response_type: response.type || "",
+            response_content_type: response.headers ? (response.headers.get("content-type") || "") : ""
+          };
+          response.text().then(function (text) {
+            details.server_response = safeDiagnosticText(text, 800);
+            if (!response.ok) {
+              confirmAfterPostFailure("http_response", new Error("HTTP " + response.status), details);
+              return;
+            }
+            var result;
+            try { result = JSON.parse(text); }
+            catch (error) { confirmAfterPostFailure("parse_response", error, details); return; }
+            if (result && result.ok === true) { cb(true, "", null); return; }
+            var reason = String(result && result.reason || "write_failed");
+            failOpenSubmission(cb, reason, payload, "server_response", details);
+          }, function (error) {
+            confirmAfterPostFailure("read_response", error, details);
+          });
+        }, function (error) {
+          confirmAfterPostFailure("network_request", error, {});
+        });
+    } catch (error) {
+      confirmAfterPostFailure("start_request", error, {});
+    }
   }
   function checkOpen(d, cb) {
     jsonp(SUBMIT_URL + "?action=check&project=" + encodeURIComponent(PROJECT_TAG) + "&d=" + encodeURIComponent(d), function (err, data) {
       cb({
         recorded: !err && !!data && data.recorded === true,
-        error: err ? "connection" : String(data && data.error || "")
+        error: err ? "connection" : String(data && data.error || ""),
+        transport_error: err ? String(err.message || err) : ""
       });
     });
+  }
+  function safeDiagnosticText(value, limit) {
+    var text = String(value == null ? "" : value);
+    return text.length > limit ? text.slice(0, limit) + "...[truncated]" : text;
+  }
+  function submissionPayloadShape(payload) {
+    var sections = payload && Array.isArray(payload.sections) ? payload.sections : [];
+    var subareas = 0, responses = 0;
+    sections.forEach(function (section) {
+      subareas += Array.isArray(section.subAreas) ? section.subAreas.length : 0;
+      responses += Array.isArray(section.responses) ? section.responses.length : 0;
+    });
+    return { sections: sections.length, subareas: subareas, responses: responses };
+  }
+  function makeSubmissionLog(stage, reason, payload, details) {
+    var shape = submissionPayloadShape(payload);
+    var log = {
+      time_utc: new Date().toISOString(),
+      stage: stage || "unknown",
+      reason: reason || "unknown",
+      online: navigator.onLine === false ? "no" : "yes",
+      client_build: CFG.clientBuild || "",
+      app_version: CFG.appVersion || "",
+      payload_revision: CFG.payloadRevision || "",
+      payload_sections: shape.sections,
+      payload_subareas: shape.subareas,
+      payload_responses: shape.responses,
+      page_url: String(location.href || "").split(/[?#]/)[0],
+      endpoint: SUBMIT_URL
+    };
+    Object.keys(details || {}).forEach(function (key) {
+      var value = details[key];
+      if (value !== undefined && value !== null && value !== "") log[key] = safeDiagnosticText(value, 800);
+    });
+    return log;
+  }
+  function failOpenSubmission(cb, reason, payload, stage, details) {
+    var log = makeSubmissionLog(stage, reason, payload, details);
+    window.IPCMC_LAST_SUBMISSION_ERROR = log;
+    try { console.error("[IPCMC submission error]", log); } catch (ignore) {}
+    cb(false, reason, log);
+  }
+  function copySubmissionLog(button, text) {
+    function copied() {
+      var original = button.textContent; button.textContent = "Copied";
+      setTimeout(function () { button.textContent = original; }, 1500);
+    }
+    function fallback() {
+      var area = document.createElement("textarea");
+      area.value = text; area.setAttribute("readonly", "");
+      area.style.position = "fixed"; area.style.opacity = "0";
+      document.body.appendChild(area); area.select();
+      try { document.execCommand("copy"); copied(); } catch (ignore) {}
+      document.body.removeChild(area);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(copied, fallback);
+    } else fallback();
+  }
+  function showSubmissionErrorDetails(host, log) {
+    if (!host || !log) return;
+    var previous = host.querySelector(".submission-error"); if (previous) previous.remove();
+    var box = el("div", "submission-error");
+    box.appendChild(el("p", "submission-error-title", "Submission error details"));
+    box.appendChild(el("p", "submission-error-note", "No survey answers are included in this log."));
+    var text = JSON.stringify(log, null, 2);
+    var pre = document.createElement("pre"); pre.textContent = text; box.appendChild(pre);
+    var copy = el("button", "btn btn-ghost", "Copy error log"); copy.type = "button";
+    copy.addEventListener("click", function () { copySubmissionLog(copy, text); });
+    box.appendChild(copy); host.appendChild(box);
   }
   function submissionErrorMessage(reason) {
     if (reason === "invalid_payload") return "Your responses could not be processed. Please reload the page and try once more.";
@@ -2935,21 +3054,40 @@ window.SURVEY = {
   function usesAi(sec, col) { var u = usageOf(sec, col); return u === "yes" ? "Yes" : (u === "no" ? "No" : ""); }
   function toolsString(sec, col) { return toolsOf(sec, col).map(function (t, i) { return (i + 1) + ") " + t; }).join("; "); }
   function buildExportSections() {
-    return SECTIONS.map(function (sec) {
+    var sourceSections = S.sections || [];
+    var mergedSection = null;
+    if (VARIANT === "merged") {
+      mergedSection = SECTIONS.filter(function (section) { return section.slug === "applied"; })[0] || null;
+      if (!mergedSection) throw new Error("Merged survey section is missing");
+    }
+
+    return sourceSections.map(function (sourceSection, sectionIndex) {
+      var uiSection = (VARIANT === "merged" && sectionIndex > 0) ? mergedSection : sourceSection;
       var responses = [];
-      (sec.columns || []).forEach(function (col) {
-        var u = usageOf(sec, col), used = u === "yes";
-        (sec.groups || []).forEach(function (g) {
+      var subAreas = [];
+      (sourceSection.columns || []).forEach(function (sourceColumn) {
+        var uiColumn = {
+          id: (VARIANT === "merged" && sectionIndex > 0)
+            ? sourceSection.slug + "__" + sourceColumn.id
+            : sourceColumn.id
+        };
+        var u = usageOf(uiSection, uiColumn), used = u === "yes";
+        var selectedTools = toolsOf(uiSection, uiColumn);
+        subAreas.push({
+          sub_area: sourceColumn.label || "",
+          uses_ai: used ? "Yes" : "No",
+          tools: selectedTools
+        });
+        (sourceSection.groups || []).forEach(function (g) {
           (g.questions || []).forEach(function (q) {
-            var key = keyOf(sec.id, q.id, col.id), has = used && answers[key] != null;
-            responses.push({ construct: g.name, code: q.code || "", question: q.text || "", sub_area: col.label || "",
-              uses_ai: usesAi(sec, col), tools: toolsOf(sec, col), reverse: /reverse/i.test(g.name || ""),
+            var key = keyOf(uiSection.id, q.id, uiColumn.id), has = used && answers[key] != null;
+            responses.push({ construct: g.name, code: q.code || "", question: q.text || "", sub_area: sourceColumn.label || "",
+              uses_ai: used ? "Yes" : "No", tools: selectedTools, reverse: /reverse/i.test(g.name || ""),
               value: has ? answers[key] : "", label: has ? scaleLabel(answers[key]) : "" });
           });
         });
       });
-      var subAreas = (sec.columns || []).map(function (col) { return { sub_area: col.label || "", uses_ai: usesAi(sec, col), tools: toolsOf(sec, col) }; });
-      return { section: sec.name, subAreas: subAreas, responses: responses };
+      return { section: sourceSection.name, subAreas: subAreas, responses: responses };
     });
   }
   function download(name, text, type) {
