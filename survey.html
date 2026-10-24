@@ -101,9 +101,15 @@ svg { display: block; }
 
 .topbar { position: sticky; top: 0; z-index: 80; background: var(--surface); border-bottom: 1px solid var(--line-strong); box-shadow: 0 1px 0 rgba(255,255,255,.5) inset; }
 .topbar-inner { max-width: var(--maxw); margin: 0 auto; min-height: var(--topbar-h); padding: 8px clamp(14px,4vw,26px); display: flex; align-items: center; justify-content: space-between; gap: 18px; }
-.brand { display: flex; align-items: center; gap: 11px; font-family: var(--font-display); font-weight: 600; font-optical-sizing: auto; letter-spacing: -.01em; color: var(--ink); text-decoration: none; font-size: 16px; flex: none; }
+.brand { display: flex; align-items: center; gap: 11px; font-family: var(--font-display); font-weight: 600; font-optical-sizing: auto; letter-spacing: -.01em; color: var(--ink); text-decoration: none; font-size: 16px; flex: 0 1 auto; min-width: 0; line-height: 1.25; }
 .brand-logo { height: 26px; width: auto; flex: none; display: block; }
-.progress { display: flex; align-items: center; gap: 12px; flex: 1; max-width: 440px; min-width: 0; }
+.progress { display: flex; align-items: center; gap: 12px; flex: 1 1 120px; max-width: 440px; min-width: 0; }
+.secprog { border-top: 1px solid var(--line); background: var(--surface-2); }
+.secprog-inner { max-width: var(--maxw); margin: 0 auto; padding: 6px clamp(14px,4vw,26px) 7px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; align-items: center; font-size: 12.5px; }
+.secprog-label { font-weight: 600; color: var(--ink); overflow-wrap: anywhere; }
+.secprog-count { font-family: var(--font-mono); font-weight: 600; color: var(--metu); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.secprog-track { grid-column: 1 / -1; height: 4px; border-radius: 999px; background: var(--paper-2); overflow: hidden; }
+.secprog-fill { height: 100%; width: 0%; background: var(--moss); border-radius: 999px; transition: width .3s ease; }
 .progress-track { flex: 1; height: 6px; border-radius: 999px; background: var(--paper-2); overflow: hidden; box-shadow: inset 0 1px 2px rgba(40,30,15,.12); }
 .progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--metu), var(--metu-2)); border-radius: 999px; transition: width .5s cubic-bezier(.4,0,.2,1); }
 .progress-text { font-family: var(--font-mono); font-size: 12px; font-weight: 600; color: var(--metu); white-space: nowrap; font-variant-numeric: tabular-nums; min-width: 54px; text-align: right; }
@@ -252,7 +258,12 @@ svg { display: block; }
 
 .matrix-lead { margin: 4px 0 12px; font-size: 14.5px; font-weight: 500; color: var(--ink-soft); }
 .howto { margin: 0 0 18px; }
-.howto-img { display: block; width: 100%; max-width: 100%; height: auto; margin: 0; }
+.howto-img { display: block; width: 100%; max-width: 100%; height: auto; margin: 0; cursor: zoom-in; }
+.howto-hint { display: none; margin: 6px 0 0; text-align: center; font-size: 12.5px; color: var(--ink-faint); }
+.info-pop.zoom-pop { max-width: min(1220px, 100%); max-height: 100%; padding: 14px; display: flex; flex-direction: column; gap: 12px; }
+.zoom-scroll { overflow: auto; min-height: 0; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); -webkit-overflow-scrolling: touch; }
+.zoom-img { display: block; width: 1166px; max-width: none; height: auto; }
+.hero-quick { display: none; }
 .matrix-wrap { position: relative; border: 1px solid var(--line-strong); border-radius: var(--radius); box-shadow: var(--shadow-sm); background: var(--surface); overflow: hidden; scroll-margin-top: calc(var(--topbar-h) + 60px); }
 
 .matrix-scroll { overflow: auto; max-height: calc(100vh - 320px); max-height: calc(100svh - 320px); overscroll-behavior: contain; scroll-padding-left: 304px;
@@ -426,7 +437,13 @@ table.matrix { border-collapse: separate; border-spacing: 0; width: max-content;
 
 @media (max-width: 720px) {
   .topbar-inner { gap: 12px; }
-  .brand { font-size: 15px; min-width: 0; flex: 1 1 auto; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+  .brand { font-size: 14px; min-width: 0; flex: 1 1 auto; }
+  .brand-logo { height: 22px; }
+  .welcome h1 { font-size: 26px; line-height: 1.12; margin-bottom: 16px; }
+  .hero-logo { height: 40px; margin-bottom: 14px; }
+  .hero-quick { display: grid; gap: 10px; justify-items: center; margin: 0 0 20px; }
+  .hero-quick .btn { width: 100%; justify-content: center; }
+  .hero-meta { margin: 0; font-size: 13.5px; color: var(--ink-soft); }
   .progress { flex: 0 0 auto; max-width: none; gap: 0; }
   .progress-track { display: none; }  
   .step-label { display: none; }
@@ -472,6 +489,12 @@ table.matrix { border-collapse: separate; border-spacing: 0; width: max-content;
   .numscale .ns label { min-height: 30px; font-size: 15px; }
   .matrix-scroll { scroll-padding-left: 400px; }
 }
+@media (pointer: coarse) and (min-width: 721px) {
+  .numscale .ns label { min-height: 44px; font-size: 15px; }
+}
+@media (max-width: 900px) {
+  .howto-hint { display: block; }
+}
 
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
@@ -502,6 +525,13 @@ table.matrix { border-collapse: separate; border-spacing: 0; width: max-content;
         <span class="progress-text" id="progressText">0 / 0</span>
       </div>
     </div>
+    <div class="secprog" id="secProg" hidden>
+      <div class="secprog-inner">
+        <span class="secprog-label" id="secProgLabel"></span>
+        <span class="secprog-count" id="secProgText"></span>
+        <div class="secprog-track"><div class="secprog-fill" id="secProgFill"></div></div>
+      </div>
+    </div>
   </header>
 
   
@@ -516,13 +546,13 @@ table.matrix { border-collapse: separate; border-spacing: 0; width: max-content;
   
   <script>window.SURVEY_VARIANT = "merged";</script>
   <script>
-window.SURVEY_CONFIG = { webAppUrl: "https://script.google.com/macros/s/AKfycbzZBmqim6nhILjZLywkDsvkgTncuVgrMaMy3izYwpow-UbhvnrdUNHC6RVZvablnieMkA/exec", requireToken: false, projectTag: "ipcmc_survey_v1", schemaVersion: "1.0.0", appVersion: "2026-08-25", payloadRevision: "3", clientBuild: "loading-no-icon-5" };
+window.SURVEY_CONFIG = { webAppUrl: "https://script.google.com/macros/s/AKfycbzZBmqim6nhILjZLywkDsvkgTncuVgrMaMy3izYwpow-UbhvnrdUNHC6RVZvablnieMkA/exec", requireToken: false, projectTag: "ipcmc_survey_v1", schemaVersion: "1.0.0", appVersion: "2026-10-23", payloadRevision: "4", clientBuild: "feedback-2026-10-23" };
 window.SURVEY = {
  "meta": {
   "title": "Evaluation of Students’ Use and Technology Acceptance of Artificial Intelligence Tools in Civil Engineering Education",
   "org": "Middle East Technical University (METU) · Department of Civil Engineering",
   "note": "Participation is voluntary and your responses are anonymous. They are used only for this academic study.",
-  "intro": "We are studying how civil engineering students use AI tools such as ChatGPT, Copilot and others in their everyday academic work, including learning, problem solving, reports and presentations, and coding. Our aim is to understand where AI genuinely helps, what gets in the way, and how it can better support engineering education at METU.",
+  "intro": "We are studying how civil engineering students use AI tools such as ChatGPT, Copilot and others in their everyday academic work, including learning, problem solving, reports and presentations, and coding. Our aim is to understand where AI genuinely helps, what gets in the way, and how it can better support engineering education.",
   "howlong": "It takes about twenty to twenty five minutes. First a few quick questions about you, then for five task areas you tell us whether you use AI and rate a short set of statements. You only answer the areas where you actually use AI, and there are no right or wrong answers.",
   "aiTools": [
    "ChatGPT",
@@ -570,6 +600,31 @@ window.SURVEY = {
    "id": "semester",
    "type": "select",
    "label": "Which semester are you in?",
+   "filterBy": "year",
+   "optionsFor": {
+    "Postgraduate": [
+     "Master's (coursework stage)",
+     "Master's (thesis stage)",
+     "PhD (coursework stage)",
+     "PhD (thesis stage)"
+    ],
+    "default": [
+     "1st semester",
+     "2nd semester",
+     "3rd semester",
+     "4th semester",
+     "5th semester",
+     "6th semester",
+     "7th semester",
+     "8th semester",
+     "9th semester",
+     "10th semester",
+     "11th semester",
+     "12th semester",
+     "13th semester",
+     "14th semester"
+    ]
+   },
    "options": [
     "1st semester",
     "2nd semester",
@@ -585,8 +640,10 @@ window.SURVEY = {
     "12th semester",
     "13th semester",
     "14th semester",
-    "Master's",
-    "PhD"
+    "Master's (coursework stage)",
+    "Master's (thesis stage)",
+    "PhD (coursework stage)",
+    "PhD (thesis stage)"
    ]
   }
  ],
@@ -742,7 +799,7 @@ window.SURVEY = {
       {
        "id": "q17",
        "code": "SE1",
-       "text": "I could complete a task using AI even if there was no one around to tell me what to do."
+       "text": "I could complete a task using AI even if there was no one around to guide me."
       },
       {
        "id": "q18",
@@ -791,16 +848,16 @@ window.SURVEY = {
       {
        "id": "q24",
        "code": "BI1",
-       "text": "I intend to use AI in the coming term."
+       "text": "I intend to use AI in the coming term (I plan to use it)."
       },
       {
        "id": "q25",
        "code": "BI2",
-       "text": "I predict I will use AI in the coming term."
+       "text": "I predict I will use AI in the coming term (I think it is likely that I will actually use it, whatever my plans)."
       }
      ],
      "title": "Plans to keep using AI",
-     "help": "Whether you intend and expect to keep using AI in the coming term."
+     "help": "Whether you plan to use AI in the coming term (intend), and how likely you think it is that you actually will (predict)."
     },
     {
      "name": "Trust",
@@ -830,7 +887,7 @@ window.SURVEY = {
       {
        "id": "q29",
        "code": "TTF1",
-       "text": "Using AI fits well with my academic goals and needs."
+       "text": "Using AI fits well with my goals and needs."
       },
       {
        "id": "q30",
@@ -840,7 +897,7 @@ window.SURVEY = {
       {
        "id": "q31",
        "code": "TTF4",
-       "text": "Using AI fits well with all aspects of my academic tasks."
+       "text": "Using AI fits well with all aspects of my tasks."
       }
      ],
      "title": "Fit with how you work",
@@ -1039,7 +1096,7 @@ window.SURVEY = {
       {
        "id": "q17",
        "code": "SE1",
-       "text": "I could complete a task using AI even if there was no one around to tell me what to do."
+       "text": "I could complete a task using AI even if there was no one around to guide me."
       },
       {
        "id": "q18",
@@ -1088,16 +1145,16 @@ window.SURVEY = {
       {
        "id": "q24",
        "code": "BI1",
-       "text": "I intend to use AI in the coming term."
+       "text": "I intend to use AI in the coming term (I plan to use it)."
       },
       {
        "id": "q25",
        "code": "BI2",
-       "text": "I predict I will use AI in the coming term."
+       "text": "I predict I will use AI in the coming term (I think it is likely that I will actually use it, whatever my plans)."
       }
      ],
      "title": "Plans to keep using AI",
-     "help": "Whether you intend and expect to keep using AI in the coming term."
+     "help": "Whether you plan to use AI in the coming term (intend), and how likely you think it is that you actually will (predict)."
     },
     {
      "name": "Trust",
@@ -1167,7 +1224,7 @@ window.SURVEY = {
     },
     {
      "id": "c1",
-     "label": "Exam Preparation (Self Exercise)",
+     "label": "Studying for Exam",
      "examples": "practicing multiple choice, true or false, fill in the blank, open ended, calculation and case questions at easy, medium or hard difficulty; planning your midterm or final, a last three days plan, finding the most frequently tested topics, spotting your weak areas; and making a formula sheet, a one page review note, a list of common mistakes and flashcards"
     }
    ],
@@ -1298,7 +1355,7 @@ window.SURVEY = {
       {
        "id": "q17",
        "code": "SE1",
-       "text": "I could complete a task using AI even if there was no one around to tell me what to do."
+       "text": "I could complete a task using AI even if there was no one around to guide me."
       },
       {
        "id": "q18",
@@ -1347,16 +1404,16 @@ window.SURVEY = {
       {
        "id": "q24",
        "code": "BI1",
-       "text": "I intend to use AI in the coming term."
+       "text": "I intend to use AI in the coming term (I plan to use it)."
       },
       {
        "id": "q25",
        "code": "BI2",
-       "text": "I predict I will use AI in the coming term."
+       "text": "I predict I will use AI in the coming term (I think it is likely that I will actually use it, whatever my plans)."
       }
      ],
      "title": "Plans to keep using AI",
-     "help": "Whether you intend and expect to keep using AI in the coming term."
+     "help": "Whether you plan to use AI in the coming term (intend), and how likely you think it is that you actually will (predict)."
     },
     {
      "name": "Trust",
@@ -1443,7 +1500,7 @@ window.SURVEY = {
     {
      "id": "c4",
      "label": "Productivity",
-     "examples": "merging the different parts you have produced and keeping the language consistent; and a weekly plan, a to do list, a deadline plan, prioritizing, and a schedule for clashing tasks"
+     "examples": "merging different parts of a task or project, or collaborating on multiple projects with project partners; and a weekly plan, a to do list, a deadline plan, prioritizing, and a schedule for clashing tasks"
     }
    ],
    "groups": [
@@ -1573,7 +1630,7 @@ window.SURVEY = {
       {
        "id": "q17",
        "code": "SE1",
-       "text": "I could complete a task using AI even if there was no one around to tell me what to do."
+       "text": "I could complete a task using AI even if there was no one around to guide me."
       },
       {
        "id": "q18",
@@ -1622,16 +1679,16 @@ window.SURVEY = {
       {
        "id": "q24",
        "code": "BI1",
-       "text": "I intend to use AI in the coming term."
+       "text": "I intend to use AI in the coming term (I plan to use it)."
       },
       {
        "id": "q25",
        "code": "BI2",
-       "text": "I predict I will use AI in the coming term."
+       "text": "I predict I will use AI in the coming term (I think it is likely that I will actually use it, whatever my plans)."
       }
      ],
      "title": "Plans to keep using AI",
-     "help": "Whether you intend and expect to keep using AI in the coming term."
+     "help": "Whether you plan to use AI in the coming term (intend), and how likely you think it is that you actually will (predict)."
     },
     {
      "name": "Trust",
@@ -1841,7 +1898,7 @@ window.SURVEY = {
       {
        "id": "q17",
        "code": "SE1",
-       "text": "I could complete a task using AI even if there was no one around to tell me what to do."
+       "text": "I could complete a task using AI even if there was no one around to guide me."
       },
       {
        "id": "q18",
@@ -1890,16 +1947,16 @@ window.SURVEY = {
       {
        "id": "q24",
        "code": "BI1",
-       "text": "I intend to use AI in the coming term."
+       "text": "I intend to use AI in the coming term (I plan to use it)."
       },
       {
        "id": "q25",
        "code": "BI2",
-       "text": "I predict I will use AI in the coming term."
+       "text": "I predict I will use AI in the coming term (I think it is likely that I will actually use it, whatever my plans)."
       }
      ],
      "title": "Plans to keep using AI",
-     "help": "Whether you intend and expect to keep using AI in the coming term."
+     "help": "Whether you plan to use AI in the coming term (intend), and how likely you think it is that you actually will (predict)."
     },
     {
      "name": "Trust",
@@ -1962,9 +2019,11 @@ window.SURVEY = {
   var MIN = SCALE.min || 1, MAX = SCALE.max || 5;
   var FALLBACK_TOOLS = (S.meta && S.meta.aiTools) || [];
   var MAX_TOOLS = 3;
+  var MAX_TOOL_NAME = 200;
   var LS_KEY = "utaut_survey_answers_v8" + (VARIANT === "merged" ? "_alt" : "");
 
   var answers = loadAnswers();
+  bgQuestions().forEach(function (q) { var k = bgKey(q.id); if (q.options && answers[k] != null && optionsOf(q).indexOf(answers[k]) < 0) delete answers[k]; });
   var STEPS = SECTIONS.map(function (sec, si) { return { index: si, si: si, sec: sec }; });
   var currentStep = null;
   var cueUpdate = null;
@@ -1999,7 +2058,7 @@ window.SURVEY = {
   }
 
   /*
-   * Tabler Icons — MIT License
+   * Tabler Icons, MIT License
    * Copyright (c) 2020-2026 Paweł Kuna
    * Permission is hereby granted, free of charge, to any person obtaining a copy
    * of this software and associated documentation files (the "Software"), to deal
@@ -2165,6 +2224,26 @@ window.SURVEY = {
       bar.setAttribute("aria-valuenow", "" + done);
       bar.setAttribute("aria-valuetext", done + " of " + total + " steps complete");
     }
+    updateSectionProgress();
+  }
+  function updateSectionProgress() {
+    var box = document.getElementById("secProg"); if (!box) return;
+    var sec = (currentStep && document.querySelector(".group-page")) ? currentStep.sec : null;
+    var cols = sec ? (sec.columns || []).filter(function (c) { return usageOf(sec, c) === "yes"; }) : [];
+    var qs = sec ? questionsOf(sec) : [];
+    var total = cols.length * qs.length;
+    if (!total) { box.hidden = true; return; }
+    var done = 0;
+    cols.forEach(function (c) { qs.forEach(function (q) { if (answers[keyOf(sec.id, q.id, c.id)] != null) done++; }); });
+    document.getElementById("secProgLabel").textContent = sectionDisplayName(sec);
+    document.getElementById("secProgText").textContent = done + " / " + total + " rated";
+    document.getElementById("secProgFill").style.width = Math.round(done / total * 100) + "%";
+    box.setAttribute("role", "progressbar");
+    box.setAttribute("aria-label", sectionDisplayName(sec) + " progress");
+    box.setAttribute("aria-valuemin", "0");
+    box.setAttribute("aria-valuemax", "" + total);
+    box.setAttribute("aria-valuenow", "" + done);
+    box.hidden = false;
   }
   function refreshStepper() {
     var nav = document.getElementById("stepper");
@@ -2220,19 +2299,32 @@ window.SURVEY = {
     if (q.type === "select") {
       var sel = document.createElement("select"); sel.className = "intake-select";
       var ph = document.createElement("option"); ph.value = ""; ph.textContent = "Select your answer"; sel.appendChild(ph);
-      (q.options || []).forEach(function (opt) { var o = document.createElement("option"); o.value = opt; o.textContent = opt; if (answers[bgKey(q.id)] === opt) o.selected = true; sel.appendChild(o); });
+      optionsOf(q).forEach(function (opt) { var o = document.createElement("option"); o.value = opt; o.textContent = opt; if (answers[bgKey(q.id)] === opt) o.selected = true; sel.appendChild(o); });
       sel.addEventListener("change", function () { answers[bgKey(q.id)] = sel.value; saveAnswers(); block.classList.remove("missing"); updateProgress(); refreshStepper(); });
       block.appendChild(sel);
     } else {
       var row = el("div", "opt-row");
       (q.options || []).forEach(function (opt) {
         var b = el("button", "opt" + (answers[bgKey(q.id)] === opt ? " active" : "")); b.type = "button"; b.textContent = opt; b.setAttribute("aria-pressed", answers[bgKey(q.id)] === opt ? "true" : "false");
-        b.addEventListener("click", function () { answers[bgKey(q.id)] = opt; saveAnswers(); row.querySelectorAll(".opt").forEach(function (x) { var onx = x.textContent === opt; x.classList.toggle("active", onx); x.setAttribute("aria-pressed", onx ? "true" : "false"); }); block.classList.remove("missing"); updateProgress(); refreshStepper(); });
+        b.addEventListener("click", function () { answers[bgKey(q.id)] = opt; refreshDependents(q.id); saveAnswers(); row.querySelectorAll(".opt").forEach(function (x) { var onx = x.textContent === opt; x.classList.toggle("active", onx); x.setAttribute("aria-pressed", onx ? "true" : "false"); }); block.classList.remove("missing"); updateProgress(); refreshStepper(); });
         row.appendChild(b);
       });
       block.appendChild(row);
     }
     return block;
+  }
+  function optionsOf(q) {
+    if (!q.filterBy || !q.optionsFor) return q.options || [];
+    return q.optionsFor[answers[bgKey(q.filterBy)]] || q.optionsFor["default"] || q.options || [];
+  }
+  function refreshDependents(id) {
+    bgQuestions().forEach(function (d) {
+      if (d.filterBy !== id) return;
+      var k = bgKey(d.id);
+      if (answers[k] != null && optionsOf(d).indexOf(answers[k]) < 0) delete answers[k];
+      var old = document.querySelector('.intake-block[data-bg="' + d.id + '"]');
+      if (old && old.parentNode) old.parentNode.replaceChild(bgBlock(d), old);
+    });
   }
   function flagBg(ids, msg) {
     var first = null;
@@ -2269,6 +2361,12 @@ window.SURVEY = {
     hero.appendChild(logo);
     hero.appendChild(el("p", "eyebrow", esc((S.meta && S.meta.org) || "Academic Research Survey")));
     hero.appendChild(el("h1", null, esc((S.meta && S.meta.title) || "AI Use Survey")));
+    var quick = el("div", "hero-quick");
+    quick.appendChild(el("p", "hero-meta", "About 20 to 25 minutes · Anonymous"));
+    var quickBegin = el("button", "btn btn-primary btn-lg", (completedSteps() > 0 ? "Continue" : "Begin") + " ›"); quickBegin.type = "button";
+    quickBegin.addEventListener("click", function () { go(startHash()); });
+    quick.appendChild(quickBegin);
+    hero.appendChild(quick);
     if (S.meta && S.meta.intro) hero.appendChild(el("p", "welcome-sub", esc(S.meta.intro)));
     if (S.meta && S.meta.howlong) hero.appendChild(el("p", "welcome-sub small", esc(S.meta.howlong)));
     if (S.meta && S.meta.note) hero.appendChild(el("p", "consent", esc(S.meta.note)));
@@ -2369,9 +2467,11 @@ window.SURVEY = {
     var host = matrixHostEl(); if (!host) return;
     var table = host.querySelector("table.matrix");
     if (!table) { renderMatrix(sec); return; }
-    var cols = sec.columns || [];
+    var cols = matrixColumns(sec);
     var heads = table.querySelectorAll("thead th.colhead");
     var rows = table.querySelectorAll("tbody tr.qrow");
+    var sameOrder = heads.length === cols.length && cols.every(function (col, ci) { return heads[ci].getAttribute("data-col") === col.id; });
+    if (!sameOrder) { renderMatrix(sec); return; }
     cols.forEach(function (col, ci) {
       var active = usageOf(sec, col) === "yes";
       var th = heads[ci];
@@ -2394,6 +2494,11 @@ window.SURVEY = {
       }
     });
     if (cueUpdate) cueUpdate();
+  }
+  function matrixColumns(sec) {
+    var cols = sec.columns || [];
+    return cols.filter(function (c) { return usageOf(sec, c) === "yes"; })
+      .concat(cols.filter(function (c) { return usageOf(sec, c) !== "yes"; }));
   }
 
   function renderSetup(sec) {
@@ -2489,8 +2594,8 @@ window.SURVEY = {
     if (sel.length >= 2) {
       head.appendChild(el("p", "toolsblock-q", "Do you use the same AI tools for all these tasks?"));
       var seg = el("div", "segmented toolsmode");
-      var sameB = el("button", "seg-opt" + (mode !== "per" ? " on" : "")); sameB.type = "button"; sameB.setAttribute("aria-pressed", mode !== "per" ? "true" : "false"); sameB.innerHTML = "<span>Yes — same for all</span>";
-      var diffB = el("button", "seg-opt" + (mode === "per" ? " on" : "")); diffB.type = "button"; diffB.setAttribute("aria-pressed", mode === "per" ? "true" : "false"); diffB.innerHTML = "<span>No — different per task</span>";
+      var sameB = el("button", "seg-opt" + (mode !== "per" ? " on" : "")); sameB.type = "button"; sameB.setAttribute("aria-pressed", mode !== "per" ? "true" : "false"); sameB.innerHTML = "<span>Yes, same for all</span>";
+      var diffB = el("button", "seg-opt" + (mode === "per" ? " on" : "")); diffB.type = "button"; diffB.setAttribute("aria-pressed", mode === "per" ? "true" : "false"); diffB.innerHTML = "<span>No, different per task</span>";
       sameB.addEventListener("click", function () { setToolsMode(sec, "shared"); });
       diffB.addEventListener("click", function () { setToolsMode(sec, "per"); });
       seg.appendChild(sameB); seg.appendChild(diffB); head.appendChild(seg);
@@ -2537,20 +2642,44 @@ window.SURVEY = {
         img.src = "how-to-answer.svg?v=7";
     img.alt = "How to answer the grid: each row is a statement; each column is a task you use AI for (tap the question mark for details); score each one from 1 to 5; a greyed column is a task you skipped; hold and drag on a computer or swipe on a phone to reach every column.";
     img.addEventListener("error", function () { box.style.display = "none"; });
+    img.tabIndex = 0; img.setAttribute("role", "button"); img.title = "Enlarge";
+    img.addEventListener("click", function () { showHowtoZoom(img); });
+    img.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); showHowtoZoom(img); } });
     box.appendChild(img);
+    box.appendChild(el("p", "howto-hint", "Tap the picture to enlarge it."));
     return box;
+  }
+  function showHowtoZoom(img) {
+    closeInfoPopup();
+    _popupReturnFocus = document.activeElement;
+    var bd = el("div", "info-pop-backdrop");
+    var card = el("div", "info-pop zoom-pop");
+    card.setAttribute("role", "dialog"); card.setAttribute("aria-modal", "true"); card.setAttribute("aria-label", "How to answer");
+    var sc = el("div", "zoom-scroll");
+    var big = el("img", "zoom-img"); big.src = img.src; big.alt = img.alt;
+    sc.appendChild(big); card.appendChild(sc);
+    var close = el("button", "btn btn-primary info-pop-close", "Close"); close.type = "button";
+    close.addEventListener("click", closeInfoPopup);
+    card.appendChild(close);
+    bd.appendChild(card);
+    bd.addEventListener("click", function (e) { if (e.target === bd) closeInfoPopup(); });
+    document.body.appendChild(bd);
+    document.addEventListener("keydown", escClosePopup);
+    document.addEventListener("keydown", trapPopupTab);
+    close.focus();
   }
 
   function renderMatrix(sec) {
     var host = matrixHostEl(); if (!host) return;
     host.innerHTML = ""; cueUpdate = null;
-    var cols = sec.columns || [];
+    var allCols = sec.columns || [];
+    var cols = matrixColumns(sec);
     if (!cols.length) return;
-    host.appendChild(el("p", "matrix-lead", "Rate each statement (1 = " + esc(scaleLabel(MIN)) + ", " + MAX + " = " + esc(scaleLabel(MAX)) + "). Greyed columns are tasks you have not selected above."));
+    host.appendChild(el("p", "matrix-lead", "Rate each statement (1 = " + esc(scaleLabel(MIN)) + ", " + MAX + " = " + esc(scaleLabel(MAX)) + "). Greyed columns are tasks you have not selected above; they are moved to the end."));
     host.appendChild(scaleStrip());
     var groupOrder = [];
-    cols.forEach(function (c) { if (c.group && groupOrder.indexOf(c.group) < 0) groupOrder.push(c.group); });
-    (function () { var prev = null; cols.forEach(function (c, i) { c.__gi = (c.group ? groupOrder.indexOf(c.group) : i) % 6; c.__gstart = !!(c.group && c.group !== prev); prev = c.group || null; }); })();
+    allCols.forEach(function (c) { if (c.group && groupOrder.indexOf(c.group) < 0) groupOrder.push(c.group); });
+    (function () { var prev = null; cols.forEach(function (c) { c.__gi = (c.group ? groupOrder.indexOf(c.group) : allCols.indexOf(c)) % 6; c.__gstart = !!(c.group && c.group !== prev); prev = c.group || null; }); })();
     function grpCls(col) { return " cgrp-" + col.__gi + (col.__gstart ? " gstart" : ""); }
     var wrap = el("div", "matrix-wrap");
     var scroll = el("div", "matrix-scroll");
@@ -2559,7 +2688,7 @@ window.SURVEY = {
     function colHeadCell(col) {
       var u = usageOf(sec, col), active = u === "yes";
       var th = el("th", "colhead" + (active ? "" : " locked") + grpCls(col));
-      th.setAttribute("scope", "col");
+      th.setAttribute("scope", "col"); th.setAttribute("data-col", col.id);
       th.appendChild(el("span", "colhead-label", esc(col.label)));
       if (col.examples) {
         var hb = el("button", "colhelp", "?"); hb.type = "button"; hb.setAttribute("aria-label", "What " + col.label + " covers");
@@ -2570,13 +2699,13 @@ window.SURVEY = {
       return th;
     }
     if (sec.grouped) {
-      var order = [], cnt = {};
-      cols.forEach(function (c) { if (cnt[c.group] === undefined) { order.push(c.group); cnt[c.group] = 0; } cnt[c.group]++; });
+      var runs = [];
+      cols.forEach(function (c) { var last = runs[runs.length - 1]; if (last && last.group === c.group) last.count++; else runs.push({ group: c.group, count: 1 }); });
       var gtr = document.createElement("tr"); gtr.className = "grouprow";
       var corner = el("th", "corner", "Statement"); corner.rowSpan = 2; corner.setAttribute("scope", "col"); gtr.appendChild(corner);
-      order.forEach(function (gname) {
-        var gth = el("th", "grouphead cgrp-" + (groupOrder.indexOf(gname) % 6)); gth.colSpan = cnt[gname]; gth.setAttribute("scope", "colgroup");
-        gth.appendChild(el("span", "grouphead-label", esc(gname)));
+      runs.forEach(function (run) {
+        var gth = el("th", "grouphead cgrp-" + (groupOrder.indexOf(run.group) % 6)); gth.colSpan = run.count; gth.setAttribute("scope", "colgroup");
+        gth.appendChild(el("span", "grouphead-label", esc(run.group)));
         gtr.appendChild(gth);
       });
       thead.appendChild(gtr);
@@ -2601,7 +2730,7 @@ window.SURVEY = {
           var active = usageOf(sec, col) === "yes";
           var td = el("td", "answer" + (active ? "" : " locked") + grpCls(col)); td.setAttribute("data-key", keyOf(sec.id, q.id, col.id));
           var ns = buildNumberScale(sec.id, q.id, col.id);
-          ns.setAttribute("aria-label", (q.text || "") + " — " + (col.label || ""));
+          ns.setAttribute("aria-label", (q.text || "") + ", " + (col.label || ""));
           if (!active) ns.querySelectorAll("input").forEach(function (inp) { inp.disabled = true; });
           td.appendChild(ns);
           rtr.appendChild(td);
@@ -2668,6 +2797,7 @@ window.SURVEY = {
     if (t.length >= MAX_TOOLS) { showToast("You can rank up to " + MAX_TOOLS + " tools.", true); return; }
     var name = (window.prompt("Add another AI tool:") || "").trim();
     if (!name || t.indexOf(name) >= 0) return;
+    if (name.length > MAX_TOOL_NAME) { showToast("Please keep the tool name to " + MAX_TOOL_NAME + " characters or fewer.", true); return; }
     t.push(name); set(t); saveAnswers(); rerenderSetup(); updateProgress(); refreshStepper();
   }
   function onCellChange(e) {
@@ -2829,15 +2959,8 @@ window.SURVEY = {
     };
   }
   function submissionPayload() {
-    if (_pendingPayload) return _pendingPayload;
-    try {
-      var saved = JSON.parse(localStorage.getItem(PENDING_KEY) || "null");
-      if (saved && saved.schema_version === CFG.schemaVersion && saved.app_version === CFG.appVersion) {
-        _pendingPayload = saved; return saved;
-      }
-    } catch (e) {}
     _pendingPayload = buildSubmissionPayload();
-    try { localStorage.setItem(PENDING_KEY, JSON.stringify(_pendingPayload)); } catch (e) {}
+    try { localStorage.removeItem(PENDING_KEY); } catch (e) {}
     return _pendingPayload;
   }
   function submitResponses(cb) {
