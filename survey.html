@@ -278,7 +278,7 @@ svg { display: block; }
   .matrix-scroll::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 999px; border: 3px solid var(--surface-2); min-width: 48px; min-height: 40px; }
   .matrix-scroll::-webkit-scrollbar-thumb:hover { background: var(--accent-press); }
 }
-table.matrix { border-collapse: separate; border-spacing: 0; width: max-content; min-width: 100%; }
+table.matrix { --qcol: 304px; border-collapse: separate; border-spacing: 0; width: max-content; min-width: 100%; }
 .matrix th, .matrix td { border-bottom: 1px solid var(--line); }
 .matrix thead th.corner { position: -webkit-sticky; position: sticky; left: 0; top: 0; z-index: 40; width: 304px; min-width: 304px; max-width: 304px; background: var(--surface-2); text-align: left; padding: 13px 16px; font-family: var(--font-mono); font-size: 10.5px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-faint); border-right: 1px solid var(--line-strong); border-bottom: 2px solid var(--line-strong); }
 .matrix thead th.colhead { position: -webkit-sticky; position: sticky; top: 0; z-index: 30; background: var(--surface-2); color: var(--ink); font-size: 13px; font-weight: 600; line-height: 1.3; padding: 13px 12px; text-align: center; vertical-align: middle; border-right: 1px solid var(--line); border-bottom: 2px solid var(--line-strong); width: 134px; min-width: 134px; }
@@ -333,7 +333,8 @@ table.matrix { border-collapse: separate; border-spacing: 0; width: max-content;
 .numscale .ns:nth-child(5) input:checked + label { background: var(--v5); }
 
 .matrix.grouped thead th.grouphead { position: -webkit-sticky; position: sticky; top: 0; z-index: 34; height: 38px; color: var(--ink); font-family: var(--font-mono); font-size: 10.5px; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; padding: 8px 12px; text-align: center; vertical-align: middle; border-right: 2px solid var(--surface); border-bottom: 1px solid var(--line-strong); }
-.matrix.grouped thead th.colhead { top: 38px; }
+.matrix.grouped thead th.colhead { top: var(--gh-h, 38px); }
+.matrix.grouped thead th.grouphead .grouphead-label { position: -webkit-sticky; position: sticky; left: calc(var(--qcol) + 12px); right: 12px; display: inline-block; max-width: 100%; }
 .matrix.grouped thead th.corner { z-index: 44; }
 
 .matrix.grouped thead th.grouphead.cgrp-0 { background: #e6edf5; color: #3a567a; }
@@ -429,7 +430,8 @@ table.matrix { border-collapse: separate; border-spacing: 0; width: max-content;
   .chip:hover { border-color: var(--accent); transform: translateY(-1px); }
   .chip.other:hover { color: var(--accent); }
   .numscale .ns label:hover { filter: saturate(1.14) brightness(.98); box-shadow: inset 0 0 0 1px currentColor; }
-  .opt:hover { border-color: var(--accent); color: var(--accent); }
+  .opt:not(.active):hover { border-color: var(--accent); color: var(--accent); }
+  .opt.active:hover { background: var(--accent-2); border-color: var(--accent-2); color: #fff; }
   .intake-select:hover { border-color: var(--ink-soft); }
   .btn-primary:hover { background: var(--accent-2); transform: translateY(-1px); box-shadow: 0 3px 10px rgba(202,0,0,.23); }
   .btn-ghost:hover { border-color: var(--ink-soft); }
@@ -449,6 +451,9 @@ table.matrix { border-collapse: separate; border-spacing: 0; width: max-content;
   .step-label { display: none; }
   .step-line { width: 13px; }
   .matrix thead th.corner, .matrix tbody th.qcell { width: 168px; min-width: 168px; max-width: 168px; padding-left: 13px; padding-right: 13px; }
+  table.matrix { --qcol: 168px; }
+  .matrix.grouped thead th.grouphead { padding-left: 6px; padding-right: 6px; }
+  .matrix.grouped thead th.grouphead .grouphead-label { left: calc(var(--qcol) + 6px); right: 6px; max-width: min(100%, calc(100vw - var(--qcol) - 80px)); }
   .matrix thead th.colhead, .matrix td.answer { width: 116px; min-width: 116px; }
   .matrix-scroll { max-height: calc(100vh - 220px); max-height: calc(100svh - 220px); scroll-padding-left: 168px; }
   
@@ -469,6 +474,7 @@ table.matrix { border-collapse: separate; border-spacing: 0; width: max-content;
 }
 @media (max-width: 420px) {
   .matrix thead th.corner, .matrix tbody th.qcell { width: 144px; min-width: 144px; max-width: 144px; }
+  table.matrix { --qcol: 144px; }
   .matrix thead th.colhead, .matrix td.answer { width: 108px; min-width: 108px; }
   .matrix-scroll { scroll-padding-left: 144px; }
 }
@@ -476,6 +482,7 @@ table.matrix { border-collapse: separate; border-spacing: 0; width: max-content;
 @media (min-width: 1100px) {
   .view:has(.group-page), .view.group-wide { max-width: 1320px; }
   .matrix thead th.corner, .matrix tbody th.qcell { width: 360px; min-width: 360px; max-width: 360px; }
+  table.matrix { --qcol: 360px; }
   .matrix thead th.colhead, .matrix td.answer { width: 160px; min-width: 160px; }
   .matrix tbody th.qcell { font-size: 15px; }
   .matrix thead th.colhead { font-size: 14px; }
@@ -485,6 +492,7 @@ table.matrix { border-collapse: separate; border-spacing: 0; width: max-content;
 @media (min-width: 1600px) {
   .view:has(.group-page), .view.group-wide { max-width: 1540px; }
   .matrix thead th.corner, .matrix tbody th.qcell { width: 400px; min-width: 400px; max-width: 400px; }
+  table.matrix { --qcol: 400px; }
   .matrix thead th.colhead, .matrix td.answer { width: 184px; min-width: 184px; }
   .numscale .ns label { min-height: 30px; font-size: 15px; }
   .matrix-scroll { scroll-padding-left: 400px; }
@@ -546,7 +554,7 @@ table.matrix { border-collapse: separate; border-spacing: 0; width: max-content;
   
   <script>window.SURVEY_VARIANT = "merged";</script>
   <script>
-window.SURVEY_CONFIG = { webAppUrl: "https://script.google.com/macros/s/AKfycbzZBmqim6nhILjZLywkDsvkgTncuVgrMaMy3izYwpow-UbhvnrdUNHC6RVZvablnieMkA/exec", requireToken: false, projectTag: "ipcmc_survey_v1", schemaVersion: "1.2.0", appVersion: "2026-10-31", payloadRevision: "6", clientBuild: "item-review-2026-10-31b" };
+window.SURVEY_CONFIG = { webAppUrl: "https://script.google.com/macros/s/AKfycbzZBmqim6nhILjZLywkDsvkgTncuVgrMaMy3izYwpow-UbhvnrdUNHC6RVZvablnieMkA/exec", requireToken: false, projectTag: "ipcmc_survey_v1", schemaVersion: "1.3.0", appVersion: "2026-10-31", payloadRevision: "7", clientBuild: "item-review-2026-10-31c" };
 window.SURVEY = {
  "meta": {
   "title": "Evaluation of Students’ Use and Technology Acceptance of Artificial Intelligence Tools in Civil Engineering Education",
@@ -1614,7 +1622,7 @@ window.SURVEY = {
     },
     {
      "id": "c4",
-     "label": "Productivity",
+     "label": "Productivity (Time Management & Collaboration)",
      "examples": "merging different parts of a task or project, or collaborating on multiple projects with project partners; and a weekly plan, a to do list, a deadline plan, prioritizing, and a schedule for clashing tasks"
     }
    ],
@@ -2921,11 +2929,19 @@ window.SURVEY = {
     cueBtn.setAttribute("aria-label", "Scroll to the tasks on the right");
     cue.appendChild(cueBtn); cue.style.display = "none";
     wrap.appendChild(cue); host.appendChild(wrap);
+    syncHeadOffsets(table);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { syncHeadOffsets(table); });
     setupScrollCue(scroll, cue, cueBtn);
   }
   function rightmostActiveHead(scrollEl) {
     var hs = scrollEl.querySelectorAll("thead th.colhead:not(.locked)");
     return hs.length ? hs[hs.length - 1] : null;
+  }
+  function syncHeadOffsets(table) {
+    if (!table || !table.classList.contains("grouped")) return;
+    var gh = table.querySelector("thead th.grouphead");
+    var h = gh ? gh.getBoundingClientRect().height : 0;
+    if (h > 0) table.style.setProperty("--gh-h", h + "px");
   }
   function setupScrollCue(scrollEl, cueEl, btnEl) {
     cueUpdate = function () {
@@ -3443,7 +3459,7 @@ window.SURVEY = {
     applyMeta();
     if (!SECTIONS.length) { document.getElementById("view").innerHTML = '<p class="page">No survey data found.</p>'; return; }
     window.addEventListener("hashchange", render);
-    window.addEventListener("resize", function () { if (cueUpdate) cueUpdate(); });
+    window.addEventListener("resize", function () { if (cueUpdate) cueUpdate(); syncHeadOffsets(document.querySelector("table.matrix")); });
     window.addEventListener("pageshow", function () {
       if (OPEN_SUBMIT && deviceSubmitted()) {
         DEVICE_BLOCKED = true;
