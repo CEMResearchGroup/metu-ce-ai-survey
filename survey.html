@@ -291,6 +291,15 @@ table.matrix { --qcol: 304px; border-collapse: separate; border-spacing: 0; widt
 .qgroup-title { display: block; font-family: var(--font-mono); font-size: 10.5px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--ink); }
 .qgroup-help { display: block; margin-top: 4px; font-family: var(--font-body); font-size: 12px; line-height: 1.45; color: var(--ink-soft); }
 .qtext { display: block; }
+.qdef { display: block; margin-top: 8px; font-size: 12.5px; line-height: 1.45; }
+.qdef > summary { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; list-style: none; color: var(--accent); font-weight: 600; border-radius: 4px; }
+.qdef > summary::-webkit-details-marker { display: none; }
+.qdef > summary::before { content: "+"; display: inline-grid; place-items: center; width: 16px; height: 16px; flex: none; border: 1px solid currentColor; border-radius: 50%; font-family: var(--font-mono); font-size: 11px; line-height: 1; }
+.qdef[open] > summary::before { content: "\2212"; }
+.qdef > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.qdef-body { margin: 6px 0 0; padding: 7px 10px; border-left: 3px solid var(--accent); border-radius: 0 6px 6px 0; background: var(--surface); color: var(--ink-soft); }
+.qdef-src { display: block; margin-top: 5px; font-size: 11px; line-height: 1.4; color: var(--ink-faint); }
+.qdef-src a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
 .matrix td.answer { background: var(--surface); padding: 7px 8px; text-align: center; vertical-align: middle; border-right: 1px solid var(--line); width: 134px; min-width: 134px; }
 
 .matrix thead th.colhead:not(.locked) { box-shadow: inset 0 -3px 0 var(--accent); }
@@ -554,31 +563,46 @@ table.matrix { --qcol: 304px; border-collapse: separate; border-spacing: 0; widt
   
   <script>window.SURVEY_VARIANT = "merged";</script>
   <script>
-window.SURVEY_CONFIG = { webAppUrl: "https://script.google.com/macros/s/AKfycbzZBmqim6nhILjZLywkDsvkgTncuVgrMaMy3izYwpow-UbhvnrdUNHC6RVZvablnieMkA/exec", requireToken: false, projectTag: "ipcmc_survey_v1", schemaVersion: "1.3.0", appVersion: "2026-10-31", payloadRevision: "7", clientBuild: "item-review-2026-10-31c" };
+window.SURVEY_CONFIG = { webAppUrl: "https://script.google.com/macros/s/AKfycbzZBmqim6nhILjZLywkDsvkgTncuVgrMaMy3izYwpow-UbhvnrdUNHC6RVZvablnieMkA/exec", requireToken: false, projectTag: "ipcmc_survey_v1", schemaVersion: "1.4.0", appVersion: "2026-10-31", payloadRevision: "8", clientBuild: "item-review-2026-10-31d" };
 window.SURVEY = {
  "meta": {
   "title": "Evaluation of Students’ Use and Technology Acceptance of Artificial Intelligence Tools in Civil Engineering Education",
   "org": "Middle East Technical University (METU) · Department of Civil Engineering",
   "note": "Participation is voluntary and your responses are anonymous. They are used only for this academic study.",
   "intro": "We are studying how civil engineering students use AI tools such as ChatGPT, Copilot and others in their everyday academic work, including learning, problem solving, reports and presentations, and coding. Our aim is to understand where AI genuinely helps, what gets in the way, and how it can better support engineering education.",
-  "howlong": "It takes about twenty to twenty five minutes. First a few quick questions about you, then for five task areas you tell us whether you use AI and rate a short set of statements. You only answer the areas where you actually use AI, and there are no right or wrong answers.",
+  "howlong": "It takes about twenty to twenty-five minutes. First a few quick questions about you, then for five task areas you tell us whether you use AI and rate a short set of statements. You only answer the areas where you actually use AI, and there are no right or wrong answers.",
   "aiTools": [
    "ChatGPT",
-   "Claude",
-   "Grammarly",
-   "Microsoft Copilot",
    "Google Gemini",
-   "NotebookLM",
-   "Notion AI",
+   "Microsoft Copilot",
+   "Claude",
+   "DeepSeek",
+   "Grok",
    "Perplexity",
+   "Grammarly",
+   "Canva AI",
+   "NotebookLM",
+   "QuillBot",
+   "DeepL",
+   "GitHub Copilot",
+   "Photomath",
+   "Gauth",
+   "Wolfram Alpha",
+   "Symbolab",
+   "Mathway",
+   "Notion AI",
+   "Gamma",
+   "Cursor",
+   "Claude Code",
+   "OpenAI Codex",
+   "Consensus",
+   "Elicit",
    "SciSpace",
    "Scholar Labs",
-   "Wolfram Alpha",
-   "Photomath",
-   "Symbolab",
-   "Gamma",
-   "Canva AI",
-   "GitHub Copilot"
+   "Napkin AI",
+   "Julius AI",
+   "Mistral Le Chat",
+   "Qwen"
   ]
  },
  "scale": {
@@ -663,10 +687,17 @@ window.SURVEY = {
    "description": "This section focuses on your everyday use of AI for academic and professional communication, as well as personal, non-academic exploration. Select the tasks for which you use AI, then rate each statement based on your experience with those tasks.",
    "aiTools": [
     "ChatGPT",
-    "Claude",
-    "Grammarly",
+    "Google Gemini",
     "Microsoft Copilot",
-    "Google Gemini"
+    "Claude",
+    "DeepSeek",
+    "Grok",
+    "Perplexity",
+    "Grammarly",
+    "QuillBot",
+    "DeepL",
+    "Mistral Le Chat",
+    "Qwen"
    ],
    "columns": [
     {
@@ -676,7 +707,7 @@ window.SURVEY = {
     },
     {
      "id": "c1",
-     "label": "Non Academic Use / Exploration",
+     "label": "Non-Academic Use / Exploration",
      "examples": "asking questions out of curiosity, planning a trip or your monthly budget, getting movie or book recommendations, brainstorming ideas for a personal hobby, and looking up everyday facts unrelated to your studies"
     }
    ],
@@ -728,7 +759,7 @@ window.SURVEY = {
       },
       {
        "id": "q7b",
-       "code": "EOU4",
+       "code": "EU4",
        "text": "Learning to operate AI tools is easy for me."
       }
      ],
@@ -810,7 +841,7 @@ window.SURVEY = {
       }
      ],
      "title": "Resources and support",
-     "help": "Whether you have what you need to use AI: a device, internet, access, the know how, and support."
+     "help": "Whether you have what you need to use AI: a device, internet, access, the know-how, and support."
     },
     {
      "name": "Self Efficacy",
@@ -833,7 +864,7 @@ window.SURVEY = {
       {
        "id": "q19b",
        "code": "SE7",
-       "text": "I could complete a task using AI if I had just the built in help facility for assistance."
+       "text": "I could complete a task using AI if I had just the built-in help facility for assistance."
       }
      ],
      "title": "Confidence on your own",
@@ -872,17 +903,41 @@ window.SURVEY = {
       {
        "id": "q24",
        "code": "BI1",
-       "text": "I intend to use AI in the coming term."
+       "text": "I intend to use AI in the coming term.",
+       "define": {
+        "term": "intend",
+        "text": "Intention is “the mental act of setting a goal.”",
+        "source": {
+         "label": "Szpunar, Spreng & Schacter (2014), PNAS, p. 18415",
+         "url": "https://doi.org/10.1073/pnas.1417144111"
+        }
+       }
       },
       {
        "id": "q25",
        "code": "BI2",
-       "text": "I predict I would use AI in the coming term."
+       "text": "I predict I would use AI in the coming term.",
+       "define": {
+        "term": "predict",
+        "text": "Prediction is “estimation of the likelihood of … a particular future outcome.”",
+        "source": {
+         "label": "Szpunar, Spreng & Schacter (2014), PNAS, p. 18415",
+         "url": "https://doi.org/10.1073/pnas.1417144111"
+        }
+       }
       },
       {
        "id": "q25b",
        "code": "BI3",
-       "text": "I plan to use AI in the coming term."
+       "text": "I plan to use AI in the coming term.",
+       "define": {
+        "term": "plan",
+        "text": "Planning is “the identification and organization of steps toward achieving a goal state.”",
+        "source": {
+         "label": "Szpunar, Spreng & Schacter (2014), PNAS, p. 18415",
+         "url": "https://doi.org/10.1073/pnas.1417144111"
+        }
+       }
       }
      ],
      "title": "Plans to keep using AI",
@@ -946,7 +1001,7 @@ window.SURVEY = {
    "extra": [
     {
      "id": "anx_recognized_academic",
-     "label": "I hesitate to use AI for academic tasks (for example, work I submit, such as homework, lab reports, term projects, presentations, or coding assignments) for fear of getting recognized for using it.",
+     "label": "I hesitate to use AI for academic tasks (for example, work I submit, such as homework, lab reports, term projects, presentations, or coding assignments) for fear of others finding out that I used it.",
      "options": [
       "Strongly disagree",
       "Disagree",
@@ -957,7 +1012,7 @@ window.SURVEY = {
     },
     {
      "id": "anx_recognized_nonacademic",
-     "label": "I hesitate to use AI for non academic tasks (for example, emails or messages I send, social media posts, or announcements for a club or event) for fear of getting recognized for using it.",
+     "label": "I hesitate to use AI for non-academic tasks (for example, emails or messages I send, social media posts, or announcements for a club or event) for fear of others finding out that I used it.",
      "options": [
       "Strongly disagree",
       "Disagree",
@@ -1005,11 +1060,16 @@ window.SURVEY = {
    "description": "Using AI to learn and generate ideas: active learning, preparing study materials, and the research process.",
    "aiTools": [
     "ChatGPT",
+    "Google Gemini",
+    "Microsoft Copilot",
     "Claude",
+    "DeepSeek",
+    "Grok",
+    "Perplexity",
     "NotebookLM",
     "Notion AI",
-    "Google Gemini",
-    "Perplexity",
+    "Consensus",
+    "Elicit",
     "SciSpace",
     "Scholar Labs"
    ],
@@ -1017,7 +1077,7 @@ window.SURVEY = {
     {
      "id": "c0",
      "label": "Active Learning",
-     "examples": "having a topic explained from scratch, in simple or technical language, with examples, step by step or as a quick recap; explaining a term, formula, variable, symbol or unit, comparing two concepts, telling apart things that are often confused; building a concept map, making a real life analogy, correcting common misconceptions; and planning how to start a topic, setting prerequisites, ordering what to learn, and a weekly, daily or pre exam study plan"
+     "examples": "having a topic explained from scratch, in simple or technical language, with examples, step by step or as a quick recap; explaining a term, formula, variable, symbol or unit, comparing two concepts, telling apart things that are often confused; building a concept map, making a real-life analogy, correcting common misconceptions; and planning how to start a topic, setting prerequisites, ordering what to learn, and a weekly, daily or pre-exam study plan"
     },
     {
      "id": "c1",
@@ -1078,7 +1138,7 @@ window.SURVEY = {
       },
       {
        "id": "q7b",
-       "code": "EOU4",
+       "code": "EU4",
        "text": "Learning to operate AI tools for learning and brainstorming is easy for me."
       }
      ],
@@ -1160,7 +1220,7 @@ window.SURVEY = {
       }
      ],
      "title": "Resources and support",
-     "help": "Whether you have what you need to use AI: a device, internet, access, the know how, and support."
+     "help": "Whether you have what you need to use AI: a device, internet, access, the know-how, and support."
     },
     {
      "name": "Self Efficacy",
@@ -1183,7 +1243,7 @@ window.SURVEY = {
       {
        "id": "q19b",
        "code": "SE7",
-       "text": "I could complete a task using AI if I had just the built in help facility for assistance."
+       "text": "I could complete a task using AI if I had just the built-in help facility for assistance."
       }
      ],
      "title": "Confidence on your own",
@@ -1222,17 +1282,41 @@ window.SURVEY = {
       {
        "id": "q24",
        "code": "BI1",
-       "text": "I intend to use AI in the coming term."
+       "text": "I intend to use AI in the coming term.",
+       "define": {
+        "term": "intend",
+        "text": "Intention is “the mental act of setting a goal.”",
+        "source": {
+         "label": "Szpunar, Spreng & Schacter (2014), PNAS, p. 18415",
+         "url": "https://doi.org/10.1073/pnas.1417144111"
+        }
+       }
       },
       {
        "id": "q25",
        "code": "BI2",
-       "text": "I predict I would use AI in the coming term."
+       "text": "I predict I would use AI in the coming term.",
+       "define": {
+        "term": "predict",
+        "text": "Prediction is “estimation of the likelihood of … a particular future outcome.”",
+        "source": {
+         "label": "Szpunar, Spreng & Schacter (2014), PNAS, p. 18415",
+         "url": "https://doi.org/10.1073/pnas.1417144111"
+        }
+       }
       },
       {
        "id": "q25b",
        "code": "BI3",
-       "text": "I plan to use AI in the coming term."
+       "text": "I plan to use AI in the coming term.",
+       "define": {
+        "term": "plan",
+        "text": "Planning is “the identification and organization of steps toward achieving a goal state.”",
+        "source": {
+         "label": "Szpunar, Spreng & Schacter (2014), PNAS, p. 18415",
+         "url": "https://doi.org/10.1073/pnas.1417144111"
+        }
+       }
       }
      ],
      "title": "Plans to keep using AI",
@@ -1298,26 +1382,30 @@ window.SURVEY = {
    "id": "sec_problem_solving",
    "slug": "problem_solving",
    "name": "PROBLEM SOLVING",
-   "description": "Using AI to understand, plan, and solve problems for homework, self study, and exam preparation.",
+   "description": "Using AI to understand, plan, and solve problems for homework, self-study, and exam preparation.",
    "aiTools": [
     "ChatGPT",
-    "Claude",
     "Google Gemini",
-    "Wolfram Alpha",
+    "Microsoft Copilot",
+    "Claude",
+    "DeepSeek",
+    "Grok",
     "Photomath",
+    "Gauth",
+    "Wolfram Alpha",
     "Symbolab",
-    "Microsoft Copilot"
+    "Mathway"
    ],
    "columns": [
     {
      "id": "c0",
-     "label": "Understanding & Planning Problems (Homework / Self Exercise)",
+     "label": "Understanding & Planning Problems (Homework / Self-Exercise)",
      "examples": "breaking a question into parts, listing what is given and what is asked, drawing out the assumptions, choosing a suitable formula or method; making a solution plan, explaining each step, producing a short or detailed solution, suggesting an alternative method; checking for math, unit, sign or logic errors, spotting a missing step, interpreting the physical meaning of the result; and simplifying the question, listing what to submit, reading a rubric, and drawing up a work plan"
     },
     {
      "id": "c1",
      "label": "Studying for Exam",
-     "examples": "practicing multiple choice, true or false, fill in the blank, open ended, calculation and case questions at easy, medium or hard difficulty; planning your midterm or final, a last three days plan, finding the most frequently tested topics, spotting your weak areas; and making a formula sheet, a one page review note, a list of common mistakes and flashcards"
+     "examples": "practicing multiple-choice, true-or-false, fill-in-the-blank, open-ended, calculation and case questions at easy, medium or hard difficulty; planning your midterm or final, a last-three-days plan, finding the most frequently tested topics, spotting your weak areas; and making a formula sheet, a one-page review note, a list of common mistakes and flashcards"
     }
    ],
    "groups": [
@@ -1368,7 +1456,7 @@ window.SURVEY = {
       },
       {
        "id": "q7b",
-       "code": "EOU4",
+       "code": "EU4",
        "text": "Learning to operate AI tools for problem solving is easy for me."
       }
      ],
@@ -1450,7 +1538,7 @@ window.SURVEY = {
       }
      ],
      "title": "Resources and support",
-     "help": "Whether you have what you need to use AI: a device, internet, access, the know how, and support."
+     "help": "Whether you have what you need to use AI: a device, internet, access, the know-how, and support."
     },
     {
      "name": "Self Efficacy",
@@ -1473,7 +1561,7 @@ window.SURVEY = {
       {
        "id": "q19b",
        "code": "SE7",
-       "text": "I could complete a task using AI if I had just the built in help facility for assistance."
+       "text": "I could complete a task using AI if I had just the built-in help facility for assistance."
       }
      ],
      "title": "Confidence on your own",
@@ -1512,17 +1600,41 @@ window.SURVEY = {
       {
        "id": "q24",
        "code": "BI1",
-       "text": "I intend to use AI in the coming term."
+       "text": "I intend to use AI in the coming term.",
+       "define": {
+        "term": "intend",
+        "text": "Intention is “the mental act of setting a goal.”",
+        "source": {
+         "label": "Szpunar, Spreng & Schacter (2014), PNAS, p. 18415",
+         "url": "https://doi.org/10.1073/pnas.1417144111"
+        }
+       }
       },
       {
        "id": "q25",
        "code": "BI2",
-       "text": "I predict I would use AI in the coming term."
+       "text": "I predict I would use AI in the coming term.",
+       "define": {
+        "term": "predict",
+        "text": "Prediction is “estimation of the likelihood of … a particular future outcome.”",
+        "source": {
+         "label": "Szpunar, Spreng & Schacter (2014), PNAS, p. 18415",
+         "url": "https://doi.org/10.1073/pnas.1417144111"
+        }
+       }
       },
       {
        "id": "q25b",
        "code": "BI3",
-       "text": "I plan to use AI in the coming term."
+       "text": "I plan to use AI in the coming term.",
+       "define": {
+        "term": "plan",
+        "text": "Planning is “the identification and organization of steps toward achieving a goal state.”",
+        "source": {
+         "label": "Szpunar, Spreng & Schacter (2014), PNAS, p. 18415",
+         "url": "https://doi.org/10.1073/pnas.1417144111"
+        }
+       }
       }
      ],
      "title": "Plans to keep using AI",
@@ -1566,17 +1678,17 @@ window.SURVEY = {
       {
        "id": "q30",
        "code": "TTF2",
-       "text": "Using AI fits well with the way I like to enhance the efficiency of my problem solving activities."
+       "text": "Using AI fits well with the way I like to enhance the efficiency of my problem-solving activities."
       },
       {
        "id": "q30b",
        "code": "TTF3",
-       "text": "Using AI fits well with the way I like to strengthen my problem solving skills."
+       "text": "Using AI fits well with the way I like to strengthen my problem-solving skills."
       },
       {
        "id": "q31",
        "code": "TTF4",
-       "text": "Using AI fits well with all aspects of my problem solving tasks."
+       "text": "Using AI fits well with all aspects of my problem-solving tasks."
       }
      ],
      "title": "Fit with how you work",
@@ -1591,13 +1703,17 @@ window.SURVEY = {
    "description": "Using AI to plan, draft, review, and present academic work such as reports, essays, presentations, visuals, and productivity.",
    "aiTools": [
     "ChatGPT",
-    "Claude",
     "Google Gemini",
-    "Notion AI",
+    "Microsoft Copilot",
+    "Claude",
+    "DeepSeek",
     "Grammarly",
-    "Gamma",
     "Canva AI",
-    "Microsoft Copilot"
+    "QuillBot",
+    "DeepL",
+    "Notion AI",
+    "Gamma",
+    "Napkin AI"
    ],
    "columns": [
     {
@@ -1608,7 +1724,7 @@ window.SURVEY = {
     {
      "id": "c1",
      "label": "Quality Checks Before Submission (Report & Pres.)",
-     "examples": "checking spelling, grammar, formatting and citations, matching text with tables and figures, spotting a missing heading, source or calculation step; and improving academic tone, fixing grammar, shortening or strengthening sentences, passive voice, and Turkish to English translation support"
+     "examples": "checking spelling, grammar, formatting and citations, matching text with tables and figures, spotting a missing heading, source or calculation step; and improving academic tone, fixing grammar, shortening or strengthening sentences, passive voice, and Turkish-to-English translation support"
     },
     {
      "id": "c2",
@@ -1623,7 +1739,7 @@ window.SURVEY = {
     {
      "id": "c4",
      "label": "Productivity (Time Management & Collaboration)",
-     "examples": "merging different parts of a task or project, or collaborating on multiple projects with project partners; and a weekly plan, a to do list, a deadline plan, prioritizing, and a schedule for clashing tasks"
+     "examples": "merging different parts of a task or project, or collaborating on multiple projects with project partners; and a weekly plan, a to-do list, a deadline plan, prioritizing, and a schedule for clashing tasks"
     }
    ],
    "groups": [
@@ -1674,7 +1790,7 @@ window.SURVEY = {
       },
       {
        "id": "q7b",
-       "code": "EOU4",
+       "code": "EU4",
        "text": "Learning to operate AI tools for reporting, presentations and organization is easy for me."
       }
      ],
@@ -1756,7 +1872,7 @@ window.SURVEY = {
       }
      ],
      "title": "Resources and support",
-     "help": "Whether you have what you need to use AI: a device, internet, access, the know how, and support."
+     "help": "Whether you have what you need to use AI: a device, internet, access, the know-how, and support."
     },
     {
      "name": "Self Efficacy",
@@ -1779,7 +1895,7 @@ window.SURVEY = {
       {
        "id": "q19b",
        "code": "SE7",
-       "text": "I could complete a task using AI if I had just the built in help facility for assistance."
+       "text": "I could complete a task using AI if I had just the built-in help facility for assistance."
       }
      ],
      "title": "Confidence on your own",
@@ -1818,17 +1934,41 @@ window.SURVEY = {
       {
        "id": "q24",
        "code": "BI1",
-       "text": "I intend to use AI in the coming term."
+       "text": "I intend to use AI in the coming term.",
+       "define": {
+        "term": "intend",
+        "text": "Intention is “the mental act of setting a goal.”",
+        "source": {
+         "label": "Szpunar, Spreng & Schacter (2014), PNAS, p. 18415",
+         "url": "https://doi.org/10.1073/pnas.1417144111"
+        }
+       }
       },
       {
        "id": "q25",
        "code": "BI2",
-       "text": "I predict I would use AI in the coming term."
+       "text": "I predict I would use AI in the coming term.",
+       "define": {
+        "term": "predict",
+        "text": "Prediction is “estimation of the likelihood of … a particular future outcome.”",
+        "source": {
+         "label": "Szpunar, Spreng & Schacter (2014), PNAS, p. 18415",
+         "url": "https://doi.org/10.1073/pnas.1417144111"
+        }
+       }
       },
       {
        "id": "q25b",
        "code": "BI3",
-       "text": "I plan to use AI in the coming term."
+       "text": "I plan to use AI in the coming term.",
+       "define": {
+        "term": "plan",
+        "text": "Planning is “the identification and organization of steps toward achieving a goal state.”",
+        "source": {
+         "label": "Szpunar, Spreng & Schacter (2014), PNAS, p. 18415",
+         "url": "https://doi.org/10.1073/pnas.1417144111"
+        }
+       }
       }
      ],
      "title": "Plans to keep using AI",
@@ -1897,11 +2037,16 @@ window.SURVEY = {
    "description": "Using AI for data and code: collecting and processing data, representing data, and developing, debugging, and running code.",
    "aiTools": [
     "ChatGPT",
-    "Claude",
     "Google Gemini",
     "Microsoft Copilot",
+    "Claude",
+    "DeepSeek",
+    "GitHub Copilot",
     "Wolfram Alpha",
-    "GitHub Copilot"
+    "Cursor",
+    "Claude Code",
+    "OpenAI Codex",
+    "Julius AI"
    ],
    "columns": [
     {
@@ -1917,7 +2062,7 @@ window.SURVEY = {
     {
      "id": "c2",
      "label": "Code Development & Debugging",
-     "examples": "a skeleton, project structure, choosing a language or library, writing a function or algorithm, reading and writing data, plotting code; and explaining an error message, analyzing why it does not work, refactoring, line by line explanation, and adding comments"
+     "examples": "a skeleton, project structure, choosing a language or library, writing a function or algorithm, reading and writing data, plotting code; and explaining an error message, analyzing why it does not work, refactoring, line-by-line explanation, and adding comments"
     },
     {
      "id": "c3",
@@ -1973,7 +2118,7 @@ window.SURVEY = {
       },
       {
        "id": "q7b",
-       "code": "EOU4",
+       "code": "EU4",
        "text": "Learning to operate AI tools for data processing and coding is easy for me."
       }
      ],
@@ -2055,7 +2200,7 @@ window.SURVEY = {
       }
      ],
      "title": "Resources and support",
-     "help": "Whether you have what you need to use AI: a device, internet, access, the know how, and support."
+     "help": "Whether you have what you need to use AI: a device, internet, access, the know-how, and support."
     },
     {
      "name": "Self Efficacy",
@@ -2078,7 +2223,7 @@ window.SURVEY = {
       {
        "id": "q19b",
        "code": "SE7",
-       "text": "I could complete a task using AI if I had just the built in help facility for assistance."
+       "text": "I could complete a task using AI if I had just the built-in help facility for assistance."
       }
      ],
      "title": "Confidence on your own",
@@ -2117,17 +2262,41 @@ window.SURVEY = {
       {
        "id": "q24",
        "code": "BI1",
-       "text": "I intend to use AI in the coming term."
+       "text": "I intend to use AI in the coming term.",
+       "define": {
+        "term": "intend",
+        "text": "Intention is “the mental act of setting a goal.”",
+        "source": {
+         "label": "Szpunar, Spreng & Schacter (2014), PNAS, p. 18415",
+         "url": "https://doi.org/10.1073/pnas.1417144111"
+        }
+       }
       },
       {
        "id": "q25",
        "code": "BI2",
-       "text": "I predict I would use AI in the coming term."
+       "text": "I predict I would use AI in the coming term.",
+       "define": {
+        "term": "predict",
+        "text": "Prediction is “estimation of the likelihood of … a particular future outcome.”",
+        "source": {
+         "label": "Szpunar, Spreng & Schacter (2014), PNAS, p. 18415",
+         "url": "https://doi.org/10.1073/pnas.1417144111"
+        }
+       }
       },
       {
        "id": "q25b",
        "code": "BI3",
-       "text": "I plan to use AI in the coming term."
+       "text": "I plan to use AI in the coming term.",
+       "define": {
+        "term": "plan",
+        "text": "Planning is “the identification and organization of steps toward achieving a goal state.”",
+        "source": {
+         "label": "Szpunar, Spreng & Schacter (2014), PNAS, p. 18415",
+         "url": "https://doi.org/10.1073/pnas.1417144111"
+        }
+       }
       }
      ],
      "title": "Plans to keep using AI",
@@ -2330,6 +2499,8 @@ window.SURVEY = {
       });
       (sec.aiTools || []).forEach(function (t) { if (tools.indexOf(t) < 0) tools.push(t); });
     });
+    var ranked = (S.meta && S.meta.aiTools) || [];
+    tools.sort(function (a, b) { var ia = ranked.indexOf(a), ib = ranked.indexOf(b); return (ia < 0 ? 1e9 : ia) - (ib < 0 ? 1e9 : ib); });
     var merged = {
       id: "sec_applied", slug: "applied", name: "Applied AI Use",
       description: "This section focuses on AI use across four civil engineering task areas: learning and brainstorming, problem solving, reporting and presentations, and data processing and coding. Select every task for which you use AI, then rate each statement based on your experience with the selected tasks.",
@@ -2910,6 +3081,19 @@ window.SURVEY = {
         var rtr = el("tr", "qrow");
         var qcell = el("th", "qcell"); qcell.setAttribute("scope", "row");
         qcell.appendChild(el("span", "qtext", esc(q.text || "")));
+        if (q.define && q.define.term && q.define.text) {
+          var def = document.createElement("details"); def.className = "qdef";
+          def.appendChild(el("summary", null, "What does \u201c" + esc(q.define.term) + "\u201d mean?"));
+          var body = el("p", "qdef-body", esc(q.define.text));
+          if (q.define.source && q.define.source.label) {
+            var cite = el("span", "qdef-src", "Source: ");
+            if (q.define.source.url) { var a = el("a", null, esc(q.define.source.label)); a.href = q.define.source.url; a.target = "_blank"; a.rel = "noopener noreferrer"; cite.appendChild(a); }
+            else cite.appendChild(document.createTextNode(q.define.source.label));
+            body.appendChild(cite);
+          }
+          def.appendChild(body);
+          qcell.appendChild(def);
+        }
         rtr.appendChild(qcell);
         cols.forEach(function (col) {
           var active = usageOf(sec, col) === "yes";
