@@ -546,7 +546,7 @@ table.matrix { border-collapse: separate; border-spacing: 0; width: max-content;
   
   <script>window.SURVEY_VARIANT = "merged";</script>
   <script>
-window.SURVEY_CONFIG = { webAppUrl: "https://script.google.com/macros/s/AKfycbzZBmqim6nhILjZLywkDsvkgTncuVgrMaMy3izYwpow-UbhvnrdUNHC6RVZvablnieMkA/exec", requireToken: false, projectTag: "ipcmc_survey_v1", schemaVersion: "1.0.0", appVersion: "2026-10-23", payloadRevision: "4", clientBuild: "feedback-2026-10-23" };
+window.SURVEY_CONFIG = { webAppUrl: "https://script.google.com/macros/s/AKfycbzZBmqim6nhILjZLywkDsvkgTncuVgrMaMy3izYwpow-UbhvnrdUNHC6RVZvablnieMkA/exec", requireToken: false, projectTag: "ipcmc_survey_v1", schemaVersion: "1.2.0", appVersion: "2026-10-31", payloadRevision: "6", clientBuild: "item-review-2026-10-31b" };
 window.SURVEY = {
  "meta": {
   "title": "Evaluation of Students’ Use and Technology Acceptance of Artificial Intelligence Tools in Civil Engineering Education",
@@ -679,7 +679,7 @@ window.SURVEY = {
       {
        "id": "q1",
        "code": "RA1",
-       "text": "Using AI lets me accomplish tasks more quickly."
+       "text": "Using AI enables me to accomplish tasks more quickly."
       },
       {
        "id": "q2",
@@ -694,7 +694,7 @@ window.SURVEY = {
       {
        "id": "q4",
        "code": "OE7",
-       "text": "Using AI increases my chances of gaining additional benefits."
+       "text": "Using AI increases my chances of achieving outcomes that benefit me."
       }
      ],
      "title": "Usefulness and productivity",
@@ -721,7 +721,7 @@ window.SURVEY = {
       {
        "id": "q7b",
        "code": "EOU4",
-       "text": "Learning to operate the AI is easy for me."
+       "text": "Learning to operate AI tools is easy for me."
       }
      ],
      "title": "Ease of use",
@@ -760,17 +760,22 @@ window.SURVEY = {
       {
        "id": "q12",
        "code": "SN1",
-       "text": "People who influence my behavior (for example, instructors, classmates, or family) think I should use AI."
+       "text": "People who influence my behavior think that I should use AI."
       },
       {
        "id": "q13",
        "code": "SN2",
-       "text": "People who are important to me think I should use AI."
+       "text": "People who are important to me think that I should use AI."
+      },
+      {
+       "id": "q13b",
+       "code": "SF2",
+       "text": "My instructors and teaching assistants have been helpful in my use of AI."
       },
       {
        "id": "q14",
        "code": "SF4",
-       "text": "In general, my department or university supports the use of AI."
+       "text": "In general, my department or university has supported the use of AI."
       }
      ],
      "title": "What people around you think",
@@ -782,12 +787,18 @@ window.SURVEY = {
       {
        "id": "q15",
        "code": "PBC2",
-       "text": "I have the resources necessary to use AI (for example, a device, internet access, and a free or paid subscription)."
+       "text": "I have the resources necessary to use AI."
       },
       {
        "id": "q16",
        "code": "PBC3",
        "text": "I have the knowledge necessary to use AI."
+      },
+      {
+       "id": "q16b",
+       "code": "PBC5",
+       "text": "AI is not compatible with other systems I use.",
+       "reverse": true
       }
      ],
      "title": "Resources and support",
@@ -810,6 +821,11 @@ window.SURVEY = {
        "id": "q19",
        "code": "SE6",
        "text": "I could complete a task using AI if I had a lot of time to complete it."
+      },
+      {
+       "id": "q19b",
+       "code": "SE7",
+       "text": "I could complete a task using AI if I had just the built in help facility for assistance."
       }
      ],
      "title": "Confidence on your own",
@@ -824,14 +840,14 @@ window.SURVEY = {
        "text": "I feel anxious about using AI."
       },
       {
-       "id": "q21",
-       "code": "ANX3",
-       "text": "I hesitate to use AI for fear of making mistakes."
+       "id": "q20b",
+       "code": "ANX2",
+       "text": "It scares me to think that I could lose a lot of information by giving AI the wrong instruction."
       },
       {
-       "id": "q22",
-       "code": "ANX-add",
-       "text": "I hesitate to use AI for fear of getting recognized for using it."
+       "id": "q21",
+       "code": "ANX3",
+       "text": "I hesitate to use AI for fear of making mistakes I cannot correct."
       },
       {
        "id": "q23",
@@ -840,7 +856,7 @@ window.SURVEY = {
       }
      ],
      "title": "Worries and hesitations",
-     "help": "Worries that hold you back: making mistakes, being noticed for using AI, or feeling intimidated."
+     "help": "Worries that hold you back: losing information, making mistakes, or feeling intimidated."
     },
     {
      "name": "Behavioral Intention",
@@ -848,20 +864,30 @@ window.SURVEY = {
       {
        "id": "q24",
        "code": "BI1",
-       "text": "I intend to use AI in the coming term (I plan to use it)."
+       "text": "I intend to use AI in the coming term."
       },
       {
        "id": "q25",
        "code": "BI2",
-       "text": "I predict I will use AI in the coming term (I think it is likely that I will actually use it, whatever my plans)."
+       "text": "I predict I would use AI in the coming term."
+      },
+      {
+       "id": "q25b",
+       "code": "BI3",
+       "text": "I plan to use AI in the coming term."
       }
      ],
      "title": "Plans to keep using AI",
-     "help": "Whether you plan to use AI in the coming term (intend), and how likely you think it is that you actually will (predict)."
+     "help": "Intend means setting yourself a goal to use AI. Predict means estimating how likely it is that you will actually use AI. Plan means identifying and organizing the steps you will take to use AI."
     },
     {
      "name": "Trust",
      "questions": [
+      {
+       "id": "q26a",
+       "code": "TR1",
+       "text": "I trust that AI tools can carry out tasks without my assistance."
+      },
       {
        "id": "q26",
        "code": "TR2",
@@ -870,12 +896,12 @@ window.SURVEY = {
       {
        "id": "q27",
        "code": "TR3",
-       "text": "I would trust the problem solving and teaching skills of the AI tools more than the skill of the professors and/or teaching assistants."
+       "text": "I would trust the skills of AI tools in carrying out these tasks more than the skills of a human including myself."
       },
       {
        "id": "q28",
        "code": "TR4",
-       "text": "AI tools can be trusted to carry out tasks safely (without grave errors)."
+       "text": "AI tools can be trusted to carry out tasks safely."
       }
      ],
      "title": "Trust in AI",
@@ -892,7 +918,12 @@ window.SURVEY = {
       {
        "id": "q30",
        "code": "TTF2",
-       "text": "Using AI fits well with the way I like to enhance my efficiency."
+       "text": "Using AI fits well with the way I like to enhance the efficiency of my activities."
+      },
+      {
+       "id": "q30b",
+       "code": "TTF3",
+       "text": "Using AI fits well with the way I like to strengthen my skills."
       },
       {
        "id": "q31",
@@ -905,6 +936,28 @@ window.SURVEY = {
     }
    ],
    "extra": [
+    {
+     "id": "anx_recognized_academic",
+     "label": "I hesitate to use AI for academic tasks (for example, work I submit, such as homework, lab reports, term projects, presentations, or coding assignments) for fear of getting recognized for using it.",
+     "options": [
+      "Strongly disagree",
+      "Disagree",
+      "Neutral",
+      "Agree",
+      "Strongly agree"
+     ]
+    },
+    {
+     "id": "anx_recognized_nonacademic",
+     "label": "I hesitate to use AI for non academic tasks (for example, emails or messages I send, social media posts, or announcements for a club or event) for fear of getting recognized for using it.",
+     "options": [
+      "Strongly disagree",
+      "Disagree",
+      "Neutral",
+      "Agree",
+      "Strongly agree"
+     ]
+    },
     {
      "id": "ai_experience",
      "label": "How would you describe your experience with AI tools?",
@@ -976,7 +1029,7 @@ window.SURVEY = {
       {
        "id": "q1",
        "code": "RA1",
-       "text": "Using AI for learning and brainstorming lets me accomplish tasks more quickly."
+       "text": "Using AI for learning and brainstorming enables me to accomplish tasks more quickly."
       },
       {
        "id": "q2",
@@ -991,7 +1044,7 @@ window.SURVEY = {
       {
        "id": "q4",
        "code": "OE7",
-       "text": "Using AI for learning and brainstorming increases my chances of gaining additional benefits."
+       "text": "Using AI for learning and brainstorming increases my chances of achieving outcomes that benefit me."
       }
      ],
      "title": "Usefulness and productivity",
@@ -1018,7 +1071,7 @@ window.SURVEY = {
       {
        "id": "q7b",
        "code": "EOU4",
-       "text": "Learning to operate the AI for learning and brainstorming is easy for me."
+       "text": "Learning to operate AI tools for learning and brainstorming is easy for me."
       }
      ],
      "title": "Ease of use",
@@ -1057,17 +1110,22 @@ window.SURVEY = {
       {
        "id": "q12",
        "code": "SN1",
-       "text": "People who influence my behavior (for example, instructors, classmates, or family) think I should use AI."
+       "text": "People who influence my behavior think that I should use AI."
       },
       {
        "id": "q13",
        "code": "SN2",
-       "text": "People who are important to me think I should use AI."
+       "text": "People who are important to me think that I should use AI."
+      },
+      {
+       "id": "q13b",
+       "code": "SF2",
+       "text": "My instructors and teaching assistants have been helpful in my use of AI."
       },
       {
        "id": "q14",
        "code": "SF4",
-       "text": "In general, my department or university supports the use of AI."
+       "text": "In general, my department or university has supported the use of AI."
       }
      ],
      "title": "What people around you think",
@@ -1079,12 +1137,18 @@ window.SURVEY = {
       {
        "id": "q15",
        "code": "PBC2",
-       "text": "I have the resources necessary to use AI (for example, a device, internet access, and a free or paid subscription)."
+       "text": "I have the resources necessary to use AI."
       },
       {
        "id": "q16",
        "code": "PBC3",
        "text": "I have the knowledge necessary to use AI."
+      },
+      {
+       "id": "q16b",
+       "code": "PBC5",
+       "text": "AI is not compatible with other systems I use.",
+       "reverse": true
       }
      ],
      "title": "Resources and support",
@@ -1107,6 +1171,11 @@ window.SURVEY = {
        "id": "q19",
        "code": "SE6",
        "text": "I could complete a task using AI if I had a lot of time to complete it."
+      },
+      {
+       "id": "q19b",
+       "code": "SE7",
+       "text": "I could complete a task using AI if I had just the built in help facility for assistance."
       }
      ],
      "title": "Confidence on your own",
@@ -1121,14 +1190,14 @@ window.SURVEY = {
        "text": "I feel anxious about using AI."
       },
       {
-       "id": "q21",
-       "code": "ANX3",
-       "text": "I hesitate to use AI for fear of making mistakes."
+       "id": "q20b",
+       "code": "ANX2",
+       "text": "It scares me to think that I could lose a lot of information by giving AI the wrong instruction."
       },
       {
-       "id": "q22",
-       "code": "ANX-add",
-       "text": "I hesitate to use AI for fear of getting recognized for using it."
+       "id": "q21",
+       "code": "ANX3",
+       "text": "I hesitate to use AI for fear of making mistakes I cannot correct."
       },
       {
        "id": "q23",
@@ -1137,7 +1206,7 @@ window.SURVEY = {
       }
      ],
      "title": "Worries and hesitations",
-     "help": "Worries that hold you back: making mistakes, being noticed for using AI, or feeling intimidated."
+     "help": "Worries that hold you back: losing information, making mistakes, or feeling intimidated."
     },
     {
      "name": "Behavioral Intention",
@@ -1145,20 +1214,30 @@ window.SURVEY = {
       {
        "id": "q24",
        "code": "BI1",
-       "text": "I intend to use AI in the coming term (I plan to use it)."
+       "text": "I intend to use AI in the coming term."
       },
       {
        "id": "q25",
        "code": "BI2",
-       "text": "I predict I will use AI in the coming term (I think it is likely that I will actually use it, whatever my plans)."
+       "text": "I predict I would use AI in the coming term."
+      },
+      {
+       "id": "q25b",
+       "code": "BI3",
+       "text": "I plan to use AI in the coming term."
       }
      ],
      "title": "Plans to keep using AI",
-     "help": "Whether you plan to use AI in the coming term (intend), and how likely you think it is that you actually will (predict)."
+     "help": "Intend means setting yourself a goal to use AI. Predict means estimating how likely it is that you will actually use AI. Plan means identifying and organizing the steps you will take to use AI."
     },
     {
      "name": "Trust",
      "questions": [
+      {
+       "id": "q26a",
+       "code": "TR1",
+       "text": "I trust that AI tools can carry out tasks without my assistance."
+      },
       {
        "id": "q26",
        "code": "TR2",
@@ -1167,12 +1246,12 @@ window.SURVEY = {
       {
        "id": "q27",
        "code": "TR3",
-       "text": "I would trust the problem solving and teaching skills of the AI tools more than the skill of the professors and/or teaching assistants."
+       "text": "I would trust the skills of AI tools in carrying out these tasks more than the skills of a human including myself."
       },
       {
        "id": "q28",
        "code": "TR4",
-       "text": "AI tools can be trusted to carry out tasks safely (without grave errors)."
+       "text": "AI tools can be trusted to carry out tasks safely."
       }
      ],
      "title": "Trust in AI",
@@ -1189,7 +1268,12 @@ window.SURVEY = {
       {
        "id": "q30",
        "code": "TTF2",
-       "text": "Using AI fits well with the way I like to enhance my efficiency in learning and brainstorming."
+       "text": "Using AI fits well with the way I like to enhance the efficiency of my learning and brainstorming activities."
+      },
+      {
+       "id": "q30b",
+       "code": "TTF3",
+       "text": "Using AI fits well with the way I like to strengthen my learning and brainstorming skills."
       },
       {
        "id": "q31",
@@ -1235,7 +1319,7 @@ window.SURVEY = {
       {
        "id": "q1",
        "code": "RA1",
-       "text": "Using AI for problem solving lets me accomplish tasks more quickly."
+       "text": "Using AI for problem solving enables me to accomplish tasks more quickly."
       },
       {
        "id": "q2",
@@ -1250,7 +1334,7 @@ window.SURVEY = {
       {
        "id": "q4",
        "code": "OE7",
-       "text": "Using AI for problem solving increases my chances of gaining additional benefits."
+       "text": "Using AI for problem solving increases my chances of achieving outcomes that benefit me."
       }
      ],
      "title": "Usefulness and productivity",
@@ -1277,7 +1361,7 @@ window.SURVEY = {
       {
        "id": "q7b",
        "code": "EOU4",
-       "text": "Learning to operate the AI for problem solving is easy for me."
+       "text": "Learning to operate AI tools for problem solving is easy for me."
       }
      ],
      "title": "Ease of use",
@@ -1316,17 +1400,22 @@ window.SURVEY = {
       {
        "id": "q12",
        "code": "SN1",
-       "text": "People who influence my behavior (for example, instructors, classmates, or family) think I should use AI."
+       "text": "People who influence my behavior think that I should use AI."
       },
       {
        "id": "q13",
        "code": "SN2",
-       "text": "People who are important to me think I should use AI."
+       "text": "People who are important to me think that I should use AI."
+      },
+      {
+       "id": "q13b",
+       "code": "SF2",
+       "text": "My instructors and teaching assistants have been helpful in my use of AI."
       },
       {
        "id": "q14",
        "code": "SF4",
-       "text": "In general, my department or university supports the use of AI."
+       "text": "In general, my department or university has supported the use of AI."
       }
      ],
      "title": "What people around you think",
@@ -1338,12 +1427,18 @@ window.SURVEY = {
       {
        "id": "q15",
        "code": "PBC2",
-       "text": "I have the resources necessary to use AI (for example, a device, internet access, and a free or paid subscription)."
+       "text": "I have the resources necessary to use AI."
       },
       {
        "id": "q16",
        "code": "PBC3",
        "text": "I have the knowledge necessary to use AI."
+      },
+      {
+       "id": "q16b",
+       "code": "PBC5",
+       "text": "AI is not compatible with other systems I use.",
+       "reverse": true
       }
      ],
      "title": "Resources and support",
@@ -1366,6 +1461,11 @@ window.SURVEY = {
        "id": "q19",
        "code": "SE6",
        "text": "I could complete a task using AI if I had a lot of time to complete it."
+      },
+      {
+       "id": "q19b",
+       "code": "SE7",
+       "text": "I could complete a task using AI if I had just the built in help facility for assistance."
       }
      ],
      "title": "Confidence on your own",
@@ -1380,14 +1480,14 @@ window.SURVEY = {
        "text": "I feel anxious about using AI."
       },
       {
-       "id": "q21",
-       "code": "ANX3",
-       "text": "I hesitate to use AI for fear of making mistakes."
+       "id": "q20b",
+       "code": "ANX2",
+       "text": "It scares me to think that I could lose a lot of information by giving AI the wrong instruction."
       },
       {
-       "id": "q22",
-       "code": "ANX-add",
-       "text": "I hesitate to use AI for fear of getting recognized for using it."
+       "id": "q21",
+       "code": "ANX3",
+       "text": "I hesitate to use AI for fear of making mistakes I cannot correct."
       },
       {
        "id": "q23",
@@ -1396,7 +1496,7 @@ window.SURVEY = {
       }
      ],
      "title": "Worries and hesitations",
-     "help": "Worries that hold you back: making mistakes, being noticed for using AI, or feeling intimidated."
+     "help": "Worries that hold you back: losing information, making mistakes, or feeling intimidated."
     },
     {
      "name": "Behavioral Intention",
@@ -1404,20 +1504,30 @@ window.SURVEY = {
       {
        "id": "q24",
        "code": "BI1",
-       "text": "I intend to use AI in the coming term (I plan to use it)."
+       "text": "I intend to use AI in the coming term."
       },
       {
        "id": "q25",
        "code": "BI2",
-       "text": "I predict I will use AI in the coming term (I think it is likely that I will actually use it, whatever my plans)."
+       "text": "I predict I would use AI in the coming term."
+      },
+      {
+       "id": "q25b",
+       "code": "BI3",
+       "text": "I plan to use AI in the coming term."
       }
      ],
      "title": "Plans to keep using AI",
-     "help": "Whether you plan to use AI in the coming term (intend), and how likely you think it is that you actually will (predict)."
+     "help": "Intend means setting yourself a goal to use AI. Predict means estimating how likely it is that you will actually use AI. Plan means identifying and organizing the steps you will take to use AI."
     },
     {
      "name": "Trust",
      "questions": [
+      {
+       "id": "q26a",
+       "code": "TR1",
+       "text": "I trust that AI tools can carry out tasks without my assistance."
+      },
       {
        "id": "q26",
        "code": "TR2",
@@ -1426,12 +1536,12 @@ window.SURVEY = {
       {
        "id": "q27",
        "code": "TR3",
-       "text": "I would trust the problem solving and teaching skills of the AI tools more than the skill of the professors and/or teaching assistants."
+       "text": "I would trust the skills of AI tools in carrying out these tasks more than the skills of a human including myself."
       },
       {
        "id": "q28",
        "code": "TR4",
-       "text": "AI tools can be trusted to carry out tasks safely (without grave errors)."
+       "text": "AI tools can be trusted to carry out tasks safely."
       }
      ],
      "title": "Trust in AI",
@@ -1448,7 +1558,12 @@ window.SURVEY = {
       {
        "id": "q30",
        "code": "TTF2",
-       "text": "Using AI fits well with the way I like to enhance my efficiency in problem solving."
+       "text": "Using AI fits well with the way I like to enhance the efficiency of my problem solving activities."
+      },
+      {
+       "id": "q30b",
+       "code": "TTF3",
+       "text": "Using AI fits well with the way I like to strengthen my problem solving skills."
       },
       {
        "id": "q31",
@@ -1510,7 +1625,7 @@ window.SURVEY = {
       {
        "id": "q1",
        "code": "RA1",
-       "text": "Using AI for reporting, presentations and organization lets me accomplish tasks more quickly."
+       "text": "Using AI for reporting, presentations and organization enables me to accomplish tasks more quickly."
       },
       {
        "id": "q2",
@@ -1525,7 +1640,7 @@ window.SURVEY = {
       {
        "id": "q4",
        "code": "OE7",
-       "text": "Using AI for reporting, presentations and organization increases my chances of gaining additional benefits."
+       "text": "Using AI for reporting, presentations and organization increases my chances of achieving outcomes that benefit me."
       }
      ],
      "title": "Usefulness and productivity",
@@ -1552,7 +1667,7 @@ window.SURVEY = {
       {
        "id": "q7b",
        "code": "EOU4",
-       "text": "Learning to operate the AI for reporting, presentations and organization is easy for me."
+       "text": "Learning to operate AI tools for reporting, presentations and organization is easy for me."
       }
      ],
      "title": "Ease of use",
@@ -1591,17 +1706,22 @@ window.SURVEY = {
       {
        "id": "q12",
        "code": "SN1",
-       "text": "People who influence my behavior (for example, instructors, classmates, or family) think I should use AI."
+       "text": "People who influence my behavior think that I should use AI."
       },
       {
        "id": "q13",
        "code": "SN2",
-       "text": "People who are important to me think I should use AI."
+       "text": "People who are important to me think that I should use AI."
+      },
+      {
+       "id": "q13b",
+       "code": "SF2",
+       "text": "My instructors and teaching assistants have been helpful in my use of AI."
       },
       {
        "id": "q14",
        "code": "SF4",
-       "text": "In general, my department or university supports the use of AI."
+       "text": "In general, my department or university has supported the use of AI."
       }
      ],
      "title": "What people around you think",
@@ -1613,12 +1733,18 @@ window.SURVEY = {
       {
        "id": "q15",
        "code": "PBC2",
-       "text": "I have the resources necessary to use AI (for example, a device, internet access, and a free or paid subscription)."
+       "text": "I have the resources necessary to use AI."
       },
       {
        "id": "q16",
        "code": "PBC3",
        "text": "I have the knowledge necessary to use AI."
+      },
+      {
+       "id": "q16b",
+       "code": "PBC5",
+       "text": "AI is not compatible with other systems I use.",
+       "reverse": true
       }
      ],
      "title": "Resources and support",
@@ -1641,6 +1767,11 @@ window.SURVEY = {
        "id": "q19",
        "code": "SE6",
        "text": "I could complete a task using AI if I had a lot of time to complete it."
+      },
+      {
+       "id": "q19b",
+       "code": "SE7",
+       "text": "I could complete a task using AI if I had just the built in help facility for assistance."
       }
      ],
      "title": "Confidence on your own",
@@ -1655,14 +1786,14 @@ window.SURVEY = {
        "text": "I feel anxious about using AI."
       },
       {
-       "id": "q21",
-       "code": "ANX3",
-       "text": "I hesitate to use AI for fear of making mistakes."
+       "id": "q20b",
+       "code": "ANX2",
+       "text": "It scares me to think that I could lose a lot of information by giving AI the wrong instruction."
       },
       {
-       "id": "q22",
-       "code": "ANX-add",
-       "text": "I hesitate to use AI for fear of getting recognized for using it."
+       "id": "q21",
+       "code": "ANX3",
+       "text": "I hesitate to use AI for fear of making mistakes I cannot correct."
       },
       {
        "id": "q23",
@@ -1671,7 +1802,7 @@ window.SURVEY = {
       }
      ],
      "title": "Worries and hesitations",
-     "help": "Worries that hold you back: making mistakes, being noticed for using AI, or feeling intimidated."
+     "help": "Worries that hold you back: losing information, making mistakes, or feeling intimidated."
     },
     {
      "name": "Behavioral Intention",
@@ -1679,20 +1810,30 @@ window.SURVEY = {
       {
        "id": "q24",
        "code": "BI1",
-       "text": "I intend to use AI in the coming term (I plan to use it)."
+       "text": "I intend to use AI in the coming term."
       },
       {
        "id": "q25",
        "code": "BI2",
-       "text": "I predict I will use AI in the coming term (I think it is likely that I will actually use it, whatever my plans)."
+       "text": "I predict I would use AI in the coming term."
+      },
+      {
+       "id": "q25b",
+       "code": "BI3",
+       "text": "I plan to use AI in the coming term."
       }
      ],
      "title": "Plans to keep using AI",
-     "help": "Whether you plan to use AI in the coming term (intend), and how likely you think it is that you actually will (predict)."
+     "help": "Intend means setting yourself a goal to use AI. Predict means estimating how likely it is that you will actually use AI. Plan means identifying and organizing the steps you will take to use AI."
     },
     {
      "name": "Trust",
      "questions": [
+      {
+       "id": "q26a",
+       "code": "TR1",
+       "text": "I trust that AI tools can carry out tasks without my assistance."
+      },
       {
        "id": "q26",
        "code": "TR2",
@@ -1701,12 +1842,12 @@ window.SURVEY = {
       {
        "id": "q27",
        "code": "TR3",
-       "text": "I would trust the problem solving and teaching skills of the AI tools more than the skill of the professors and/or teaching assistants."
+       "text": "I would trust the skills of AI tools in carrying out these tasks more than the skills of a human including myself."
       },
       {
        "id": "q28",
        "code": "TR4",
-       "text": "AI tools can be trusted to carry out tasks safely (without grave errors)."
+       "text": "AI tools can be trusted to carry out tasks safely."
       }
      ],
      "title": "Trust in AI",
@@ -1723,7 +1864,12 @@ window.SURVEY = {
       {
        "id": "q30",
        "code": "TTF2",
-       "text": "Using AI fits well with the way I like to enhance my efficiency in reporting, presentations and organization."
+       "text": "Using AI fits well with the way I like to enhance the efficiency of my reporting, presentations and organization activities."
+      },
+      {
+       "id": "q30b",
+       "code": "TTF3",
+       "text": "Using AI fits well with the way I like to strengthen my reporting, presentations and organization skills."
       },
       {
        "id": "q31",
@@ -1778,7 +1924,7 @@ window.SURVEY = {
       {
        "id": "q1",
        "code": "RA1",
-       "text": "Using AI for data processing and coding lets me accomplish tasks more quickly."
+       "text": "Using AI for data processing and coding enables me to accomplish tasks more quickly."
       },
       {
        "id": "q2",
@@ -1793,7 +1939,7 @@ window.SURVEY = {
       {
        "id": "q4",
        "code": "OE7",
-       "text": "Using AI for data processing and coding increases my chances of gaining additional benefits."
+       "text": "Using AI for data processing and coding increases my chances of achieving outcomes that benefit me."
       }
      ],
      "title": "Usefulness and productivity",
@@ -1820,7 +1966,7 @@ window.SURVEY = {
       {
        "id": "q7b",
        "code": "EOU4",
-       "text": "Learning to operate the AI for data processing and coding is easy for me."
+       "text": "Learning to operate AI tools for data processing and coding is easy for me."
       }
      ],
      "title": "Ease of use",
@@ -1859,17 +2005,22 @@ window.SURVEY = {
       {
        "id": "q12",
        "code": "SN1",
-       "text": "People who influence my behavior (for example, instructors, classmates, or family) think I should use AI."
+       "text": "People who influence my behavior think that I should use AI."
       },
       {
        "id": "q13",
        "code": "SN2",
-       "text": "People who are important to me think I should use AI."
+       "text": "People who are important to me think that I should use AI."
+      },
+      {
+       "id": "q13b",
+       "code": "SF2",
+       "text": "My instructors and teaching assistants have been helpful in my use of AI."
       },
       {
        "id": "q14",
        "code": "SF4",
-       "text": "In general, my department or university supports the use of AI."
+       "text": "In general, my department or university has supported the use of AI."
       }
      ],
      "title": "What people around you think",
@@ -1881,12 +2032,18 @@ window.SURVEY = {
       {
        "id": "q15",
        "code": "PBC2",
-       "text": "I have the resources necessary to use AI (for example, a device, internet access, and a free or paid subscription)."
+       "text": "I have the resources necessary to use AI."
       },
       {
        "id": "q16",
        "code": "PBC3",
        "text": "I have the knowledge necessary to use AI."
+      },
+      {
+       "id": "q16b",
+       "code": "PBC5",
+       "text": "AI is not compatible with other systems I use.",
+       "reverse": true
       }
      ],
      "title": "Resources and support",
@@ -1909,6 +2066,11 @@ window.SURVEY = {
        "id": "q19",
        "code": "SE6",
        "text": "I could complete a task using AI if I had a lot of time to complete it."
+      },
+      {
+       "id": "q19b",
+       "code": "SE7",
+       "text": "I could complete a task using AI if I had just the built in help facility for assistance."
       }
      ],
      "title": "Confidence on your own",
@@ -1923,14 +2085,14 @@ window.SURVEY = {
        "text": "I feel anxious about using AI."
       },
       {
-       "id": "q21",
-       "code": "ANX3",
-       "text": "I hesitate to use AI for fear of making mistakes."
+       "id": "q20b",
+       "code": "ANX2",
+       "text": "It scares me to think that I could lose a lot of information by giving AI the wrong instruction."
       },
       {
-       "id": "q22",
-       "code": "ANX-add",
-       "text": "I hesitate to use AI for fear of getting recognized for using it."
+       "id": "q21",
+       "code": "ANX3",
+       "text": "I hesitate to use AI for fear of making mistakes I cannot correct."
       },
       {
        "id": "q23",
@@ -1939,7 +2101,7 @@ window.SURVEY = {
       }
      ],
      "title": "Worries and hesitations",
-     "help": "Worries that hold you back: making mistakes, being noticed for using AI, or feeling intimidated."
+     "help": "Worries that hold you back: losing information, making mistakes, or feeling intimidated."
     },
     {
      "name": "Behavioral Intention",
@@ -1947,20 +2109,30 @@ window.SURVEY = {
       {
        "id": "q24",
        "code": "BI1",
-       "text": "I intend to use AI in the coming term (I plan to use it)."
+       "text": "I intend to use AI in the coming term."
       },
       {
        "id": "q25",
        "code": "BI2",
-       "text": "I predict I will use AI in the coming term (I think it is likely that I will actually use it, whatever my plans)."
+       "text": "I predict I would use AI in the coming term."
+      },
+      {
+       "id": "q25b",
+       "code": "BI3",
+       "text": "I plan to use AI in the coming term."
       }
      ],
      "title": "Plans to keep using AI",
-     "help": "Whether you plan to use AI in the coming term (intend), and how likely you think it is that you actually will (predict)."
+     "help": "Intend means setting yourself a goal to use AI. Predict means estimating how likely it is that you will actually use AI. Plan means identifying and organizing the steps you will take to use AI."
     },
     {
      "name": "Trust",
      "questions": [
+      {
+       "id": "q26a",
+       "code": "TR1",
+       "text": "I trust that AI tools can carry out tasks without my assistance."
+      },
       {
        "id": "q26",
        "code": "TR2",
@@ -1969,12 +2141,12 @@ window.SURVEY = {
       {
        "id": "q27",
        "code": "TR3",
-       "text": "I would trust the problem solving and teaching skills of the AI tools more than the skill of the professors and/or teaching assistants."
+       "text": "I would trust the skills of AI tools in carrying out these tasks more than the skills of a human including myself."
       },
       {
        "id": "q28",
        "code": "TR4",
-       "text": "AI tools can be trusted to carry out tasks safely (without grave errors)."
+       "text": "AI tools can be trusted to carry out tasks safely."
       }
      ],
      "title": "Trust in AI",
@@ -1991,7 +2163,12 @@ window.SURVEY = {
       {
        "id": "q30",
        "code": "TTF2",
-       "text": "Using AI fits well with the way I like to enhance my efficiency in data processing and coding."
+       "text": "Using AI fits well with the way I like to enhance the efficiency of my data processing and coding activities."
+      },
+      {
+       "id": "q30b",
+       "code": "TTF3",
+       "text": "Using AI fits well with the way I like to strengthen my data processing and coding skills."
       },
       {
        "id": "q31",
@@ -2020,7 +2197,7 @@ window.SURVEY = {
   var FALLBACK_TOOLS = (S.meta && S.meta.aiTools) || [];
   var MAX_TOOLS = 3;
   var MAX_TOOL_NAME = 200;
-  var LS_KEY = "utaut_survey_answers_v8" + (VARIANT === "merged" ? "_alt" : "");
+  var LS_KEY = "utaut_survey_answers_v9" + (VARIANT === "merged" ? "_alt" : "");
 
   var answers = loadAnswers();
   bgQuestions().forEach(function (q) { var k = bgKey(q.id); if (q.options && answers[k] != null && optionsOf(q).indexOf(answers[k]) < 0) delete answers[k]; });
@@ -3206,7 +3383,7 @@ window.SURVEY = {
           (g.questions || []).forEach(function (q) {
             var key = keyOf(uiSection.id, q.id, uiColumn.id), has = used && answers[key] != null;
             responses.push({ construct: g.name, code: q.code || "", question: q.text || "", sub_area: sourceColumn.label || "",
-              uses_ai: used ? "Yes" : "No", tools: selectedTools, reverse: /reverse/i.test(g.name || ""),
+              uses_ai: used ? "Yes" : "No", tools: selectedTools, reverse: isReverse(g, q),
               value: has ? answers[key] : "", label: has ? scaleLabel(answers[key]) : "" });
           });
         });
@@ -3233,13 +3410,14 @@ window.SURVEY = {
             var key = keyOf(sec.id, q.id, col.id);
             var val = (used && answers[key] != null) ? answers[key] : "";
             var lab = (used && answers[key] != null) ? scaleLabel(answers[key]) : "";
-            lines.push(bgVals.concat([sec.name, col.label || "", uses, ts, g.name, /reverse/i.test(g.name || "") ? "yes" : "no", q.code || "", q.text || "", val, lab]).map(csvCell).join(","));
+            lines.push(bgVals.concat([sec.name, col.label || "", uses, ts, g.name, isReverse(g, q) ? "yes" : "no", q.code || "", q.text || "", val, lab]).map(csvCell).join(","));
           });
         });
       });
     });
     download("ai_survey_responses.csv", "﻿" + lines.join("\r\n"), "text/csv;charset=utf-8");
   }
+  function isReverse(g, q) { return (q && q.reverse === true) || /reverse/i.test((g && g.name) || ""); }
   function csvCell(v) { v = v == null ? "" : String(v); if (/[",\r\n]/.test(v)) v = '"' + v.replace(/"/g, '""') + '"'; return v; }
 
   function render() {
