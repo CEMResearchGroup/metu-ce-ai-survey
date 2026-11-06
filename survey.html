@@ -137,17 +137,12 @@ svg { display: block; }
 .hero-logo { height: 58px; width: auto; display: block; margin: 0 auto 20px; }
 .hero-org { margin: 0 0 12px; font-size: 14.5px; font-weight: 500; color: var(--ink-soft); }
 .welcome h1 { max-width: 800px; font-family: var(--font-display); font-optical-sizing: auto; font-size: clamp(32px,5.4vw,52px); line-height: 1.06; letter-spacing: -.018em; margin: 0 auto 18px; font-weight: 600; }
-.welcome-sub { font-size: clamp(15px,1.9vw,18px); color: var(--ink-soft); max-width: 720px; margin: 0 auto 15px; }
-.welcome-sub.small { font-size: 14.5px; }
+.welcome-sub { font-size: clamp(15px,1.9vw,18px); color: var(--ink-soft); max-width: 720px; margin: 0 auto 15px; text-align: left; }
 .hero-card { background: linear-gradient(180deg, var(--surface), var(--surface-2)); text-align: center;
   border: 1px solid var(--line-strong); border-radius: var(--radius); box-shadow: var(--shadow-sm); padding: clamp(28px,4.5vw,48px); position: relative; overflow: hidden; }
 .hero-card::after { display: none; }
 .hero-card > * { position: relative; }
-.consent { margin: 21px auto 0; font-size: 13.5px; color: var(--ink-soft); background: transparent; border-block: 1px solid var(--line); border-radius: 0; padding: 12px 6px; max-width: 720px; }
 
-.privacy { margin: 24px auto 0; max-width: 720px; text-align: left; }
-.privacy-head { margin: 0 0 8px; font-size: 15px; font-weight: 600; color: var(--ink); }
-.privacy-list { margin: 0; padding-left: 20px; display: grid; gap: 6px; font-size: 14px; line-height: 1.5; color: var(--ink-soft); }
 .welcome-actions { margin-top: 25px; display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; }
 .save-hint { font-family: var(--font-body); font-size: 12.5px; color: var(--ink-faint); }
 
@@ -255,7 +250,6 @@ svg { display: block; }
 .info-pop.zoom-pop { max-width: min(1220px, 100%); max-height: 100%; padding: 14px; display: flex; flex-direction: column; gap: 12px; }
 .zoom-scroll { overflow: auto; min-height: 0; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); -webkit-overflow-scrolling: touch; }
 .zoom-img { display: block; width: 1166px; max-width: none; height: auto; }
-.hero-quick { display: none; }
 .matrix-wrap { position: relative; border: 1px solid var(--line-strong); border-radius: var(--radius); box-shadow: var(--shadow-sm); background: var(--surface); overflow: hidden; scroll-margin-top: calc(var(--topbar-h) + 60px); }
 
 .matrix-scroll { overflow: auto; max-height: calc(100vh - 320px); max-height: calc(100svh - 320px); overscroll-behavior: contain; scroll-padding-left: 304px;
@@ -444,9 +438,6 @@ table.matrix { --qcol: 304px; border-collapse: separate; border-spacing: 0; widt
   .brand-logo { height: 22px; }
   .welcome h1 { font-size: 26px; line-height: 1.12; margin-bottom: 16px; }
   .hero-logo { height: 40px; margin-bottom: 14px; }
-  .hero-quick { display: grid; gap: 10px; justify-items: center; margin: 0 0 20px; }
-  .hero-quick .btn { width: 100%; justify-content: center; }
-  .hero-meta { margin: 0; font-size: 13.5px; color: var(--ink-soft); }
   .progress { flex: 0 0 auto; max-width: none; gap: 0; }
   .progress-track { display: none; }  
   .step-label { display: none; }
@@ -557,9 +548,7 @@ window.SURVEY = {
  "meta": {
   "title": "Evaluation of Students’ Use and Technology Acceptance of Artificial Intelligence Tools in Civil Engineering Education",
   "org": "Middle East Technical University (METU), Department of Civil Engineering",
-  "note": "Participation is voluntary and your responses are anonymous. They are used only for this academic study.",
-  "intro": "We are studying how civil engineering students use AI tools such as ChatGPT, Copilot and others in their everyday academic work, including learning, problem solving, reports and presentations, and coding. Our aim is to understand where AI genuinely helps, what gets in the way, and how it can better support engineering education.",
-  "howlong": "It takes about twenty to twenty-five minutes. First a few quick questions about you, then for five task areas you tell us whether you use AI and rate a short set of statements. You only answer the areas where you actually use AI, and there are no right or wrong answers.",
+  "intro": "Dear Participants,\n\nWe invite you to participate in this survey prepared within the scope of this research conducted by Assoc. Prof. Dr. Güzide ATASOY ÖZCAN and research assistants Güncel VARA, Gürkan Doğukan KARAKURT, and Melis SAYIN from the Construction Engineering and Management Division of the Department of Civil Engineering at Middle East Technical University (METU), which is approved by the METU Human Subjects Ethics Committee (Protocol Number: 0417-ODTÜİAEK-2026).\n\nThis study aims to evaluate the behaviors, interaction patterns, and perceptions regarding the characteristics of artificial intelligence tools among undergraduate and graduate engineering students actively studying in the Department of Civil Engineering.\n\nThrough this survey, we aim to understand your experiences, satisfaction, and expectations regarding the use of artificial intelligence tools within civil engineering education. Based on the findings, the study seeks to identify areas and tools that should be improved to enhance the quality of engineering education.\n\nThe survey includes questions related to various areas such as learning and idea generation, problem-solving, report and presentation preparation, data processing, and coding. It will take approximately 20 to 25 minutes to complete. After starting the survey, you may withdraw at any time if you choose not to continue. If the survey is not completed, your responses will not be recorded.\n\nParticipation in this survey is entirely voluntary. No personal information will be requested or recorded. Your responses will remain confidential and will be used only for research and evaluation purposes in an anonymous and aggregated form.\n\nThank you in advance for your time and valuable contribution.",
   "aiTools": [
    "ChatGPT",
    "Google Gemini",
@@ -2708,24 +2697,11 @@ window.SURVEY = {
     hero.appendChild(logo);
     hero.appendChild(el("p", "hero-org", esc((S.meta && S.meta.org) || "Academic Research Survey")));
     hero.appendChild(el("h1", null, esc((S.meta && S.meta.title) || "AI Use Survey")));
-    var quick = el("div", "hero-quick");
-    quick.appendChild(el("p", "hero-meta", "About 20 to 25 minutes, anonymous"));
-    var quickBegin = el("button", "btn btn-primary btn-lg", (completedSteps() > 0 ? "Continue" : "Begin")); quickBegin.type = "button";
-    quickBegin.addEventListener("click", function () { go(startHash()); });
-    quick.appendChild(quickBegin);
-    hero.appendChild(quick);
-    if (S.meta && S.meta.intro) hero.appendChild(el("p", "welcome-sub", esc(S.meta.intro)));
-    if (S.meta && S.meta.howlong) hero.appendChild(el("p", "welcome-sub small", esc(S.meta.howlong)));
-    if (S.meta && S.meta.note) hero.appendChild(el("p", "consent", esc(S.meta.note)));
-    var priv = el("div", "privacy");
-    priv.appendChild(el("p", "privacy-head", "Your privacy"));
-    var plist = el("ul", "privacy-list");
-    ["Fully anonymous. We never ask for your name, email or student ID, and there is no login.",
-     "Your answers are saved to a private Google Sheet that only the research team can see, used only for this academic study.",
-     "We do not collect your name, email or student ID, so your answers are not linked to your identity."
-    ].forEach(function (txt) { plist.appendChild(el("li", null, esc(txt))); });
-    priv.appendChild(plist);
-    hero.appendChild(priv);
+    if (S.meta && S.meta.intro) {
+      S.meta.intro.split(/\n\s*\n/).forEach(function (paragraph) {
+        hero.appendChild(el("p", "welcome-sub", esc(paragraph)));
+      });
+    }
     page.appendChild(hero);
 
     var actions = el("div", "welcome-actions");
