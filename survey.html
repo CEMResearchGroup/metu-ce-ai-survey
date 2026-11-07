@@ -152,6 +152,12 @@ svg { display: block; }
 .privacy-ic { flex: none; width: 25px; height: 25px; display: grid; place-items: center; color: var(--moss); }
 .privacy-ic svg { width: 21px; height: 21px; }
 .privacy-tx { padding-top: 0; }
+.consent-confirmation { margin: 24px auto 0; max-width: 720px; padding: 18px; border: 1px solid var(--line-strong); border-radius: var(--radius-sm); background: var(--surface); text-align: left; font-size: 14.5px; color: var(--ink); }
+.consent-description { margin: 0 0 14px; color: var(--ink-soft); }
+.consent-choice { display: flex; align-items: flex-start; gap: 12px; min-height: 44px; cursor: pointer; }
+.consent-choice input { flex: none; width: 20px; height: 20px; margin: 2px 0 0; accent-color: var(--accent); cursor: pointer; }
+.consent-choice input:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+.consent-required { color: var(--accent); font-weight: 600; }
 .welcome-actions { margin-top: 25px; display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; }
 .save-hint { font-family: var(--font-body); font-size: 12.5px; color: var(--ink-faint); }
 
@@ -2366,6 +2372,7 @@ window.SURVEY = {
   var MAX_TOOLS = 3;
   var MAX_TOOL_NAME = 200;
   var LS_KEY = "utaut_survey_answers_v9" + (VARIANT === "merged" ? "_alt" : "");
+  var CONSENT_KEY = "consent::participation";
 
   var answers = loadAnswers();
   bgQuestions().forEach(function (q) { var k = bgKey(q.id); if (q.options && answers[k] != null && optionsOf(q).indexOf(answers[k]) < 0) delete answers[k]; });
@@ -2518,6 +2525,7 @@ window.SURVEY = {
   function scaleLabel(n) { return (SCALE.labels && SCALE.labels[n]) ? SCALE.labels[n] : ("" + n); }
   function loadAnswers() { try { return JSON.parse(localStorage.getItem(LS_KEY) || "{}") || {}; } catch (e) { return {}; } }
   function saveAnswers() { try { localStorage.setItem(LS_KEY, JSON.stringify(answers)); } catch (e) {} }
+  function hasConsent() { return answers[CONSENT_KEY] === true; }
   function questionsOf(sec) { var o = []; (sec.groups || []).forEach(function (g) { (g.questions || []).forEach(function (q) { o.push(q); }); }); return o; }
   function extrasOf(sec) { return sec.extra || []; }
   function usageOf(sec, col) { return answers[useKey(sec, col)] || ""; }
@@ -2728,11 +2736,43 @@ window.SURVEY = {
       priv.appendChild(row);
     });
     hero.appendChild(priv);
+
+    var confirmation = el("div", "consent-confirmation");
+    var description = el("p", "consent-description", "By continuing with the questionnaire, you confirm that you are participating voluntarily and that you understand the purpose, procedures, and use of the data as described above.");
+    description.id = "participation-consent-description";
+    confirmation.appendChild(description);
+    var consentLabel = el("label", "consent-choice");
+    var consentInput = document.createElement("input");
+    consentInput.type = "checkbox";
+    consentInput.id = "participation-consent";
+    consentInput.name = "participation-consent";
+    consentInput.required = true;
+    consentInput.checked = hasConsent();
+    consentInput.setAttribute("aria-describedby", description.id);
+    consentLabel.htmlFor = consentInput.id;
+    consentLabel.appendChild(consentInput);
+    var consentText = el("span", null, "I have read, understood and agree with the terms listed above.");
+    var requiredMark = el("span", "consent-required", " *");
+    requiredMark.setAttribute("aria-hidden", "true");
+    consentText.appendChild(requiredMark);
+    consentLabel.appendChild(consentText);
+    confirmation.appendChild(consentLabel);
+    hero.appendChild(confirmation);
     page.appendChild(hero);
 
     var actions = el("div", "welcome-actions");
     var begin = el("button", "btn btn-primary btn-lg", (completedSteps() > 0 ? "Continue" : "Begin")); begin.type = "button";
-    begin.addEventListener("click", function () { go(startHash()); });
+    begin.disabled = !hasConsent();
+    consentInput.addEventListener("change", function () {
+      if (consentInput.checked) answers[CONSENT_KEY] = true;
+      else delete answers[CONSENT_KEY];
+      saveAnswers();
+      begin.disabled = !hasConsent();
+    });
+    begin.addEventListener("click", function () {
+      if (!hasConsent()) { consentInput.focus(); return; }
+      go(startHash());
+    });
     actions.appendChild(begin);
     actions.appendChild(el("span", "save-hint", "Your answers are saved automatically in this browser."));
     page.appendChild(actions);
@@ -3613,6 +3653,7 @@ window.SURVEY = {
     if (OPEN_SUBMIT && !OPEN_STATUS_READY) return; // wait for the server-side submission check
     if (GATED && !ACCESS_OK) return; // hold the survey until a valid link is confirmed
     var route = parseHash();
+    if (route.view !== "welcome" && !hasConsent()) { go("#welcome"); return; }
     if (route.view === "step" && !stepReachable(route.step)) {
       if (HAS_INTAKE && !aboutComplete()) { go("#about"); return; }
       var st = firstIncompleteStep(); go(st ? stepHash(st) : "#done"); return;
